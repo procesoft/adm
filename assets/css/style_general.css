@@ -1,0 +1,45 @@
+            #navbar {
+                background-color: #5b6871;
+                height: 92px;
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                /*    margin-top: 35px;*/
+            }
+
+            footer{
+                background-color: #5b6871;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 35px;
+                width: 100%;
+            }
+            .footer .contfooter {
+                float: left;
+                margin-bottom: 20px;
+            }
+            .footer .logo-footer {
+                float: left;
+                margin-right: 20px;
+            }
+            .footer .contfooter p {
+                color: white;
+                display: table-cell;
+                font-size: 1.1em;
+                height: 75px;
+                margin: 0;
+                vertical-align: middle;
+            }
+
+            #navbar .logo {
+                margin-top: -26px;
+                position: absolute;
+            }
+            #navbar h2 {
+                color: white;
+                font-family: "Open Sans",sans-serif;
+                font-size: 35px;
+                line-height: 100px;
+                text-align: center;
+                padding-left: 15%;
+            }
