@@ -20,7 +20,6 @@
       <!-- END PLUGIN CSS -->
       <!-- BEGIN CORE CSS FRAMEWORK -->
       <link href="assets/plugins/boostrapv3/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-      <link href="assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
       <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
       <link href="assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
       <!-- END CORE CSS FRAMEWORK -->
@@ -61,10 +60,10 @@
    				</div>
    			</div>
    			<div class="row form-group" style="padding-top:30px">
-   				<center><button class="btn btn-primary" type="button" name="button" onclick="login()">INGRESAR</button></center>
+   				<center><button style="background-color:#26A69A; border-color:#26A69A" class="btn btn-primary" type="button" name="button" onclick="login()">INGRESAR</button></center>
    			</div>
    			<div class="row form-group">
-   					<center><a href="#">olvide mi contraseña</a></center>
+   				<center><h4><a href="#" style="color:#E6E6E6">olvide mi contraseña</a></h4></center>
    			</div>
    		</div>
       <!-- /.modal -->
