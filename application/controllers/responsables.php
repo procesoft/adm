@@ -31,9 +31,9 @@ class Responsables extends CI_Controller {
 		$pass=$_POST['pass'];
 		$nom=$_POST['nom'];
 
-        require_once("/assets/PHPMailer/class.phpmailer.php");
-        require_once("/assets/PHPMailer/class.smtp.php");
-		require_once("/assets/PHPMailer/PHPMailerAutoload.php");
+        require_once("assets/PHPMailer/class.phpmailer.php");
+        require_once("assets/PHPMailer/class.smtp.php");
+		require_once("assets/PHPMailer/PHPMailerAutoload.php");
 
         $this->email = new PHPMailer();
         $this->email->IsSMTP();
