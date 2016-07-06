@@ -104,44 +104,49 @@ $scope.listar_datos=function(){
     }
 
     $scope.editar=function(val){
-        $.ajax({
-            url:"perfil/modificar",
-            dataType:"json",
-            type:"POST",
-            data:{
-                v_id_login:usuario[0].id_responsable,
-                v_id_responsable:usuario[0].id_responsable,
-                v_password:$('#psw_nueva').val(),
-                v_nombre:$('#nombre').val() ,
-                v_apellido_paterno:$('#apellido_pa').val(),
-                v_apellido_materno:$('#apellido_ma').val(),
-                v_nick:$('#nick').val(),
-                v_id_rol:$('#Area').val(),
-            },
-            success: function(data){
-                if (data.status) {
-                    swal({
-                        title: 'Correcto',
-                        text: "Se guardo correctamente!!",
-                        type: 'success',
-                        showCancelButton: false,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Aceptar",
-                        closeOnConfirm: true
-                    },
-                    function(){
-                        if(val==1){
-                            $scope.correo();
-                            setTimeout(function(){location.reload()},400);
-                        }else{
-                            location.reload();
-                        }
-                    });
-                }else{
-                    console.log(data.status);
+        if($('#psw_nueva').val()=="" || $('#nombre').val()=="" || $('#apellido_pa').val()=="" || $('#apellido_ma').val()=="" || $('#nick').val()=="" || $('#Area').val()==""){
+            swal('Alerta',"Completar todos los campos","warning");
+        }else{
+            $.ajax({
+                url:"perfil/modificar",
+                dataType:"json",
+                type:"POST",
+                data:{
+                    v_id_login:usuario[0].id_responsable,
+                    v_id_responsable:usuario[0].id_responsable,
+                    v_password:$('#psw_nueva').val(),
+                    v_nombre:$('#nombre').val() ,
+                    v_apellido_paterno:$('#apellido_pa').val(),
+                    v_apellido_materno:$('#apellido_ma').val(),
+                    v_nick:$('#nick').val(),
+                    v_id_rol:$('#Area').val(),
+                },
+                success: function(data){
+                    if (data.status) {
+                        swal({
+                            title: 'Correcto',
+                            text: "Se guardo correctamente!!",
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Aceptar",
+                            closeOnConfirm: true
+                        },
+                        function(){
+                            if(val==1){
+                                $scope.correo();
+                                setTimeout(function(){location.reload()},500);
+                            }else{
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        swal('Alerta',data.data,"warning");
+                    }
                 }
-            }
-        });
+            });
+
+        }
     }
     $scope.correo=function(){
         $.ajax({

@@ -49,7 +49,7 @@ class Responsables extends CI_Controller {
         $this->email->From = "contacto.procesoft@gmail.com";
         $this->email->FromName = "Procesoft";
         $this->email->Subject = "ADM::Registro Usuario";
-        $this->email->MsgHTML("Hola ".$nom."!!<br> Bienvenido, ya eres parte de administracion de modulos, Donde podras administrar el flujo de trabajo en el proyecto en el cual estas trabajando. <br><br> Para ingresar: <br><br> Usuario: ".$correo."<br> Contraseña: ".$pass."<br><br> Cualquier anomalia referente a tu cuenta hazla saber a contacto.procesoft@gmail.com ");
+        $this->email->MsgHTML("Hola ".$nom."!!<br> Bienvenido, ya eres parte de administración de módulos, podrás administrar el flujo de trabajo en el proyecto en el cual estas trabajando. <br><br> Para ingresar: <br><br> Usuario: ".$correo."<br> Contraseña: ".$pass."<br><br> Cualquier anomalia referente a tu cuenta hazla saber a contacto.procesoft@gmail.com ");
 
         $this->email->AddAddress($correo, "destinatario");
 
@@ -145,7 +145,7 @@ class Responsables extends CI_Controller {
     function detalle(){
         try{
             extract($_GET);
-            $query = $this->db->query('CALL SP_GET_DETALLE_TABLA(?)',array($v_id_tabla));
+            $query = $this->db->query('CALL SP_GET_DETALLE_RESPONSABLE(?)',array($v_id_responsables));
             if(!$query){
                 throw new Exception("Error BD");
             }

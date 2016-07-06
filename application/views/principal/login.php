@@ -51,19 +51,19 @@
    			</div>
    			<div class="row form-group" style="padding-top:30px">
    				<div class="col-md-offset-3 col-md-6">
-   					<input type="text" class="form-control input-lg" name="name" value="" id="user" placeholder="e-mail">
+   					<input type="text" class="form-control input-lg" name="name" value="" id="user" placeholder="E-mail">
    				</div>
    			</div>
    			<div class="row form-group">
    				<div class="col-md-offset-3 col-md-6">
-   					<input type="password" class="form-control input-lg" name="name" value="" id="pass" placeholder="contraseña">
+   					<input type="password" class="form-control input-lg" name="name" value="" id="pass" placeholder="Contraseña">
    				</div>
    			</div>
    			<div class="row form-group" style="padding-top:30px">
    				<center><button style="background-color:#26A69A; border-color:#26A69A" class="btn btn-primary" type="button" name="button" onclick="login()">INGRESAR</button></center>
    			</div>
    			<div class="row form-group">
-   				<center><h4><a href="#" style="color:#E6E6E6">olvide mi contraseña</a></h4></center>
+   				<center><h4><a href="#" style="color:#E6E6E6">Olvidé mi contraseña</a></h4></center>
    			</div>
    		</div>
       <!-- /.modal -->

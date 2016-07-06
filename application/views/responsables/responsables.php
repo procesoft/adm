@@ -23,7 +23,7 @@
                             <a href="/" class="brand-logo" style="color:#B1B1B1; margin-top:10px;"><img src="/assets/img/logo_admin.png" style="width:55px; height:50px;"/>&nbsp;ADMINISTRACIÓN DE MÓDULOS</a>
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                                <li><a href="#">Api's</a></li>
+                                <li><a href="/api">Api's</a></li>
                                 <li><a href="/responsables" style="border-bottom:solid #00A79D;">Responsables</a></li>
                                 <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
@@ -123,7 +123,8 @@
                             <td class="text-center">{{listas.modulos}}</td>
                             <td class="text-center">{{listas.rol}}</td>
                             <td class="text-center">{{listas.activo}}</td>
-                            <td class="text-center"><i class="material-icons dp48" ng-click="eliminar(listas.id_responsable)" style="cursor:pointer;">delete</i></td>
+                            <td class="text-center"><i class="material-icons dp48" ng-show="listas.activo=='Deshabilitado'" ng-click="activarModalInsertar(listas.id_responsable)" style="cursor:pointer;">done</i>
+                                <i class="material-icons dp48" ng-show="listas.activo=='Habilitado'" ng-click="eliminar(listas.id_responsable)" style="cursor:pointer;">delete</i></td>
                         </tr>
                     </tbody>
                 </table>
@@ -179,11 +180,8 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="email" type="email" class="validate">
+                            <input id="email" type="email" class="validate" placeholder="@correo">
                             <label for="email" id="msn" data-error="invalido" data-success="correcto">Email</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input type="password" id="psw" placeholder="Contraseña*">
                         </div>
                     </div>
                 </div>
