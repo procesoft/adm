@@ -29,7 +29,7 @@
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
                                 <li><a href="sass.html">Api's</a></li>
-                                <li><a href="badges.html">Responsables</a></li>
+                                <li><a href="/responsables" style="border-bottom:solid #00A79D;">Responsables</a></li>
                             </ul>
                         </div>
                         <div class="row">
