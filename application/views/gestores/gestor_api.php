@@ -23,13 +23,13 @@
                             <a href="/" class="brand-logo" style="color:#B1B1B1; margin-top:10px;"><img src="/assets/img/logo_admin.png" style="width:55px; height:50px;"/>&nbsp;ADMINISTRACIÓN DE MÓDULOS</a>
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                                <li><a href="#">Api's</a></li>
+                                <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
                                 <li><a href="/responsables">Responsables</a></li>
                                 <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
-                                <li><a href="sass.html">Api's</a></li>
-                                <li><a href="/responsables" style="border-bottom:solid #00A79D;">Responsables</a></li>
+                                <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
+                                <li><a href="/responsables">Responsables</a></li>
                             </ul>
                         </div>
                         <div class="row">

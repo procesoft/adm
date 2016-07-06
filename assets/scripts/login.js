@@ -16,7 +16,7 @@ function login(){
 
                 window.location="/api";
             }else{
-                swal('Error','Colocar credenciales validas','error')
+                swal('Error','Colocar credenciales válidas','error')
             }
         }
     });

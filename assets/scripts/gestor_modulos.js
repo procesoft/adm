@@ -370,76 +370,84 @@ $scope.prueba = function(val){
     $scope.nuevo=function(){
 
         if($scope.tipo == "nuevo"){
-            $.ajax({
-                url:"/gestormodulos/nuevo",
-                dataType:"json",
-                type:"POST",
-                data:{
-                    v_id_login:usuario[0].id_responsable,
-                    v_id_api:$scope.id,
-                    v_nombre:$('#nombre_modulo').val(),
-                    v_descripcion:$('#descripcion').val(),
-                    v_id_responsable_web:$('#responsables_mod').val(),
-                    v_id_responsable_base:$('#responsablesBD_mod').val(),
-                    v_id_auxiliar_web:0,
-                    v_id_auxiliar_base:0,
-                },
-                success: function(data){
-                    if (data.status) {
-                        $('#modal1').closeModal();
-                        swal({
-                            title: 'Correcto',
-                            text: "Se guardo correctamente!!",
-                            type: 'success',
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Aceptar",
-                            closeOnConfirm: true
-                        },
-                        function(){
-                            $scope.listar_apis();
-                        });
-                    }else{
-                        console.log(data.status);
+            if($('#nombre_modulo').val()=="" || $('#descripcion').val()=="" || $('#responsables_mod').val()=="" || $('#responsablesBD_mod').val()==""){
+                swal('Alerta',"Completar todos los campos","warning");
+            }else{
+                $.ajax({
+                    url:"/gestormodulos/nuevo",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        v_id_login:usuario[0].id_responsable,
+                        v_id_api:$scope.id,
+                        v_nombre:$('#nombre_modulo').val(),
+                        v_descripcion:$('#descripcion').val(),
+                        v_id_responsable_web:$('#responsables_mod').val(),
+                        v_id_responsable_base:$('#responsablesBD_mod').val(),
+                        v_id_auxiliar_web:0,
+                        v_id_auxiliar_base:0,
+                    },
+                    success: function(data){
+                        if (data.status) {
+                            $('#modal1').closeModal();
+                            swal({
+                                title: 'Correcto',
+                                text: "Se guardo correctamente!!",
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Aceptar",
+                                closeOnConfirm: true
+                            },
+                            function(){
+                                $scope.listar_apis();
+                            });
+                        }else{
+                            console.log(data.status);
+                        }
                     }
-                }
-            });
+                });
+            }
         }else if($scope.tipo == "editar"){
-            $.ajax({
-                url:"/gestormodulos/modificar",
-                dataType:"json",
-                type:"POST",
-                data:{
-                    v_id_login:usuario[0].id_responsable,
-                    v_id_api:$scope.id,
-                    v_id_modulo:$scope.editar,
-                    v_nombre:$('#nombre_modulo').val(),
-                    v_descripcion:$('#descripcion').val(),
-                    v_id_responsable_web:$('#responsables_mod').val(),
-                    v_id_responsable_base:$('#responsablesBD_mod').val(),
-                    v_id_auxiliar_web:0,
-                    v_id_auxiliar_base:0,
-                },
-                success: function(data){
-                    if (data.status) {
-                        $('#modal1').closeModal();
-                        swal({
-                            title: 'Correcto',
-                            text: "Se modificó correctamente!!",
-                            type: 'success',
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Aceptar",
-                            closeOnConfirm: true
-                        },
-                        function(){
-                            $scope.listar_apis();
-                        });
-                    }else{
-                        console.log(data.status);
+            if($('#nombre_modulo').val()=="" || $('#descripcion').val()=="" || $('#responsables_mod').val()=="" || $('#responsablesBD_mod').val()==""){
+                swal('Alerta',"Completar todos los campos","warning");
+            }else{
+                $.ajax({
+                    url:"/gestormodulos/modificar",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        v_id_login:usuario[0].id_responsable,
+                        v_id_api:$scope.id,
+                        v_id_modulo:$scope.editar,
+                        v_nombre:$('#nombre_modulo').val(),
+                        v_descripcion:$('#descripcion').val(),
+                        v_id_responsable_web:$('#responsables_mod').val(),
+                        v_id_responsable_base:$('#responsablesBD_mod').val(),
+                        v_id_auxiliar_web:0,
+                        v_id_auxiliar_base:0,
+                    },
+                    success: function(data){
+                        if (data.status) {
+                            $('#modal1').closeModal();
+                            swal({
+                                title: 'Correcto',
+                                text: "Se modificó correctamente!!",
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Aceptar",
+                                closeOnConfirm: true
+                            },
+                            function(){
+                                $scope.listar_apis();
+                            });
+                        }else{
+                            console.log(data.status);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 

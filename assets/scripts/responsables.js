@@ -213,11 +213,13 @@ $scope.prueba = function(val){
             $scope.modificar(val);
         }else{
             $('#titulo').empty();
-            $('#nombre_api').val("");
-            $('#prefijo').val("");
-            $('#descripcion').val("");
-            $('#servidormod').val("0");
-            $('#basemod').val("0");
+            $('#Usuario').val("");
+            $('#nombre_res').val("");
+            $('#ape_pa').val("");
+            $('#ape_ma').val("");
+            $('#Area_mod').val("0");
+            $('#email').val("");
+            $('#password').val("");
             $('#titulo').append('<h4>Crear Nuevo Usuario</h4>');
             $scope.tipo="nuevo";
             $('select').material_select('update');
@@ -282,17 +284,19 @@ $scope.prueba = function(val){
             dataType:"json",
             type:"GET",
             data:{
-                v_id_api:val,
+                v_id_responsables:val,
             },
             success: function(data){
                 if (data.status) {
                     $('#titulo').empty();
-                    $('#nombre_api').val(data.data[0].nombre);
-                    $('#prefijo').val(data.data[0].prefijo);
-                    $('#descripcion').val(data.data[0].descripcion);
-                    setTimeout(function(){$('#servidormod').val("10.0.0.1")},400);
-                    $scope.filtro_Mod(data.data[0].id_base_de_datos);
-                    $('#titulo').append('<h4>Editar Api</h4>');
+                    $('#Usuario').val(data.data[0].nick);
+                    $('#nombre_res').val(data.data[0].nombre);
+                    $('#ape_pa').val(data.data[0].apellido_paterno);
+                    $('#ape_ma').val(data.data[0].apellido_materno);
+                    $('#Area_mod').val(data.data[0].id_rol);
+                    $('#email').val(data.data[0].usuario);
+                    $('#email').attr('disabled',"disabled");
+                    $('#titulo').append('<h4>Activar Usuario</h4>');
                     $scope.tipo="editar";
                     $('select').material_select('update');
                 }else{
@@ -301,14 +305,14 @@ $scope.prueba = function(val){
             }
         });
     }
-    $scope.correo=function(){
+    $scope.correo=function(val){
         $.ajax({
             url:"responsables/mail",
             dataType:"json",
             type:"POST",
             data:{
                 correo:$('#email').val(),
-                pass:$('#psw').val(),
+                pass:val,
                 nom:$('#nombre_res').val(),
             },
             success: function(data){
@@ -343,83 +347,97 @@ $scope.prueba = function(val){
                         $scope.listar_apis();
                         swal('Correcto!!','se ha eliminado correctamente','success');
                     }else{
-                        console.log(data.status);
+                        swal('Alerta',data.data,"warning");
                     }
                 }
             });
         });
     }
     $scope.nuevo=function(){
-        console.log($('#msn').val());
         if($scope.tipo == "nuevo"){
-            $.ajax({
-                url:"responsables/nuevo",
-                dataType:"json",
-                type:"POST",
-                data:{
-                    v_id_login:usuario[0].id_responsable,
-                    v_usuario:$('#email').val(),
-                    v_password:$('#psw').val(),
-                    v_nombre:$('#nombre_res').val(),
-                    v_apellido_paterno:$('#ape_pa').val(),
-                    v_apellido_materno:$('#ape_ma').val(),
-                    v_nick:$('#Usuario').val(),
-                    v_id_rol:$('#Area_mod').val(),
-                },
-                success: function(data){
-                    if (data.status) {
-                        $('#modal1').closeModal();
-                        swal({
-                            title: 'Correcto',
-                            text: "Se guardo correctamente!!",
-                            type: 'success',
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Aceptar",
-                            closeOnConfirm: true
-                        },
-                        function(){
-                            $scope.correo();
-                            $scope.listar_apis();
-                        });
-                    }else{
-                        console.log(data.status);
+            if($('#email').val()=="" || $('#nombre_res').val()=="" || $('#ape_pa').val()=="" || $('#ape_ma').val()=="" || $('#Usuario').val()=="" || $('#Area_mod').val()==""){
+                swal('Alerta',"Completar todos los campos","warning");
+            }else{
+                var pass=Math.floor((Math.random() * 1000000) + 1);
+                $.ajax({
+                    url:"responsables/nuevo",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        v_id_login:usuario[0].id_responsable,
+                        v_usuario:$('#email').val(),
+                        v_password:pass,
+                        v_nombre:$('#nombre_res').val(),
+                        v_apellido_paterno:$('#ape_pa').val(),
+                        v_apellido_materno:$('#ape_ma').val(),
+                        v_nick:$('#Usuario').val(),
+                        v_id_rol:$('#Area_mod').val(),
+                    },
+                    success: function(data){
+                        if (data.status) {
+                            $('#modal1').closeModal();
+                            swal({
+                                title: 'Correcto',
+                                text: "Se guardo correctamente!!",
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Aceptar",
+                                closeOnConfirm: true
+                            },
+                            function(){
+                                $scope.correo(pass);
+                                $scope.listar_apis();
+                            });
+                        }else{
+                            swal('Alerta',data.data,"warning");
+                        }
                     }
-                }
-            });
+                });
+
+            }
         }else if($scope.tipo == "editar"){
-            $.ajax({
-                url:"responsables/modificar",
-                dataType:"json",
-                type:"POST",
-                data:{
-                    v_id_login:usuario[0].id_responsable,
-                    v_id_api:$scope.editar,
-                    v_nombre:$('#nombre_api').val(),
-                    v_prefijo:$('#prefijo').val() ,
-                    v_id_base_de_datos:$('#basemod').val(),
-                    v_descripcion:$('#descripcion').val(),
-                },
-                success: function(data){
-                    if (data.status) {
-                        $('#modal1').closeModal();
-                        swal({
-                            title: 'Correcto',
-                            text: "Se modificó correctamente!!",
-                            type: 'success',
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Aceptar",
-                            closeOnConfirm: true
-                        },
-                        function(){
-                            $scope.listar_apis();
-                        });
-                    }else{
-                        console.log(data.status);
+            if($('#email').val()=="" || $('#nombre_res').val()=="" || $('#ape_pa').val()=="" || $('#ape_ma').val()=="" || $('#Usuario').val()=="" || $('#Area_mod').val()==""){
+                swal('Alerta',"Completar todos los campos","warning");
+            }else{
+                var pass=Math.floor((Math.random() * 1000000) + 1);
+                $.ajax({
+                    url:"responsables/nuevo",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        v_id_login:usuario[0].id_responsable,
+                        v_usuario:$('#email').val(),
+                        v_password:pass,
+                        v_nombre:$('#nombre_res').val(),
+                        v_apellido_paterno:$('#ape_pa').val(),
+                        v_apellido_materno:$('#ape_ma').val(),
+                        v_nick:$('#Usuario').val(),
+                        v_id_rol:$('#Area_mod').val(),
+                    },
+                    success: function(data){
+                        if (data.status) {
+                            $('#modal1').closeModal();
+                            swal({
+                                title: 'Correcto',
+                                text: "Se activo usuario correctamente!!",
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Aceptar",
+                                closeOnConfirm: true
+                            },
+                            function(){
+                                $scope.correo(pass);
+                                $scope.listar_apis();
+                            });
+                        }else{
+                            swal('Alerta',data.data,"warning");
+                        }
                     }
-                }
-            });
+                });
+
+            }
         }
     }
 

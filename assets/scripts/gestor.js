@@ -356,72 +356,79 @@ $scope.prueba = function(val){
         });
     }
     $scope.nuevo=function(){
-
         if($scope.tipo == "nuevo"){
-            $.ajax({
-                url:"gestorapi/nuevo",
-                dataType:"json",
-                type:"POST",
-                data:{
-                    v_id_login:usuario[0].id_responsable,
-                    v_nombre:$('#nombre_api').val(),
-                    v_prefijo:$('#prefijo').val() ,
-                    v_id_base_de_datos:$('#basemod').val(),
-                    v_descripcion:$('#descripcion').val(),
-                },
-                success: function(data){
-                    if (data.status) {
-                        $('#modal1').closeModal();
-                        swal({
-                            title: 'Correcto',
-                            text: "Se guardo correctamente!!",
-                            type: 'success',
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Aceptar",
-                            closeOnConfirm: true
-                        },
-                        function(){
-                            $scope.listar_apis();
-                        });
-                    }else{
-                        console.log(data.status);
+            if($('#nombre_api').val()=="" || $('#prefijo').val()=="" || $('#basemod').val()=="" || $('#descripcion').val()==""){
+                swal('Alerta',"Completar todos los campos","warning");
+            }else{
+                $.ajax({
+                    url:"gestorapi/nuevo",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        v_id_login:usuario[0].id_responsable,
+                        v_nombre:$('#nombre_api').val(),
+                        v_prefijo:$('#prefijo').val() ,
+                        v_id_base_de_datos:$('#basemod').val(),
+                        v_descripcion:$('#descripcion').val(),
+                    },
+                    success: function(data){
+                        if (data.status) {
+                            $('#modal1').closeModal();
+                            swal({
+                                title: 'Correcto',
+                                text: "Se guardo correctamente!!",
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Aceptar",
+                                closeOnConfirm: true
+                            },
+                            function(){
+                                $scope.listar_apis();
+                            });
+                        }else{
+                            console.log(data.status);
+                        }
                     }
-                }
-            });
+                });
+            }
         }else if($scope.tipo == "editar"){
-            $.ajax({
-                url:"gestorapi/modificar",
-                dataType:"json",
-                type:"POST",
-                data:{
-                    v_id_login:usuario[0].id_responsable,
-                    v_id_api:$scope.editar,
-                    v_nombre:$('#nombre_api').val(),
-                    v_prefijo:$('#prefijo').val() ,
-                    v_id_base_de_datos:$('#basemod').val(),
-                    v_descripcion:$('#descripcion').val(),
-                },
-                success: function(data){
-                    if (data.status) {
-                        $('#modal1').closeModal();
-                        swal({
-                            title: 'Correcto',
-                            text: "Se modificó correctamente!!",
-                            type: 'success',
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Aceptar",
-                            closeOnConfirm: true
-                        },
-                        function(){
-                            $scope.listar_apis();
-                        });
-                    }else{
-                        console.log(data.status);
+            if($('#nombre_api').val()=="" || $('#prefijo').val()=="" || $('#basemod').val()=="" || $('#descripcion').val()==""){
+                swal('Alerta',"Completar todos los campos","warning");
+            }else{
+                $.ajax({
+                    url:"gestorapi/modificar",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        v_id_login:usuario[0].id_responsable,
+                        v_id_api:$scope.editar,
+                        v_nombre:$('#nombre_api').val(),
+                        v_prefijo:$('#prefijo').val() ,
+                        v_id_base_de_datos:$('#basemod').val(),
+                        v_descripcion:$('#descripcion').val(),
+                    },
+                    success: function(data){
+                        if (data.status) {
+                            $('#modal1').closeModal();
+                            swal({
+                                title: 'Correcto',
+                                text: "Se modificó correctamente!!",
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Aceptar",
+                                closeOnConfirm: true
+                            },
+                            function(){
+                                $scope.listar_apis();
+                            });
+                        }else{
+                            console.log(data.status);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
