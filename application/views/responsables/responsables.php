@@ -123,7 +123,7 @@
                             <td class="text-center">{{listas.modulos}}</td>
                             <td class="text-center">{{listas.rol}}</td>
                             <td class="text-center">{{listas.activo}}</td>
-                            <td class="text-center"><i class="material-icons dp48" ng-click="eliminar(listas.id_api)" style="cursor:pointer;">delete</i></td>
+                            <td class="text-center"><i class="material-icons dp48" ng-click="eliminar(listas.id_responsable)" style="cursor:pointer;">delete</i></td>
                         </tr>
                     </tbody>
                 </table>
