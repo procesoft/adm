@@ -121,7 +121,7 @@ class Responsables extends CI_Controller {
     function eliminar(){
         try{
             extract($_POST);
-            $query = $this->db->query('SELECT 	FN_DEL_ADM_TABLA(?,?) as resultado',array($v_id_login,$v_id_tabla));
+            $query = $this->db->query('SELECT FN_DEL_ADM_RESPONSABLES(?,?) as resultado',array($v_id_login,$v_id_responsableS));
             if(!$query){
                 throw new Exception("Error BD");
             }

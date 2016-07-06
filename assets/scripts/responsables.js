@@ -336,7 +336,7 @@ $scope.prueba = function(val){
                 type:"POST",
                 data:{
                     v_id_login:usuario[0].id_responsable,
-                    v_id_api:val,
+                    v_id_responsableS:val,
                 },
                 success: function(data){
                     if (data.status) {

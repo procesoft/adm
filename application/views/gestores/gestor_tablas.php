@@ -24,7 +24,7 @@
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
                                 <li><a href="#">Api's</a></li>
-                                <li><a href="#">Responsables</a></li>
+                                <li><a href="/responsables">Responsables</a></li>
                                 <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
@@ -44,6 +44,7 @@
                                 <!-- Dropdown Structure -->
                                 <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
                                   <li><a href="#!">Mis Pendientes</a></li>
+                                  <li><a href="/mi_perfil">Mi perfil</a></li>
                                   <li><a href="#!" ng-click="logout()">Salir</a></li>
                                 </ul>
 
