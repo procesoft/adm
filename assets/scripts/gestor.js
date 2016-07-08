@@ -320,7 +320,7 @@ $scope.prueba = function(val){
                     $scope.tipo="editar";
                     $('select').material_select('update');
                 }else{
-                    console.log(data.status);
+                    swal("Alerta",data.data,"warning");
                 }
             }
         });
@@ -349,7 +349,7 @@ $scope.prueba = function(val){
                         $scope.listar_apis();
                         swal('Correcto!!','se ha eliminado correctamente','success');
                     }else{
-                        console.log(data.status);
+                        swal("Alerta",data.data,"warning");
                     }
                 }
             });
@@ -387,7 +387,7 @@ $scope.prueba = function(val){
                                 $scope.listar_apis();
                             });
                         }else{
-                            console.log(data.status);
+                            swal("Alerta",data.data,"warning");
                         }
                     }
                 });
@@ -424,7 +424,7 @@ $scope.prueba = function(val){
                                 $scope.listar_apis();
                             });
                         }else{
-                            console.log(data.status);
+                            swal("Alerta",data.data,"warning");
                         }
                     }
                 });
