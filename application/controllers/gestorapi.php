@@ -68,10 +68,18 @@ class Gestorapi extends CI_Controller {
             if(!$query){
                 throw new Exception("Error BD");
             }
-            if($query->num_rows()==0){
-                echo json_encode(array('status' => TRUE, 'false' => $query->result_array()));
-            }else{
+            if($query->result()[0]->resultado==0){
                 echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }else{
+				try{
+					$error = $this->db->query('SELECT * from adm_cat_errores where codigo=?',array($query->result()[0]->resultado));
+					if(!$error){
+		                throw new Exception("Error BD");
+		            }
+					echo json_encode(array('status' => False, 'data' => $error->result()[0]->mensaje));
+				}catch(Exception $e){
+					echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
+				}
             }
         }catch(Exception $e){
             echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
@@ -84,10 +92,18 @@ class Gestorapi extends CI_Controller {
             if(!$query){
                 throw new Exception("Error BD");
             }
-            if($query->num_rows()==0){
-                echo json_encode(array('status' => TRUE, 'false' => $query->result_array()));
-            }else{
+            if($query->result()[0]->resultado==0){
                 echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }else{
+				try{
+					$error = $this->db->query('SELECT * from adm_cat_errores where codigo=?',array($query->result()[0]->resultado));
+					if(!$error){
+		                throw new Exception("Error BD");
+		            }
+					echo json_encode(array('status' => False, 'data' => $error->result()[0]->mensaje));
+				}catch(Exception $e){
+					echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
+				}
             }
         }catch(Exception $e){
             echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
@@ -100,10 +116,18 @@ class Gestorapi extends CI_Controller {
             if(!$query){
                 throw new Exception("Error BD");
             }
-            if($query->num_rows()==0){
-                echo json_encode(array('status' => TRUE, 'false' => $query->result_array()));
-            }else{
+            if($query->result()[0]->resultado==0){
                 echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }else{
+				try{
+					$error = $this->db->query('SELECT * from adm_cat_errores where codigo=?',array($query->result()[0]->resultado));
+					if(!$error){
+		                throw new Exception("Error BD");
+		            }
+					echo json_encode(array('status' => False, 'data' => $error->result()[0]->mensaje));
+				}catch(Exception $e){
+					echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
+				}
             }
         }catch(Exception $e){
             echo json_encode(array('status' => FALSE, 'data' => "Error BD"));

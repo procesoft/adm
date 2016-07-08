@@ -300,7 +300,7 @@ $scope.prueba = function(val){
                     $scope.tipo="editar";
                     $('select').material_select('update');
                 }else{
-                    console.log(data.status);
+                    swal("Alerta",data.data,"warning");
                 }
             }
         });
