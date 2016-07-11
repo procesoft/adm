@@ -179,6 +179,9 @@ $scope.prueba = function(val){
                         }
                         $scope.nod = false;
                     }
+                    if($('#txt_buscador').val()==""){
+                        setTimeout(function(){$('input.form-control.ng-pristine.ng-untouched.ng-valid.tt-hint').val('')},100);
+                    }
                     if(data==""){
                         $scope.ocultar=true;
                         $scope.listas = [];
@@ -235,7 +238,7 @@ $scope.prueba = function(val){
             $scope.modificar(val);
         }else{
             $('#titulo').empty();
-            $('#nombre_api').val("");
+            $('#nombre_modulo').val("");
             $('#prefijo').val("");
             $('#descripcion').val("");
             $('#servidormod').val("0");

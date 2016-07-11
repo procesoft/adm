@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       <meta content="" name="description" />
       <meta content="" name="author" />
-      <link rel="icon" type="image/png" href="/assets/img/favicon_16x16.png">
+      <link rel="icon" type="image/png" href="/assets/img/logo_admin.png" />
       <!-- BEGIN PLUGIN CSS -->
       <link href="assets/plugins/bootstrap-select2/select2.css" rel="stylesheet" type="text/css" media="screen"/>
       <link href="assets/plugins/jquery-slider/css/jquery.sidr.light.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -51,12 +51,12 @@
    			</div>
    			<div class="row form-group" style="padding-top:30px">
    				<div class="col-md-offset-3 col-md-6">
-   					<input type="text" class="form-control input-lg" name="name" value="" id="user" placeholder="E-mail">
+   					<input type="text" class="form-control input-lg" name="name" value="" id="user" onkeypress="enter(event)" placeholder="E-mail">
    				</div>
    			</div>
    			<div class="row form-group">
    				<div class="col-md-offset-3 col-md-6">
-   					<input type="password" class="form-control input-lg" name="name" value="" id="pass" placeholder="Contraseña">
+   					<input type="password" class="form-control input-lg" name="name" value="" id="pass" onkeypress="enter(event)" placeholder="Contraseña">
    				</div>
    			</div>
    			<div class="row form-group" style="padding-top:30px">

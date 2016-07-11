@@ -10,11 +10,12 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <link href="assets/js/sweetalert.css" rel="stylesheet" type="text/css"/>
+      <link rel="icon" type="image/png" href="/assets/img/logo_admin.png" />
       <script src="assets/js/sweetalert.min.js" type="text/javascript"></script>
     </head>
     <title>Responsables</title>
 
-    <body ng-app="appResponsables">
+    <body ng-app="appdetalle_res">
         <div class="col s12"  ng-controller="controlador" style="margin.bottom:200px;">
             <nav>
                 <div class="nav-wrapper"  style="height:250%; background-color:#232A36;">
@@ -52,145 +53,69 @@
                                   <li><a href="#!">En los que trabajo</a></li>
                                 </ul>
 
-
-
-        <div class="row">
-            <div class="col s1 offset-s10" style="margin-top:44px;"  ng-click="activarModalInsertar(0)">
-                <a class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">add</i></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s11 offset-s1" style="margin-top:30px;">
-                <div style="float:left; margin-top:30px;">
-                    <i class="material-icons dp48">search</i>
-                </div>
-                <div class="input-field col s3" style="margin-top:10px;">
-                    <input style="height:50px; width:100%;" type="text" placeholder="Buscar.." class="col s12"  ng-init="testAllowed($event);" id="txt_buscador">
-                </div>
-
-                <div class="input-field col s2 offset-s2" style="margin-top:0%;">
-                    <div class="input-field col s12">
-                        <select id="ordenar" ng-model="ordena" ng-change="listar_apis()">
-                            <option value="" disabled selected>Ordenar</option>
-                            <option value="Asc">Ascendente</option>
-                            <option value="Desc">Descendente</option>
-                        </select>
+            <div class="row" style="margin-top:125px;">
+                <div class="container">
+                    <div class="col s12">
+                        <span id="responsable" style="color:#00A99D;"></span>
                     </div>
-                </div>
-                <div class="input-field col s2" style="margin-left:-1%; margin-top:0%;">
-                    <div class="input-field col s12">
-                        <select id="activos2" ng-model="activos" ng-change="listar_apis()">
-                            <option value="" disabled selected>Activos</option>
-                            <option value="">Todos</option>
-                            <option value="S">Habilitado</option>
-                            <option value="N">Deshabilitado</option>
-                        </select>
+                    <div class="col s4 ">
+                        <div class="col s12" style="text-align: right;">
+                            <span><b>Estatus: </b></span><span id="status"></span>
+                        </div>
                     </div>
-                </div>
-                <div class="input-field col s2" style="margin-left:-1%; margin-top:0%;">
-                    <div class="input-field col s12">
-                        <select id="Area" ng-model="area" ng-change="listar_apis()">
-                            <option value="" disabled selected>Area</option>
-                            <option value="">Todos</option>
-                            <option value="4">Desarrollador</option>
-                            <option value="5">Base de datos</option>
-                            <option value="2">Admin Desarrollo</option>
-                            <option value="3">Admin Base de datos</option>
-                            <option value="1">Super Usuario</option>
-                            <option value="6">QA</option>
-                        </select>
+                    <div class="col s4 offset-s4">
+                        <span><b>Área: </b></span><span id="rol"></span>
+                    </div>
+                    <div class="col s4" style="text-align: right;">
+                        <span><b>Modulos asignados: </b></span><span id="modulos"></span>
+                    </div>
+                    <div class="col s4 offset-s4">
+                        <span><b>E-mail: </b></span><span id="mail"></span>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="row" style="background-color:#F2F2F2;">
+                <div class="container">
+                    <div class="col s12" style="margin-top:25px; margin-bottom:25px;">
+                        <h5 style="color:#00A99D;"><b>Tareas pendientes</b></h5>
+                    </div>
+                    <div class="col s12" ng-repeat="listas in listas">
+                        <div class="col s12">
+                            <span style="color:#00A99D;" id="nombre_tarea">{{listas.nombre}}</span>
+                        </div>
+                        <div class="col s12">
+                            <span id="fecha">{{listas.fecha_creacion | date}}</span>
+                        </div>
+                        <div class="col s12">
+                            <span id="nombre_comentario">{{listas.nick}}</span>
+                        </div>
+                        <div class="col s12" style="margin-bottom:30px;">
+                            <span id="comentario">{{listas.comentario}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
-                <div class="col s10 offset-s1">
-                    <table class="bordered highlight" style="margin-top:30px;" ng-show="!ocultar">
-                        <tr>
-                            <th class="text-center col-md-1">ID</th>
-                            <th class="text-center col-md-3">Nombre del reponsable</th>
-                            <th class="text-center col-md-2">Apis asignados</th>
-                            <th class="text-center col-md-2">Módulos asignados</th>
-                            <th class="text-center col-md-1">Area</th>
-                            <th class="text-center col-md-1">Estatus</th>
-                            <th class="text-center col-md-1">Acciones</th>
-                        </tr>
-                    <tbody>
-                        <tr ng-repeat="listas in listas">
-                            <td class="text-center">{{listas.id_responsable}}</td>
-                            <td><a style="cursor: pointer">{{listas.nombre_completo}}</a></td>
-                            <td class="text-center">{{listas.apis}}</td>
-                            <td class="text-center">{{listas.modulos}}</td>
-                            <td class="text-center">{{listas.rol}}</td>
-                            <td class="text-center">{{listas.activo}}</td>
-                            <td class="text-center"><i class="material-icons dp48" ng-show="listas.activo=='Deshabilitado'" ng-click="activarModalInsertar(listas.id_responsable)" style="cursor:pointer;">done</i>
-                                <i class="material-icons dp48" ng-show="listas.activo=='Habilitado'" ng-click="eliminar(listas.id_responsable)" style="cursor:pointer;">delete</i></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="col s12" ng-show="ocultar">
-                    <center>
-                    <span><h4>No hay datos<h4></span>
-                    </center>
-                </div>
-            </div>
-        </div>
-        <div class="col s12" ng-show="pag_total != 1">
-            <center>
-                <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior(-1)">< </span>pagina {{pagina}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina == pag_total"  ng-click="siguiente(+1)"> ></span>
-            </center>
-        </div>
+                <div class="container">
+                    <div class="col s12">
+                        <span style="color:#00A99D;"><h5><b>Historial</b></h5></span>
+                    </div>
+                    <div style="float:left; margin-top:30px;">
+                        <i class="material-icons dp48">search</i>
+                    </div>
+                    <div class="input-field col s2" style="margin-top:10px; margin-bottom:30px;">
+                        <input style="height:50px;" type="text" placeholder="Buscar.." ng-model="buscador" ng-init="testAllowed($event);" id="txt_buscador">
+                    </div>
+                    <div class="col s11 offset-s1" ng-repeat="listas2 in listas2" style="border-bottom:solid #B1B1B1; margin-bottom:30px;">
+                        <div class="col s12" style="margin-bottom:10px;">
+                            <span>{{listas2.fecha_creacion | date}}  {{listas2.accion}}</span>
+                        </div>
 
-            <div id="modal1" class="modal modal-fixed-footer" >
-                <div class="modal-content">
-                    <center>
-                    <span id="titulo" style="color:#00A99D;">
-                        <h4></h4>
-                    </span>
-                    </center>
-                    <div class="row">
-                        <div class="input-field col s4">
-                            <input type="text" id="Usuario" placeholder="Usuario*">
-                        </div>
-                        <div class="input-field col s8">
-                            <input type="text" id="nombre_res" placeholder="Nombre Usuario*">
-                        </div>
+
                     </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input type="text" id="ape_pa" placeholder="Apellido Paterno">
-                        </div>
-                        <div class="input-field col s6">
-                            <input type="text" id="ape_ma" placeholder="Apellido Materno">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <select id="Area_mod">
-                                <option hidden="true"></option>
-                                <option value="0" disabled selected>Area</option>
-                                <option value="4">Desarrollador</option>
-                                <option value="5">Base de datos</option>
-                                <option value="2">Admin Desarrollo</option>
-                                <option value="3">Admin Base de datos</option>
-                                <option value="1">Super Usuario</option>
-                                <option value="6">QA</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="email" type="email" class="validate" placeholder="@correo">
-                            <label for="email" id="msn" data-error="invalido" data-success="correcto">Email</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <center>
-                        <a href="#!" class="waves-effect btn waves-green btn-flat" ng-click="nuevo()">ACEPTAR</a>
-                    </center>
                 </div>
             </div>
+
 
         </div>
 
@@ -204,6 +129,6 @@
           <script type="text/javascript" src="/assets/plugins/materialize/js/materialize.js"></script>
           <script src="/assets/plugins/typeahead.bundle.js" charset="utf-8"></script>
           <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
-          <script src="/assets/scripts/responsables.js" charset="utf-8"></script>
+          <script src="/assets/scripts/detalle_res.js" charset="utf-8"></script>
     </body>
   </html>

@@ -47,7 +47,7 @@ $route['tablas/(:num)'] = "gestortabla";
 $route['procedimientos/(:num)'] = "gestorprocedimientos";
 $route['responsables'] = "responsables";
 $route['mi_perfil'] = "perfil";
-$route['detalle_responsable'] = "peticiones_res";
+$route['detalle_responsable/(:num)'] = "peticiones_res";
 
 
 

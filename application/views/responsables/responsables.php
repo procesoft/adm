@@ -10,6 +10,7 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <link href="assets/js/sweetalert.css" rel="stylesheet" type="text/css"/>
+      <link rel="icon" type="image/png" href="/assets/img/logo_admin.png" />
       <script src="assets/js/sweetalert.min.js" type="text/javascript"></script>
     </head>
     <title>Responsables</title>
@@ -118,7 +119,7 @@
                     <tbody>
                         <tr ng-repeat="listas in listas">
                             <td class="text-center">{{listas.id_responsable}}</td>
-                            <td><a style="cursor: pointer">{{listas.nombre_completo}}</a></td>
+                            <td><a style="cursor: pointer" href="/detalle_responsable/{{listas.id_responsable}}">{{listas.nombre_completo}}</a></td>
                             <td class="text-center">{{listas.apis}}</td>
                             <td class="text-center">{{listas.modulos}}</td>
                             <td class="text-center">{{listas.rol}}</td>

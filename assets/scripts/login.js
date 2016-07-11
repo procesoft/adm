@@ -21,3 +21,9 @@ function login(){
         }
     });
 }
+
+function enter(e){
+    if(e.keyCode==13){
+        login();
+    }
+}

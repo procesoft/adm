@@ -212,6 +212,9 @@ $scope.prueba = function(val){
                                 id:pagina,
                             });
                         }
+                        if($('#txt_buscador').val()==""){
+                            setTimeout(function(){$('input.form-control.ng-pristine.ng-untouched.ng-valid.tt-hint').val('')},100);
+                        }
                         $scope.nod = false;
                     }
                     if(data==""){
@@ -270,11 +273,9 @@ $scope.prueba = function(val){
             $scope.modificar(val);
         }else{
             $('#titulo').empty();
-            $('#nombre_api').val("");
-            $('#prefijo').val("");
+            $('#nombre_tabla').val("");
+            $('#tipo').val("");
             $('#descripcion').val("");
-            $('#servidormod').val("0");
-            $('#basemod').val("0");
             $('#titulo').append('<h4>Crear nueva tabla</h4>');
             $scope.tipo="nuevo";
             $('select').material_select('update');
