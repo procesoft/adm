@@ -10,6 +10,7 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <link href="/assets/js/sweetalert.css" rel="stylesheet" type="text/css"/>
+      <link rel="icon" type="image/png" href="/assets/img/logo_admin.png" />
       <script src="/assets/js/sweetalert.min.js" type="text/javascript"></script>
     </head>
     <title>Gestor de tablas</title>

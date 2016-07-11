@@ -10,6 +10,7 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <link href="assets/js/sweetalert.css" rel="stylesheet" type="text/css"/>
+      <link rel="icon" type="image/png" href="/assets/img/logo_admin.png" />
       <script src="assets/js/sweetalert.min.js" type="text/javascript"></script>
     </head>
     <title>Modulo de Api´s</title>
@@ -65,7 +66,7 @@
                         <i class="material-icons dp48">search</i>
                     </div>
                     <div class="input-field col s2" style="margin-top:10px;">
-                        <input style="height:50px;" type="text" placeholder="Buscar.." class="form-control"  ng-init="testAllowed($event);" id="txt_buscador">
+                        <input style="height:50px;" type="text" placeholder="Buscar.." ng-model="buscador" class="form-control"  ng-init="testAllowed($event);" id="txt_buscador">
                         <!--input type="text" placeholder="Buscar" onkeypress="testAllowed(event)" id="txt_buscador" length="30"-->
                     </div>
                     <div class="input-field col s2" style="margin-top:0%;">

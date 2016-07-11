@@ -145,6 +145,9 @@ $scope.prueba = function(val){
                                 id:pagina,
                             });
                         }
+                        if($('#txt_buscador').val()==""){
+                            setTimeout(function(){$('input.form-control.ng-pristine.ng-untouched.ng-valid.tt-hint').val('')},100);
+                        }
                         $scope.nod = false;
                     }
                     if(data==""){
