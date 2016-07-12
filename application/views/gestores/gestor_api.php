@@ -25,12 +25,12 @@
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
                                 <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
-                                <li><a href="/responsables">Responsables</a></li>
+                                <li><a ng-click="verresponsables()">Responsables</a></li>
                                 <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
                                 <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
-                                <li><a href="/responsables">Responsables</a></li>
+                                <li><a ng-click="verresponsables()">Responsables</a></li>
                             </ul>
                         </div>
                         <div class="row">
@@ -111,17 +111,18 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="margin-bottom:100px;">
                 <div class="col s10 offset-s1">
                     <table class="bordered highlight" style="margin-top:30px;" ng-show="!ocultar">
                         <tr>
                             <th class="text-center col-md-1">ID</th>
                             <th class="text-center col-md-3">Nombre de Proyecto</th>
-                            <th class="text-center col-md-2">Modulos</th>
-                            <th class="text-center col-md-1">Creación</th>
+                            <th class="text-center col-md-2">Módulos</th>
+                            <th class="text-center col-md-1">Entrega</th>
                             <th class="text-center col-md-1">Última modif</th>
                             <th class="text-center col-md-1">Prefijo</th>
                             <th class="text-center col-md-1">Estatus</th>
+                            <th class="text-center col-md-1">Situación</th>
                             <th class="text-center col-md-1">Servidor</th>
                             <th class="text-center col-md-1">Base de Datos</th>
                             <th class="text-center col-md-1">Acciones</th>
@@ -131,10 +132,21 @@
                             <td class="text-center">{{listas.id_api}}</td>
                             <td><a style="cursor: pointer" href="/modulos/{{listas.id_api}}">{{listas.nombre}}</a></td>
                             <td class="text-center">{{listas.modulos}}</td>
-                            <td class="text-center">{{listas.fecha_creacion | date}}</td>
+                            <td class="text-center">{{listas.fecha | date}}</td>
                             <td class="text-center">{{listas.fecha_modificacion | date}}</td>
                             <td class="text-center">{{listas.prefijo}}</td>
                             <td class="text-center">{{listas.status}}</td>
+                            <td class="text-center">
+                            <div class="progress" ng-if="listas.tiempo=='C'">
+                                <div class="determinate" style="width: 100%; background-color:#FF0000;"></div>
+                            </div>
+                            <div class="progress" ng-if="listas.tiempo=='T'">
+                                <div class="determinate" style="width: 100%;"></div>
+                            </div>
+                            <div class="progress" ng-if="listas.tiempo=='F'">
+                                <div class="determinate" style="width: 100%; background-color:#FFBF00;"></div>
+                            </div>
+                            </td>
                             <td class="text-center">{{listas.servidor}}</td>
                             <td class="text-center">{{listas.base_de_datos}}</td>
                             <td class="text-center"><i class="material-icons dp48" ng-click="activarModalInsertar(listas.id_api)" style="cursor:pointer;">mode_edit</i>
@@ -149,11 +161,11 @@
                     </center>
                 </div>
             </div>
-        </div>
-        <div class="col s12" ng-show="pag_total != 1">
-            <center>
-                <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior(-1)">< </span>pagina {{pagina}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina == pag_total"  ng-click="siguiente(+1)"> ></span>
-            </center>
+            <div class="col s12" ng-show="pag_total != 1" style="margin-top:20px;">
+                <center>
+                    <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior(-1)">< </span>pagina {{pagina}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina == pag_total"  ng-click="siguiente(+1)"> ></span>
+                </center>
+            </div>
         </div>
 
             <div id="modal1" class="modal modal-fixed-footer">
@@ -165,6 +177,7 @@
                     </center>
                     <input type="text" id="nombre_api" placeholder="Nombre api*">
                     <input type="text" id="prefijo" placeholder="Prefijo" maxlength="4">
+                    <input type="text" id="fecha" placeholder="Fecha entrega">
                     <select id="servidormod" ng-model="filtro_mod" ng-change="filtro_Mod()">
                         <option hidden="true"></option>
                         <option value="0" disabled selected>Servidor</option>

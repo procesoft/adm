@@ -11,6 +11,22 @@ class Gestormodulos extends CI_Controller {
             header('Location:/login');
         }
     }
+    function detalles_modulos(){
+        try{
+            extract($_GET);
+            $query = $this->db->query('call sp_get_adm_detalles(?,?)',array($v_opcion, $v_id_opcion));
+            if(!$query){
+                throw new Exception("Error BD");
+            }
+            if($query->num_rows()==0){
+                echo json_encode(array('status' => false, 'data' => $query->result_array()));
+            }else{
+                echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }
+        }catch(Exception $e){
+
+        }
+    }
     function traer_datos(){
             try{
                 extract($_GET);

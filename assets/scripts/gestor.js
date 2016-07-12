@@ -6,6 +6,8 @@
     $(".button-collapse").sideNav();
     $('#tabla').empty();
     $('#date').inputmask('9999-99-99');
+    $('#fecha').inputmask('9999-99-99');
+
 function cambio_color(id){
     $('#fila_'+id).prop('style','color:#00A79D;')
 }
@@ -35,6 +37,14 @@ $scope.anterior=function(val){
 $scope.siguiente=function(val){
     $scope.pagina+=parseInt(val);
     $scope.listar_apis();
+}
+
+$scope.verresponsables=function(){
+    if(usuario[0].id_rol == 1 || usuario[0].id_rol == 2 || usuario[0].id_rol == 3){
+        window.location="/responsables";
+    }else{
+
+    }
 }
 
 $scope.listar_apis=function(){
@@ -191,7 +201,7 @@ $scope.prueba = function(val){
 
     $scope.filtro_Mod=function(id_base){
         var val=$('#servidormod').val();
-        if(val == '? undefined:undefined ?'){
+        if(val == '? undefined:undefined ?' || val == null){
             val="";
         }
         $.ajax({
@@ -222,9 +232,10 @@ $scope.prueba = function(val){
                     }
                 }
                 if(id_base != ""){
-                    setTimeout(function(){$('#basemod').val(id_base)},500);
+                    console.log(id_base);
+                    setTimeout(function(){$('#basemod').val(id_base)},400);
                 }
-                $('select').material_select('update');
+                setTimeout(function(){$('select').material_select('update')},450);
 
             }else{
                 console.log(data.status);
@@ -320,9 +331,10 @@ $scope.prueba = function(val){
                     $('#titulo').empty();
                     $('#nombre_api').val(data.data[0].nombre);
                     $('#prefijo').val(data.data[0].prefijo);
+                    $('#fecha').val(data.data[0].fecha);
                     $('#descripcion').val(data.data[0].descripcion);
-                    setTimeout(function(){$('#servidormod').val("10.0.0.1")},400);
-                    $scope.filtro_Mod(data.data[0].id_base_de_datos);
+                    setTimeout(function(){$('#servidormod').val(data.data[0].servidor)},400);
+                    setTimeout(function(){$scope.filtro_Mod(data.data[0].id_base_de_datos)},400);
                     $('#titulo').append('<h4>Editar Api</h4>');
                     $scope.tipo="editar";
                     $('select').material_select('update');
@@ -364,7 +376,7 @@ $scope.prueba = function(val){
     }
     $scope.nuevo=function(){
         if($scope.tipo == "nuevo"){
-            if($('#nombre_api').val()=="" || $('#prefijo').val()=="" || $('#basemod').val()=="" || $('#descripcion').val()==""){
+            if($('#nombre_api').val()=="" || $('#prefijo').val()=="" || $('#basemod').val()=="" || $('#descripcion').val()=="" || $('#fecha').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
                 $.ajax({
@@ -377,6 +389,7 @@ $scope.prueba = function(val){
                         v_prefijo:$('#prefijo').val() ,
                         v_id_base_de_datos:$('#basemod').val(),
                         v_descripcion:$('#descripcion').val(),
+                        v_fecha:$('#fecha').val(),
                     },
                     success: function(data){
                         if (data.status) {
@@ -414,6 +427,7 @@ $scope.prueba = function(val){
                         v_prefijo:$('#prefijo').val() ,
                         v_id_base_de_datos:$('#basemod').val(),
                         v_descripcion:$('#descripcion').val(),
+                        v_fecha:$('#fecha').val(),
                     },
                     success: function(data){
                         if (data.status) {

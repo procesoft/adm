@@ -35,7 +35,7 @@
                         </div>
                         <div class="row">
                             <div class="col s4" style="font-size:30px; height:0px;">
-                                <span style="color:#B1B1B1;">< Regresar</span>
+                                <a href="/responsables"><span style="color:#B1B1B1;">< Regresar</span></a>
                             </div>
                         </div>
                     </div>
@@ -93,6 +93,9 @@
                             <span id="comentario">{{listas.comentario}}</span>
                         </div>
                     </div>
+                    <div class="col s12" ng-if="tareas_exist==1">
+                        <h5><b>No hay tareas pendientes</b></h5>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -108,11 +111,19 @@
                     </div>
                     <div class="col s11 offset-s1" ng-repeat="listas2 in listas2" style="border-bottom:solid #B1B1B1; margin-bottom:30px;">
                         <div class="col s12" style="margin-bottom:10px;">
-                            <span>{{listas2.fecha_creacion | date}}  {{listas2.accion}}</span>
+                            <span>{{listas2.fecha_creacion | date}}  {{listas2.accion}} {{listas2.nick_responsable}}</span>
                         </div>
-
-
                     </div>
+                    <center>
+                    <div class="col s12" ng-show="ocultar" style="margin-bottom:100px;">
+                        <center>
+                        <span><h4>No hay datos<h4></span>
+                        </center>
+                    </div>
+                    <div class="col s12" ng-if="pag_total != 1" style="margin-bottom:100px;">
+                        <a id="mas" class="waves-effect waves-light btn" ng-click="pagina_sig(+1)">Más</a>
+                    </div>
+                    </center>
                 </div>
             </div>
 

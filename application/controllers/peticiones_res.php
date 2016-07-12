@@ -49,9 +49,9 @@ class Peticiones_res extends CI_Controller {
 				throw new Exception("Error BD");
 			}
 			if($query->num_rows()==0){
-				echo json_encode(array('status' => TRUE, 'false' => $query->result_array()));
-			}else{
 				echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+			}else{
+				echo json_encode(array('status' => true, 'data' => $query->result_array()));
 			}
 		}catch(Exception $e){
 			echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
@@ -60,12 +60,14 @@ class Peticiones_res extends CI_Controller {
 	function historial(){
 		try{
 			extract($_GET);
-			$query = $this->db->query('CALL sp_get_historial_responsables(?,?,?)',array($v_id_responsables,0,0));
+
+
+			$query = $this->db->query('CALL sp_get_historial_responsables(?,?,?,?,?,?)',array($v_id_login,$v_id_responsables,$v_id_accion,$v_accion,$v_num_paginas,$v_cantidad));
 			if(!$query){
 				throw new Exception("Error BD");
 			}
 			if($query->num_rows()==0){
-				echo json_encode(array('status' => TRUE, 'false' => $query->result_array()));
+				echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
 			}else{
 				echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
 			}

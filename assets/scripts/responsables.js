@@ -146,12 +146,13 @@ $scope.prueba = function(val){
                             });
                         }
                         if($('#txt_buscador').val()==""){
-                            setTimeout(function(){$('input.form-control.ng-pristine.ng-untouched.ng-valid.tt-hint').val('')},100);
+                            setTimeout(function(){$('input.col.s12.tt-hint').val('')},100);
                         }
                         $scope.nod = false;
                     }
                     if(data==""){
                         $scope.ocultar=true;
+                        $scope.pag_total=1; 
                         $scope.listas = [];
                         $scope.nod = true;
                     }

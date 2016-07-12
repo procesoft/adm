@@ -43,6 +43,13 @@ angular.module('apptablas', [])
         $scope.pagina+=parseInt(val);
         $scope.listar_apis();
     }
+    $scope.verresponsables=function(){
+        if(usuario[0].id_rol == 1 || usuario[0].id_rol == 2 || usuario[0].id_rol == 3){
+            window.location="/responsables";
+        }else{
+
+        }
+    }
 
 
 $scope.agregar_auxiliar=function(){
@@ -76,6 +83,35 @@ $scope.agregar_auxiliar=function(){
 
     });
 
+}
+$scope.detallemodulo=function(){
+    $http({
+        method: 'GET',
+        url: '/gestormodulos/detalles_modulos',
+        params: {
+            v_opcion:2,
+            v_id_opcion:$scope.id,
+        }
+    }).success(function (data, status, headers, config){
+        if(data.status){
+            $('#responsableB').empty();
+            $('#auxiliar').empty();
+            $('#total_apis').empty();
+            $('#nombre_encabezado').empty();
+            $('#descripcion_encabezado').empty();
+
+            $('#responsableB').append(data.data[0].responsable_base);
+            $('#auxiliar').append(data.data[0].auxiliar_base);
+            $scope.auxiliar=data.data[0].auxiliar_base;
+            $('#nombre_encabezado').append(data.data[0].nombre);
+            $('#descripcion_encabezado').append(data.data[0].descripcion);
+            $('#total_apis').append(data.data[0].tablas);
+
+            $scope.id_api=data.data[0].id_api;
+        }
+    }).error(function (data, status, headers, config){
+
+    });
 }
 $scope.listar_apis=function(){
     $http({
@@ -213,7 +249,7 @@ $scope.prueba = function(val){
                             });
                         }
                         if($('#txt_buscador').val()==""){
-                            setTimeout(function(){$('input.form-control.ng-pristine.ng-untouched.ng-valid.tt-hint').val('')},100);
+                            setTimeout(function(){$('input.col.s12.tt-hint').val('')},100);
                         }
                         $scope.nod = false;
                     }
@@ -490,6 +526,7 @@ $scope.prueba = function(val){
     }
     $scope.filtros();
     $scope.listar_apis();
+    $scope.detallemodulo();
 
 });
     //TERMINA BUSCADOR

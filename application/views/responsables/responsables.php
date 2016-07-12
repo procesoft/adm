@@ -104,7 +104,7 @@
                 </div>
             </div>
         </div>
-            <div class="row">
+            <div class="row" style="margin-bottom:100px;">
                 <div class="col s10 offset-s1">
                     <table class="bordered highlight" style="margin-top:30px;" ng-show="!ocultar">
                         <tr>
@@ -135,11 +135,11 @@
                     </center>
                 </div>
             </div>
-        </div>
-        <div class="col s12" ng-show="pag_total != 1">
-            <center>
-                <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior(-1)">< </span>pagina {{pagina}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina == pag_total"  ng-click="siguiente(+1)"> ></span>
-            </center>
+            <div class="col s12" ng-show="pag_total != 1" style="margin-top:20px;">
+                <center>
+                    <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior(-1)">< </span>pagina {{pagina}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina == pag_total"  ng-click="siguiente(+1)"> ></span>
+                </center>
+            </div>
         </div>
 
             <div id="modal1" class="modal modal-fixed-footer" >

@@ -29,6 +29,7 @@ angular.module('appdetalle_res', [])
     $scope.pagina=1;
     $scope.ordenar="";
     $scope.activo="";
+    $scope.tareas_exist=0;
 
 
 $scope.listar_detalle=function(){
@@ -64,11 +65,16 @@ $scope.listar_tareas=function(){
         method: 'GET',
         url: '/peticiones_res/tareas',
         params: {
-            v_id_responsables:3 ,
+            v_id_responsables:$scope.id,
         }
     }).success(function (data, status, headers, config){
         if(data.status){
-            $scope.listas=data.data;
+            if(data.data==""){
+                $scope.tareas_exist=1;
+            }else{
+                $scope.listas=data.data;
+                $scope.tareas_exist=0;
+            }
         }else{
 
         }
@@ -77,16 +83,85 @@ $scope.listar_tareas=function(){
     });
 
 }
+
+$scope.testAllowed = function () {
+    var stocks = new Bloodhound({
+        datumTokenizer: function () {
+            return Bloodhound.tokenizers.whitespace($('#txt_buscador').val());
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: '/peticiones_res/historial?v_id_login=%RES&v_id_responsables=0&v_accion=%QUERY&v_id_accion=0&v_num_paginas=1&v_cantidad=10',
+            replace: function (url, query) {
+                var nombre = encodeURIComponent($("#txt_buscador").val());
+                var res=encodeURIComponent($scope.id);
+                var uri = url.replace('%QUERY', nombre).replace('%RES', res);
+                return uri;
+            },
+        }
+    })
+
+    stocks.initialize();
+    $('#txt_buscador').typeahead({
+        minLength: 0
+    }, {
+        name: 'nombre',
+        displayKey: 'nombre',
+        source: stocks.ttAdapter(),
+        templates: {
+            suggestion: function (data) {
+                stocks.clearRemoteCache();
+                $(".tt-dropdown-menu").remove();
+                $scope.$apply();
+                if (data.length > 0) {
+                    $scope.ocultar=false;
+                    $scope.listas2=data;
+                    $scope.pag_total = $scope.listas2[0].paginas_total;
+                    if($('#txt_buscador').val()==""){
+                        setTimeout(function(){$('input.ng-pristine.ng-untouched.ng-valid.tt-hint').val('')},100);
+                    }
+                }
+                if(data==""){
+                    $scope.ocultar=true;
+                    $scope.listas2 = [];
+                    $scope.pag_total=1;
+                    $scope.nod = true;
+                }
+                $scope.pag = 1;
+                $scope.$apply();
+            }
+        }
+    })
+    $(".twitter-typeahead").addClass("col-md-12");
+    $(".twitter-typeahead").css("padding", "0");
+}
+
+
 $scope.historial=function(){
     $http({
         method: 'GET',
         url: '/peticiones_res/historial',
         params: {
-            v_id_responsables:$scope.id ,
+            v_id_login:$scope.id,
+            v_id_responsables:0,
+            v_id_accion:0,
+            v_accion:$("#txt_buscador").val(),
+            v_num_paginas:$scope.pagina,
+            v_cantidad:10,
         }
     }).success(function (data, status, headers, config){
         if(data.status){
-            $scope.listas2=data.data;
+            if($scope.pagina == data.data[0].paginas_total){
+                $('#mas').hide();
+            }
+            for(var i=0; i<data.data.length; i++){
+                $scope.listas2.push({
+                    accion:data.data[i].accion,
+                    fecha_creacion:data.data[i].fecha_creacion,
+                    nick_responsable:data.data[i].nick_responsable,
+                });
+            }
+
         }else{
 
         }
@@ -112,6 +187,11 @@ $scope.historial=function(){
         });
     }
 
+$scope.pagina_sig=function(val){
+    var pagina=$scope.pagina+parseInt(val);
+    $scope.pagina=pagina;
+    $scope.historial();
+}
     $scope.listar_detalle();
     $scope.listar_tareas();
     $scope.historial();
