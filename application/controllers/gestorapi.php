@@ -64,7 +64,7 @@ class Gestorapi extends CI_Controller {
     function nuevo(){
         try{
             extract($_POST);
-            $query = $this->db->query('SELECT fn_post_adm_api(?,?,?,?,?) as resultado',array($v_id_login,$v_nombre,$v_prefijo,$v_id_base_de_datos,$v_descripcion));
+            $query = $this->db->query('SELECT fn_post_adm_api(?,?,?,?,?,?) as resultado',array($v_id_login,$v_nombre,$v_prefijo,$v_id_base_de_datos,$v_descripcion,$v_fecha));
             if(!$query){
                 throw new Exception("Error BD");
             }
@@ -88,7 +88,7 @@ class Gestorapi extends CI_Controller {
     function modificar(){
         try{
             extract($_POST);
-            $query = $this->db->query('SELECT FN_PUT_ADM_API(?,?,?,?,?,?) as resultado',array($v_id_login,$v_id_api,$v_nombre,$v_prefijo,$v_id_base_de_datos,$v_descripcion));
+            $query = $this->db->query('SELECT FN_PUT_ADM_API(?,?,?,?,?,?,?) as resultado',array($v_id_login,$v_id_api,$v_nombre,$v_prefijo,$v_id_base_de_datos,$v_descripcion,$v_fecha));
             if(!$query){
                 throw new Exception("Error BD");
             }

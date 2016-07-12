@@ -42,7 +42,35 @@ angular.module('appmodulos', [])
         $scope.pagina+=parseInt(val);
         $scope.listar_apis();
     }
+    $scope.verresponsables=function(){
+        if(usuario[0].id_rol == 1 || usuario[0].id_rol == 2 || usuario[0].id_rol == 3){
+            window.location="/responsables";
+        }else{
 
+        }
+    }
+$scope.detallemodulo=function(){
+    $http({
+        method: 'GET',
+        url: '/gestormodulos/detalles_modulos',
+        params: {
+            v_opcion:1,
+            v_id_opcion:$scope.id,
+        }
+    }).success(function (data, status, headers, config){
+        if(data.status){
+            $('#total_apis').empty();
+            $('#nombre_encabezado').empty();
+            $('#descripcion_encabezado').empty();
+
+            $('#nombre_encabezado').append(data.data[0].nombre);
+            $('#descripcion_encabezado').append(data.data[0].descripcion);
+            $('#total_apis').append(data.data[0].modulos);
+        }
+    }).error(function (data, status, headers, config){
+
+    });
+}
 $scope.listar_apis=function(){
     $http({
         method: 'GET',
@@ -180,7 +208,7 @@ $scope.prueba = function(val){
                         $scope.nod = false;
                     }
                     if($('#txt_buscador').val()==""){
-                        setTimeout(function(){$('input.form-control.ng-pristine.ng-untouched.ng-valid.tt-hint').val('')},100);
+                        setTimeout(function(){$('input.col.s2.tt-hint').val('')},100);
                     }
                     if(data==""){
                         $scope.ocultar=true;
@@ -457,6 +485,7 @@ $scope.prueba = function(val){
     $scope.filtros();
     $scope.filtros2();
     $scope.listar_apis();
+    $scope.detallemodulo();
 
 });
     //TERMINA BUSCADOR
