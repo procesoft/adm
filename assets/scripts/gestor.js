@@ -217,11 +217,11 @@ $scope.prueba = function(val){
 
             if (data.status) {
                 $('#basemod').append('<option value="0" disabled selected>Base de datos</option>');
-                $('#basemod').append('<option value="0">Todos</option>');
+                $('#basemod').append('<option value="">Todos</option>');
                 if(val == ""){
                     $('#servidormod').empty();
                     $('#servidormod').append('<option value="0" disabled selected>Servidor</option>');
-                    $('#servidormod').append('<option value="0">Todos</option>');
+                    $('#servidormod').append('<option value="">Todos</option>');
                     for(ip in data.data){
                         $('#servidormod').append('<option value="'+data.data[ip].servidor+'">'+data.data[ip].servidor+'</option>');
                     }
@@ -296,9 +296,9 @@ $scope.prueba = function(val){
                 $('#BD').empty();
             if (data.status) {
                 $('#BD').append('<option value="" disabled selected>Base de datos</option>');
-                $('#BD').append('<option value="0">Todos</option>');
+                $('#BD').append('<option value="">Todos</option>');
                 if(val == ""){
-                    $('#servidores').append('<option value="0">Todos</option>');
+                    $('#servidores').append('<option value="">Todos</option>');
                     for(ip in data.data){
                         $('#servidores').append('<option value="'+data.data[ip].servidor+'">'+data.data[ip].servidor+'</option>');
                     }

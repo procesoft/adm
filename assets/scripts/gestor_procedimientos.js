@@ -44,7 +44,43 @@ angular.module('appprocedimientos', [])
         $scope.pagina+=parseInt(val);
         $scope.listar_apis();
     }
+    $scope.verresponsables=function(){
+        if(usuario[0].id_rol == 1 || usuario[0].id_rol == 2 || usuario[0].id_rol == 3){
+            window.location="/responsables";
+        }else{
 
+        }
+    }
+    $scope.detallemodulo=function(){
+        $http({
+            method: 'GET',
+            url: '/gestormodulos/detalles_modulos',
+            params: {
+                v_opcion:3,
+                v_id_opcion:$scope.id,
+            }
+        }).success(function (data, status, headers, config){
+            if(data.status){
+                $('#responsableB').empty();
+                $('#auxiliar').empty();
+                $('#total_apis').empty();
+                $('#nombre_encabezado').empty();
+                $('#descripcion_encabezado').empty();
+
+                $('#responsableB').append(data.data[0].responsable);
+                $('#auxiliar').append(data.data[0].auxiliar);
+                $scope.auxiliar=data.data[0].auxiliar;
+                $('#nombre_encabezado').append(data.data[0].nombre);
+                $('#descripcion_encabezado').append(data.data[0].descripcion);
+                $('#total_apis').append(data.data[0].procedimientos);
+
+                $scope.id_api=data.data[0].id_api;
+                $scope.id_modulo=data.data[0].id_modulo;
+            }
+        }).error(function (data, status, headers, config){
+
+        });
+    }
 $scope.listar_apis=function(){
     $http({
         method: 'GET',
@@ -454,6 +490,7 @@ $scope.prueba = function(val){
     }
     $scope.filtros();
     $scope.listar_apis();
+    $scope.detallemodulo();
 
 });
     //TERMINA BUSCADOR
