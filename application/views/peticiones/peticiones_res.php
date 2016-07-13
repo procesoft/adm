@@ -31,6 +31,7 @@
                             <ul class="side-nav" id="mobile-demo">
                                 <li><a href="/api">Api's</a></li>
                                 <li><a href="/responsables" style="border-bottom:solid #00A79D;">Responsables</a></li>
+                                <li><a ng-click="logout()">Salir</a></li>
                             </ul>
                         </div>
                         <div class="row">
