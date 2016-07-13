@@ -48,6 +48,7 @@ $route['procedimientos/(:num)'] = "gestorprocedimientos";
 $route['responsables'] = "responsables";
 $route['mi_perfil'] = "perfil";
 $route['detalle_responsable/(:num)'] = "peticiones_res";
+$route['historial/(:num)'] = "historial";
 
 
 
