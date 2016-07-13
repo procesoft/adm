@@ -15,7 +15,7 @@
     </head>
     <title>Mi perfil</title>
 
-    <body ng-app="appResponsables">
+    <body ng-app="appResponsables"> 
         <div class="col s12"  ng-controller="controlador" style="margin.bottom:200px;">
             <nav>
                 <div class="nav-wrapper"  style="height:250%; background-color:#232A36;">
@@ -25,12 +25,12 @@
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
                                 <li><a href="/api">Api's</a></li>
-                                <li><a href="/responsables">Responsables</a></li>
+                                <li><a ng-click="verresponsables()">Responsables</a></li>
                                 <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
                                 <li><a href="/api">Api's</a></li>
-                                <li><a href="/responsables" style="border-bottom:solid #00A79D;">Responsables</a></li>
+                                <li><a ng-click="verresponsables()" style="border-bottom:solid #00A79D;">Responsables</a></li>
                                 <li><a ng-click="logout()">Salir</a></li>
                             </ul>
                         </div>

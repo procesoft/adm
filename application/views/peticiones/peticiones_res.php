@@ -68,7 +68,7 @@
                         <span><b>Área: </b></span><span id="rol"></span>
                     </div>
                     <div class="col s4" style="text-align: right;">
-                        <span><b>Modulos asignados: </b></span><span id="modulos"></span>
+                        <span><b>Módulos asignados: </b></span><span id="modulos"></span>
                     </div>
                     <div class="col s4 offset-s4">
                         <span><b>E-mail: </b></span><span id="mail"></span>
