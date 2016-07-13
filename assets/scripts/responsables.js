@@ -37,6 +37,14 @@ $scope.siguiente=function(val){
     $scope.listar_apis();
 }
 
+$scope.verresponsables=function(){
+    if(usuario[0].id_rol == 1 || usuario[0].id_rol == 2 || usuario[0].id_rol == 3){
+        window.location="/responsables";
+    }else{
+
+    }
+}
+
 $scope.listar_apis=function(){
     var base=$('#BD').val();
     if(base==null){
@@ -49,7 +57,7 @@ $scope.listar_apis=function(){
             v_id_responsable:0,
             v_activo:$('#activos2').val(),
             v_nombre:$("#txt_buscador").val(),
-            v_id_rol:0,
+            v_id_rol:($('#Area').val()==null?0:$('#Area').val()),
             v_num_pagina:$scope.pagina,
             v_cantidad:10,
             v_campo:'',
@@ -152,7 +160,7 @@ $scope.prueba = function(val){
                     }
                     if(data==""){
                         $scope.ocultar=true;
-                        $scope.pag_total=1; 
+                        $scope.pag_total=1;
                         $scope.listas = [];
                         $scope.nod = true;
                     }
@@ -166,52 +174,11 @@ $scope.prueba = function(val){
     }
 
 
-    $scope.filtro_Mod=function(id_base){
-        var val=$('#servidormod').val();
-        if(val == '? undefined:undefined ?'){
-            val="";
-        }
-        $.ajax({
-            url:"responsables/filtros",
-            dataType:"json",
-            type:"GET",
-            data:{
-                'filtro':val,
-            },
-            success: function(data){
-                $('#basemod').empty();
 
-            if (data.status) {
-                $('#basemod').append('<option value="0" disabled selected>Base de datos</option>');
-                if(val == ""){
-                    $('#servidormod').empty();
-                    $('#servidormod').append('<option value="0" disabled selected>Servidor</option>');
-                    for(ip in data.data){
-                        $('#servidormod').append('<option value="'+data.data[ip].servidor+'">'+data.data[ip].servidor+'</option>');
-                    }
-                }else{
-                    for(ip in data.data){
-                        if(data.data[ip].base_de_datos){
-                            $('#basemod').append('<option value="'+data.data[ip].id_base_de_datos+'">'+data.data[ip].base_de_datos+'</option>');
-                        }
-                    }
-                }
-                if(id_base != ""){
-                    setTimeout(function(){$('#basemod').val(id_base)},500);
-                }
-                $('select').material_select('update');
-
-            }else{
-                console.log(data.status);
-            }
-        }
-        });
-    }
     /*$('#servidormod').on('change',function(){
         $scope.filtro_Mod();
     })*/
     $scope.activarModalInsertar=function(val){
-        $scope.filtro_Mod();
         $('#modal1').openModal();
         if(val != 0){
             $scope.modificar(val);
@@ -224,6 +191,7 @@ $scope.prueba = function(val){
             $('#Area_mod').val("0");
             $('#email').val("");
             $('#password').val("");
+            $('#email').attr('enabled',"");
             $('#titulo').append('<h4>Crear Nuevo Usuario</h4>');
             $scope.tipo="nuevo";
             $('select').material_select('update');
@@ -245,42 +213,6 @@ $scope.prueba = function(val){
         });
     }
 
-    $scope.filtros=function(){
-        var val=$('#servidores').val();
-        if(val== undefined){
-            val="";
-        }
-        $.ajax({
-            url:"responsables/filtros",
-            dataType:"json",
-            type:"GET",
-            data:{
-                'filtro':val,
-            },
-            success: function(data){
-                $('#BD').empty();
-            if (data.status) {
-                $('#BD').append('<option value="" disabled selected>Base de datos</option>');
-                if(val == ""){
-                    for(ip in data.data){
-                        $('#servidores').append('<option value="'+data.data[ip].servidor+'">'+data.data[ip].servidor+'</option>');
-                    }
-                }else{
-                    for(ip in data.data){
-                        if(data.data[ip].base_de_datos){
-                            $('#BD').append('<option value="'+data.data[ip].id_base_de_datos+'">'+data.data[ip].base_de_datos+'</option>');
-                        }
-                    }
-                }
-
-                $('select').material_select('update');
-
-            }else{
-                console.log(data.status);
-            }
-        }
-        });
-    }
     $scope.modificar=function(val){
         $scope.editar=val;
         $.ajax({
@@ -359,7 +291,7 @@ $scope.prueba = function(val){
     }
     $scope.nuevo=function(){
         if($scope.tipo == "nuevo"){
-            if($('#email').val()=="" || $('#nombre_res').val()=="" || $('#ape_pa').val()=="" || $('#ape_ma').val()=="" || $('#Usuario').val()=="" || $('#Area_mod').val()==""){
+            if($('#email').val()=="" || $('#nombre_res').val()=="" || $('#ape_pa').val()=="" || $('#Usuario').val()=="" || $('#Area_mod').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
                 var pass=Math.floor((Math.random() * 1000000) + 1);
@@ -401,7 +333,7 @@ $scope.prueba = function(val){
 
             }
         }else if($scope.tipo == "editar"){
-            if($('#email').val()=="" || $('#nombre_res').val()=="" || $('#ape_pa').val()=="" || $('#ape_ma').val()=="" || $('#Usuario').val()=="" || $('#Area_mod').val()==""){
+            if($('#email').val()=="" || $('#nombre_res').val()=="" || $('#ape_pa').val()=="" || $('#Usuario').val()=="" || $('#Area_mod').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
                 var pass=Math.floor((Math.random() * 1000000) + 1);

@@ -54,6 +54,13 @@ $scope.listar_datos=function(){
 
 }
 
+$scope.verresponsables=function(){
+    if(usuario[0].id_rol == 1 || usuario[0].id_rol == 2 || usuario[0].id_rol == 3){
+        window.location="/responsables";
+    }else{
+
+    }
+}
 
 
     $scope.logout=function(){
@@ -104,9 +111,6 @@ $scope.listar_datos=function(){
     }
 
     $scope.editar=function(val){
-        if($('#psw_nueva').val()=="" || $('#nombre').val()=="" || $('#apellido_pa').val()=="" || $('#apellido_ma').val()=="" || $('#nick').val()=="" || $('#Area').val()==""){
-            swal('Alerta',"Completar todos los campos","warning");
-        }else{
             $.ajax({
                 url:"perfil/modificar",
                 dataType:"json",
@@ -145,8 +149,6 @@ $scope.listar_datos=function(){
                     }
                 }
             });
-
-        }
     }
     $scope.correo=function(){
         $.ajax({

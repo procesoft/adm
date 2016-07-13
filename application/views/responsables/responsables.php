@@ -25,12 +25,12 @@
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
                                 <li><a href="/api">Api's</a></li>
-                                <li><a href="/responsables" style="border-bottom:solid #00A79D;">Responsables</a></li>
+                                <li><a ng-click="verresponsables()" style="border-bottom:solid #00A79D;">Responsables</a></li>
                                 <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
                                 <li><a href="/api">Api's</a></li>
-                                <li><a href="/responsables" style="border-bottom:solid #00A79D;">Responsables</a></li>
+                                <li><a ng-click="verresponsables()" style="border-bottom:solid #00A79D;">Responsables</a></li>
                                 <li><a ng-click="logout()">Salir</a></li>
                             </ul>
                         </div>
@@ -92,7 +92,7 @@
                 <div class="input-field col s2" style="margin-left:-1%; margin-top:0%;">
                     <div class="input-field col s12">
                         <select id="Area" ng-model="area" ng-change="listar_apis()">
-                            <option value="" disabled selected>Area</option>
+                            <option value="" disabled selected>Área</option>
                             <option value="">Todos</option>
                             <option value="4">Desarrollador</option>
                             <option value="5">Base de datos</option>
@@ -111,9 +111,9 @@
                         <tr>
                             <th class="text-center col-md-1">ID</th>
                             <th class="text-center col-md-3">Nombre del reponsable</th>
-                            <th class="text-center col-md-2">Apis asignados</th>
+                            <th class="text-center col-md-2">Apis asignadas</th>
                             <th class="text-center col-md-2">Módulos asignados</th>
-                            <th class="text-center col-md-1">Area</th>
+                            <th class="text-center col-md-1">Área</th>
                             <th class="text-center col-md-1">Estatus</th>
                             <th class="text-center col-md-1">Acciones</th>
                         </tr>
@@ -160,7 +160,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="text" id="ape_pa" placeholder="Apellido Paterno">
+                            <input type="text" id="ape_pa" placeholder="Apellido Paterno*">
                         </div>
                         <div class="input-field col s6">
                             <input type="text" id="ape_ma" placeholder="Apellido Materno">
@@ -170,7 +170,7 @@
                         <div class="input-field col s6">
                             <select id="Area_mod">
                                 <option hidden="true"></option>
-                                <option value="0" disabled selected>Area</option>
+                                <option value="0" disabled selected>Área</option>
                                 <option value="4">Desarrollador</option>
                                 <option value="5">Base de datos</option>
                                 <option value="2">Admin Desarrollo</option>
@@ -182,8 +182,8 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="email" type="email" class="validate" placeholder="@correo">
-                            <label for="email" id="msn" data-error="invalido" data-success="correcto">Email</label>
+                            <input id="email" type="email" class="validate" placeholder="@correo*">
+                            <label for="email" id="msn" data-error="invalido" data-success="correcto">Email*</label>
                         </div>
                     </div>
                 </div>
