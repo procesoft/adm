@@ -23,6 +23,7 @@ angular.module('appApis', [])
     $scope.ocultar=false;
     $scope.filtro_mod="";
     $scope.filtro="";
+    $scope.bd_filtro="";
     $scope.tipo="";
     $scope.editar="";
     $scope.pagina=1;
