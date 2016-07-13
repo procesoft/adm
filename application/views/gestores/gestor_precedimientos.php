@@ -9,6 +9,7 @@
       <link type="text/css" rel="stylesheet" href="/assets/plugins/materialize/css/materialize.min.css"  media="screen,projection"/>
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <link rel="icon" type="image/png" href="/assets/img/logo_admin.png" />
       <link href="/assets/js/sweetalert.css" rel="stylesheet" type="text/css"/>
       <script src="/assets/js/sweetalert.min.js" type="text/javascript"></script>
     </head>
@@ -23,13 +24,14 @@
                             <a href="/" class="brand-logo" style="color:#B1B1B1; margin-top:10px;"><img src="/assets/img/logo_admin.png" style="width:55px; height:50px;"/>&nbsp;ADMINISTRACIÓN DE MÓDULOS</a>
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                                <li><a href="#">Api's</a></li>
-                                <li><a href="/responsables">Responsables</a></li>
+                                <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
+                                <li><a ng-click="verresponsables()">Responsables</a></li>
                                 <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
-                                <li><a href="sass.html">Api's</a></li>
-                                <li><a href="/responsables" style="border-bottom:solid #00A79D;">Responsables</a></li>
+                                <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
+                                <li><a ng-click="verresponsables()">Responsables</a></li>
+                                <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                         </div>
                         <div class="row">
@@ -109,7 +111,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row"  style="margin-bottom:100px;">
                 <div class="col s10 offset-s1">
                     <table class="bordered highlight" style="margin-top:30px;" ng-show="!ocultar">
                         <tr>
@@ -137,11 +139,11 @@
                     </center>
                 </div>
             </div>
-        </div>
-        <div class="col s12" ng-show="pag_total != 1">
-            <center>
-                <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior(-1)">< </span>pagina {{pagina}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina == pag_total"  ng-click="siguiente(+1)"> ></span>
-            </center>
+            <div class="col s12" ng-show="pag_total != 1" style="margin-top:20px;">
+                <center>
+                    <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior(-1)">< </span>pagina {{pagina}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina == pag_total"  ng-click="siguiente(+1)"> ></span>
+                </center>
+            </div>
         </div>
 
             <div id="modal1" class="modal modal-fixed-footer">

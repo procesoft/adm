@@ -31,6 +31,7 @@
                             <ul class="side-nav" id="mobile-demo">
                                 <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
                                 <li><a ng-click="verresponsables()">Responsables</a></li>
+                                <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                         </div>
                         <div class="row">
@@ -85,9 +86,9 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-field col s2" style="margin-top:0%;" ng-model="bd_filtro" ng-change="listar_apis()">
+                    <div class="input-field col s2" style="margin-top:0%;" >
                         <div class="input-field col s12">
-                            <select id="BD">
+                            <select id="BD" ng-model="bd_filtro" ng-change="listar_apis()">
                                 <option value="" disabled selected>Base de datos</option>
                             </select>
                         </div>
