@@ -34,6 +34,7 @@ angular.module('appprocedimientos', [])
     $scope.responsables="";
     $scope.responsablesBD="";
     $scope.descripcion="";
+    $scope.detalle_proc = [];
 
     $scope.anterior=function(val){
         $scope.pagina+=parseInt(val);
@@ -81,78 +82,78 @@ angular.module('appprocedimientos', [])
 
         });
     }
-$scope.listar_apis=function(){
-    $http({
-        method: 'GET',
-        url: '/gestorprocedimientos/traer_datos',
-        params: {
-            v_id_tabla:$scope.id,
-            v_nombre:$("#txt_buscador").val(),
-            v_fecha:$('#date').val(),
-            v_num_pagina:$scope.pagina,
-            v_cantidad:10,
-            v_campo:"nombre",
-            v_ordenado:$('#ordenar').val(),
-        }
-    }).success(function (data, status, headers, config){
-        if(data.status){
-            $('#responsableB').empty();
-            $('#auxiliar').empty();
-            $('#total_apis').empty();
-            $('#nombre_encabezado').empty();
-            $('#descripcion_encabezado').empty();
-            $scope.listas = data.data;
-            for(var i=0;i<$scope.listas.length;i++){
-                var fecha_c=$scope.listas[i].fecha_creacion;
-                var fecha_m=$scope.listas[i].fecha_modificacion;
-                $scope.listas[i].fecha_creacion=fecha_c.split(' ')[0];
-                $scope.listas[i].fecha_modificacion=fecha_m.split(' ')[0];
-                switch($scope.listas[i].status){
-                    case 'D':
-                    $scope.listas[i].status="Definicion";
-                    break;
-                    case 'P':
-                    $scope.listas[i].status="Progreso";
-                    break;
-                    case "R":
-                    $scope.listas[i].status="Revision";
-                    break;
-                    case "T":
-                    $scope.listas[i].status="Terminado";
-                    break;
-                }
+    $scope.listar_apis=function(){
+        $http({
+            method: 'GET',
+            url: '/gestorprocedimientos/traer_datos',
+            params: {
+                v_id_tabla:$scope.id,
+                v_nombre:$("#txt_buscador").val(),
+                v_fecha:$('#date').val(),
+                v_num_pagina:$scope.pagina,
+                v_cantidad:10,
+                v_campo:"nombre",
+                v_ordenado:$('#ordenar').val(),
             }
-            $('#responsableB').append(data.data[0].responsable);
-            $('#auxiliar').append(data.data[0].auxiliar);
-            $scope.auxiliar=data.data[0].auxiliar;
-            $('#nombre_encabezado').append(data.data[0].tabla);
-            $('#descripcion_encabezado').append(data.data[0].descripcion);
-            $('#total_apis').append(data.data[0].total_datos);
-            $scope.pag_total = data.data[0].paginas_total;
-            var pagina;
-            $scope.id_api=data.data[0].id_api;
-            $scope.id_modulo=data.data[0].id_modulo;
+        }).success(function (data, status, headers, config){
+            if(data.status){
+                $('#responsableB').empty();
+                $('#auxiliar').empty();
+                $('#total_apis').empty();
+                $('#nombre_encabezado').empty();
+                $('#descripcion_encabezado').empty();
+                $scope.listas = data.data;
+                for(var i=0;i<$scope.listas.length;i++){
+                    var fecha_c=$scope.listas[i].fecha_creacion;
+                    var fecha_m=$scope.listas[i].fecha_modificacion;
+                    $scope.listas[i].fecha_creacion=fecha_c.split(' ')[0];
+                    $scope.listas[i].fecha_modificacion=fecha_m.split(' ')[0];
+                    switch($scope.listas[i].status){
+                        case 'D':
+                        $scope.listas[i].status="Definicion";
+                        break;
+                        case 'P':
+                        $scope.listas[i].status="Progreso";
+                        break;
+                        case "R":
+                        $scope.listas[i].status="Revision";
+                        break;
+                        case "T":
+                        $scope.listas[i].status="Terminado";
+                        break;
+                    }
+                }
+                $('#responsableB').append(data.data[0].responsable);
+                $('#auxiliar').append(data.data[0].auxiliar);
+                $scope.auxiliar=data.data[0].auxiliar;
+                $('#nombre_encabezado').append(data.data[0].tabla);
+                $('#descripcion_encabezado').append(data.data[0].descripcion);
+                $('#total_apis').append(data.data[0].total_datos);
+                $scope.pag_total = data.data[0].paginas_total;
+                var pagina;
+                $scope.id_api=data.data[0].id_api;
+                $scope.id_modulo=data.data[0].id_modulo;
 
-            $scope.ocultar=false;
+                $scope.ocultar=false;
 
-            $scope.nod = false;
-        }else{
-                $scope.ocultar=true;
-                $scope.listas = [];
+                $scope.nod = false;
+            }else{
+                    $scope.ocultar=true;
+                    $scope.listas = [];
+                    $scope.nod = true;
                 $scope.nod = true;
-            $scope.nod = true;
-            $scope.pag_total = 1;
-        }
-    }).error(function (data, status, headers, config){
+                $scope.pag_total = 1;
+            }
+        }).error(function (data, status, headers, config){
 
-    });
+        });
 
-}
+    }
 
-$scope.prueba = function(val){
-    $scope.pagina=val;
-    $scope.listar_apis();
-}
+    $scope.prueba = function(val){
+        $scope.pagina=val;
+        $scope.listar_apis();
+    }
 
     $scope.testAllowed = function () {
         var stocks = new Bloodhound({
@@ -264,6 +265,28 @@ $scope.prueba = function(val){
                 console.log(data.status);
             }
         }
+        });
+    }
+
+    $scope.detalle = function(val){
+        $('#modal2').openModal();
+        $.ajax({
+            url:"/gestorprocedimientos/detalle",
+            dataType:"json",
+            type:"GET",
+            data:{
+                v_id_procedimiento:val,
+            },
+            success: function(data){
+                if (data.status) {
+                    $scope.detalle_proc = data.data[0];
+                    $scope.detalle_proc.fecha_creacion = $scope.detalle_proc.fecha_creacion.split(' ')[0];
+                    $scope.detalle_proc.fecha_modificacion = $scope.detalle_proc.fecha_modificacion.split(' ')[0];
+                    $scope.$apply();
+                }else{
+                    swal("Alerta",data.data,"warning");
+                }
+            }
         });
     }
 
