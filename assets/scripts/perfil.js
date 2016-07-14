@@ -81,7 +81,7 @@ $scope.verresponsables=function(){
 
 
     $scope.modificar=function(){
-        if($('#nombre').val()=="" || $('#nick').val()=="" || $('#apellido_pa').val()=="" || $('#apellido_ma').val()=="" || $('#correo').val()=="" || $('#Area').val()==""){
+        if($('#nombre').val()=="" || $('#nick').val()=="" || $('#apellido_pa').val()=="" || $('#correo').val()=="" || $('#Area').val()==""){
             swal('Alerta', 'Campos en blanco','warning');
         }
         if($('#psw_actual').val()){

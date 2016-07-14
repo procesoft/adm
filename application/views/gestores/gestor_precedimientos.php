@@ -147,21 +147,45 @@
                     <span id="titulo" style="color:#00A99D;">
                     </span>
                     </center>
-                    <input type="text" id="nombre_procedimiento" placeholder="Nombre procedimiento*">
-                    <select id="accion">
-                        <option value="" disabled selected>Accion</option>
-                        <option value="GET">Listar</option>
-                        <option value="POST">Insertar</option>
-                        <option value="PUT">Modificar</option>
-                        <option value="DEL">Eliminar</option>
-                    </select>
-                    <select id="tipos">
-                        <option value="" disabled selected>Tipo</option>
-                        <option value="FN">funcion</option>
-                        <option value="SP">procedimientos</option>
-                    </select>
-                    <textarea id="parametros" class="materialize-textarea" placeholder="Parametros"></textarea>
-                    <textarea id="descripcion" class="materialize-textarea" placeholder="Descripción"></textarea>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="nombre_procedimiento" placeholder="Nombre procedimiento*" maxlength="40" onkeypress="return soloLetras(event)">
+                            <label for="nombre_procedimiento">Nombre Procedimiento*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <select id="accion">
+                                <option value="" disabled selected>Acción</option>
+                                <option value="GET">Listar</option>
+                                <option value="POST">Insertar</option>
+                                <option value="PUT">Modificar</option>
+                                <option value="DEL">Eliminar</option>
+                            </select>
+                            <label for="accion">Acción*</label>
+                        </div>
+
+                        <div class="input-field col s6 offset-s1">
+                            <select id="tipos">
+                                <option value="" disabled selected>Tipo</option>
+                                <option value="FN">funcion</option>
+                                <option value="SP">procedimientos</option>
+                            </select>
+                            <label for="tipos">Tipo*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="parametros" class="materialize-textarea" placeholder="Parametros"></textarea>
+                            <label for="parametros">Parametros*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="descripcion" maxlength="100" class="materialize-textarea" placeholder="Descripción"></textarea>
+                            <label for="descripcion">Descripción*</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <center>
@@ -302,5 +326,6 @@
         <script src="/assets/plugins/typeahead.bundle.js" charset="utf-8"></script>
         <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
         <script src="/assets/scripts/gestor_procedimientos.js" charset="utf-8"></script>
+        <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
     </body>
 </html>

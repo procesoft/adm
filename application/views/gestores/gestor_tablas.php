@@ -154,15 +154,30 @@
                     <span id="titulo" style="color:#00A99D;">
                     </span>
                     </center>
-                    <input type="text" id="nombre_tabla" placeholder="Nombre tabla*">
-                    <select id="tipo">
-                        <option value="" disabled selected>Tipo</option>
-                        <option value="TBL">Tabla</option>
-                        <option value="CAT">Catalogo</option>
-                        <option value="REL">Relacionales</option>
-                        <option value="LOG">Log</option>
-                    </select>
-                    <textarea id="descripcion" class="materialize-textarea" placeholder="Descripción"></textarea>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="nombre_tabla" placeholder="Nombre tabla*" maxlength="40" onkeypress="return soloLetras(event)">
+                            <label for="nombre_tabla">Nombre tabla*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="tipo">
+                                <option value="" disabled selected>Tipo</option>
+                                <option value="TBL">Tabla</option>
+                                <option value="CAT">Catalogo</option>
+                                <option value="REL">Relacionales</option>
+                                <option value="LOG">Log</option>
+                            </select>
+                            <label for="tipo">Tipo*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="descripcion" class="materialize-textarea" maxlength="250" placeholder="Descripción"></textarea>
+                            <label for="descripcion">Descripción*</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <center>
@@ -202,5 +217,6 @@
           <script src="/assets/plugins/typeahead.bundle.js" charset="utf-8"></script>
           <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
           <script src="/assets/scripts/gestor_tablas.js" charset="utf-8"></script>
+          <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
     </body>
   </html>

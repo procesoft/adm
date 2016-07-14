@@ -15,7 +15,7 @@
     </head>
     <title>Mi perfil</title>
 
-    <body ng-app="appResponsables"> 
+    <body ng-app="appResponsables">
         <div class="col s12"  ng-controller="controlador" style="margin.bottom:200px;">
             <nav>
                 <div class="nav-wrapper"  style="height:250%; background-color:#232A36;">
@@ -58,28 +58,28 @@
             <div class="container">
                 <div class="row">
                     <div class="input-field col s5">
-                        <input type="text" placeholder="Usuario" id="nick" name="nick" value="">
-                        <label for="nick">Usuario</label>
+                        <input type="text" placeholder="Usuario" id="nick" name="nick" maxlength="15" value="">
+                        <label for="nick">Usuario*</label>
                     </div>
                     <div class="input-field col s5 offset-s1">
-                        <input type="text" placeholder="Nombre" id="nombre" name="nombre" value="">
-                        <label for="nombre">Nombre</label>
+                        <input type="text" placeholder="Nombre" id="nombre" name="nombre" maxlength="45" value="" onkeypress="return soloLetras(event)">
+                        <label for="nombre">Nombre*</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s5">
-                        <input type="text" placeholder="Apellido Paterno"  id="apellido_pa" name="apellido_pa" value="">
-                        <label for="apellido_pa">Apellido Paterno</label>
+                        <input type="text" placeholder="Apellido Paterno"  id="apellido_pa" maxlength="45" name="apellido_pa" value="" onkeypress="return soloLetras(event)">
+                        <label for="apellido_pa">Apellido Paterno*</label>
                     </div>
                     <div class="input-field col s5 offset-s1">
-                        <input type="text" placeholder="Apellido Materno" id="apellido_ma" name="apellido_ma" value="">
+                        <input type="text" placeholder="Apellido Materno" id="apellido_ma" maxlength="45" name="apellido_ma" value="" onkeypress="return soloLetras(event)">
                         <label for="apellido_ma">Apellido Materno</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s5">
                         <select id="Area" disabled>
-                            <option value="" disabled selected>Area</option>
+                            <option value="" disabled selected>Rol</option>
                             <option value="">Todos</option>
                             <option value="4">Desarrollador</option>
                             <option value="5">Base de datos</option>
@@ -88,12 +88,13 @@
                             <option value="1">Super Usuario</option>
                             <option value="6">QA</option>
                         </select>
+                        <label for="Area">Rol*</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s5">
                         <input type="text" placeholder="Correo" id="correo" disabled name="correo" value="">
-                        <label for="correo">Correo</label>
+                        <label for="correo">Correo*</label>
                     </div>
                 </div>
             <fieldset>
@@ -138,5 +139,6 @@
           <script src="/assets/plugins/typeahead.bundle.js" charset="utf-8"></script>
           <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
           <script src="/assets/scripts/perfil.js" charset="utf-8"></script>
+          <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
     </body>
   </html>
