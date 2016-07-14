@@ -173,7 +173,7 @@ $scope.historial=function(){
 
     $scope.logout=function(){
         $.ajax({
-            url:"login_controller/logout",
+            url:"/login_controller/logout",
             dataType:"json",
             type:"GET",
             success: function(data){

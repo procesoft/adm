@@ -176,16 +176,44 @@
                         <h4>Crear nuevo módulo</h4>
                     </span>
                     </center>
-                    <input type="text" id="nombre_api" placeholder="Nombre api*">
-                    <input type="text" id="prefijo" placeholder="Prefijo" maxlength="4">
-                    <input type="text" id="fecha" placeholder="Fecha entrega">
-                    <select id="servidormod" ng-model="filtro_mod" ng-change="filtro_Mod()">
-                        <option hidden="true"></option>
-                        <option value="0" disabled selected>Servidor</option>
-                    </select>
-                    <select id="basemod">
-                    </select>
-                    <textarea id="descripcion" class="materialize-textarea" placeholder="Descripción"></textarea>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="nombre_api" placeholder="Nombre api*" onkeypress="return soloLetras(event)" maxlength="40">
+                            <label for="nombre_api">Nombre Api*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <input type="text" id="prefijo" placeholder="Prefijo*" maxlength="4">
+                            <label for="prefijo">Prefijo*</label>
+                        </div>
+
+                        <div class="input-field col s5 offset-s1">
+                            <input type="text" id="fecha" placeholder="Fecha entrega*">
+                            <label for="fecha">Fecha de entrega*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <select id="servidormod" ng-model="filtro_mod" ng-change="filtro_Mod()">
+                                <option hidden="true"></option>
+                                <option value="0" disabled selected>Servidor</option>
+                            </select>
+                            <label for="servidormod">Servidor*</label>
+                        </div>
+
+                        <div class="input-field col s5 offset-s1">
+                            <select id="basemod">
+                            </select>
+                            <label for="basemod">Base de datos*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="descripcion" class="materialize-textarea" placeholder="Descripción" maxlength="250"></textarea>
+                            <label for="descripcion">Descripción*</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <center>
@@ -215,5 +243,6 @@
           <script src="/assets/plugins/typeahead.bundle.js" charset="utf-8"></script>
           <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
           <script src="/assets/scripts/gestor.js" charset="utf-8"></script>
+          <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
     </body>
   </html>

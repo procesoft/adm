@@ -165,14 +165,34 @@
                         <h4>Crear nuevo módulo</h4>
                     </span>
                     </center>
-                    <input type="text" id="nombre_modulo" placeholder="Nombre módulo*">
-                    <select id="responsables_mod">
-                        <option value="" disabled selected>Responsables</option>
-                    </select>
-                    <select id="responsablesBD_mod">
-                        <option value="" disabled selected>Responsables</option>
-                    </select>
-                    <textarea id="descripcion" class="materialize-textarea" placeholder="Descripción"></textarea>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="nombre_modulo" placeholder="Nombre módulo*"  maxlength="40" onkeypress="return soloLetras(event)">
+                            <label for="nombre_modulo">Nombre Módulo*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="responsables_mod">
+                                <option value="" disabled selected>Responsables</option>
+                            </select>
+                            <label for="responsables_mod">Responsable desarrollo*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="responsablesBD_mod">
+                                <option value="" disabled selected>Responsables</option>
+                            </select>
+                            <label for="responsablesBD_mod">Responsable Base de datos*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="descripcion" class="materialize-textarea" maxlength="250" placeholder="Descripción"></textarea>
+                            <label for="descripcion">Descripción*</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <center>
@@ -203,5 +223,6 @@
           <script src="/assets/plugins/typeahead.bundle.js" charset="utf-8"></script>
           <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
           <script src="/assets/scripts/gestor_modulos.js" charset="utf-8"></script>
+          <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
     </body>
   </html>

@@ -152,25 +152,29 @@
                     </center>
                     <div class="row">
                         <div class="input-field col s4">
-                            <input type="text" id="Usuario" placeholder="Usuario*">
+                            <input type="text" id="Usuario" maxlength="15" placeholder="Usuario*">
+                            <label for="Usuario">Usuario*</label>
                         </div>
                         <div class="input-field col s8">
-                            <input type="text" id="nombre_res" placeholder="Nombre Usuario*">
+                            <input type="text" id="nombre_res" placeholder="Nombre Usuario*" maxlength="45" onkeypress="return soloLetras(event)">
+                            <label for="nombre_res">Nombre usuario*</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="text" id="ape_pa" placeholder="Apellido Paterno*">
+                            <input type="text" id="ape_pa" placeholder="Apellido Paterno*" maxlength="45" onkeypress="return soloLetras(event)">
+                            <label for="ape_pa">Apellido paterno*</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="text" id="ape_ma" placeholder="Apellido Materno">
+                            <input type="text" id="ape_ma" placeholder="Apellido Materno" maxlength="45" onkeypress="return soloLetras(event)">
+                            <label for="ape_ma">Apellido materno</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <select id="Area_mod">
                                 <option hidden="true"></option>
-                                <option value="0" disabled selected>Área</option>
+                                <option value="0" disabled selected>Rol</option>
                                 <option value="4">Desarrollador</option>
                                 <option value="5">Base de datos</option>
                                 <option value="2">Admin Desarrollo</option>
@@ -178,11 +182,12 @@
                                 <option value="1">Super Usuario</option>
                                 <option value="6">QA</option>
                             </select>
+                            <label for="Area_mod">Rol</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="email" type="email" class="validate" placeholder="@correo*">
+                            <input id="email" type="email" class="validate" maxlength="40" placeholder="@correo*">
                             <label for="email" id="msn" data-error="invalido" data-success="correcto">Email*</label>
                         </div>
                     </div>
@@ -207,5 +212,6 @@
           <script src="/assets/plugins/typeahead.bundle.js" charset="utf-8"></script>
           <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
           <script src="/assets/scripts/responsables.js" charset="utf-8"></script>
+          <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
     </body>
   </html>

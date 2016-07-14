@@ -414,7 +414,7 @@ $scope.prueba = function(val){
                 });
             }
         }else if($scope.tipo == "editar"){
-            if($('#nombre_api').val()=="" || $('#prefijo').val()=="" || $('#basemod').val()=="" || $('#descripcion').val()==""){
+            if($('#nombre_api').val()=="" || $('#prefijo').val()=="" || $('#basemod').val()=="" || $('#descripcion').val()=="" || $('#fecha').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
                 $.ajax({
