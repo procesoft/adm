@@ -34,7 +34,7 @@
                         </div>
                         <div class="row">
                             <div class="col s12" style="font-size:30px; height:0px;">
-                                <a href="/api"><span style="color:#B1B1B1;">API'S ></span></a><a href="/modulos/{{listas[0].id_api}}"><span style="color:#B1B1B1;"> MÓDULOS ></span></a><a href="/tablas/{{listas[0].id_modulo}}"><span style="color:#B1B1B1;"> TABLAS ></span></a><a id="activo" style="color:#6F6F6F;" class="dropdown-button" href="" data-activates='api'><span style="color:#B1B1B1;"> PROCEDIMIENTOS&nbsp;</span><span style="color:#00A79D;"><span id="total_apis"></span>&nbsp;<img style="width:10; height:10px;" src="/assets/img/arrows.png" /></span></a>
+                                <a href="/api"><span style="color:#B1B1B1;">API'S ></span></a><a href="/modulos/{{id_api}}"><span style="color:#B1B1B1;"> MÓDULOS ></span></a><a href="/tablas/{{id_modulo}}"><span style="color:#B1B1B1;"> TABLAS ></span></a><a id="activo" style="color:#6F6F6F;" class="dropdown-button" href="" data-activates='api'><span style="color:#B1B1B1;"> PROCEDIMIENTOS&nbsp;</span><span style="color:#00A79D;"><span id="total_apis"></span>&nbsp;<img style="width:10; height:10px;" src="/assets/img/arrows.png" /></span></a>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="col s11 offset-s1" style="margin-top:30px;">
                     <div style="float:left; margin-top:30px;">
-                        <i class="material-icons dp48">search</i>
+                        <i class="material-icons dp48"><img src="/assets/img/buscador-de-lupa.png" alt="" /></i>
                     </div>
                     <div class="input-field col s3" style="margin-top:10px;">
                         <input style="height:50px; width:100%;" type="text" placeholder="Buscar.." class="col s12"  ng-init="testAllowed($event);" id="txt_buscador">
@@ -122,8 +122,8 @@
                                 <td><a style="cursor: pointer" ng-click="detalle(listas.id_procedimiento)">{{listas.nombre}}</a></td>
                                 <td class="text-center">{{listas.fecha_creacion | date}}</td>
                                 <td class="text-center">{{listas.fecha_modificacion | date}}</td>
-                                <td class="text-center"><i class="material-icons dp48" ng-click="activarModalInsertar(listas.id_procedimiento)" style="cursor:pointer;">mode_edit</i>
-                                <i class="material-icons dp48" ng-click="eliminar(listas.id_procedimiento)" style="cursor:pointer;">delete</i>
+                                <td class="text-center"><i class="material-icons dp48" ng-click="activarModalInsertar(listas.id_procedimiento)" style="cursor:pointer;"><img src="/assets/img/editar.png" alt="" /></i>
+                                <i class="material-icons dp48" ng-click="eliminar(listas.id_procedimiento)" style="cursor:pointer;"><img src="/assets/img/interfaz.png" alt="" /></i>
                             </td>
                             </tr>
                         </tbody>

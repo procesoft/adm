@@ -7,6 +7,7 @@
     $('#tabla').empty();
     $('#date').inputmask('9999-99-99');
     $('#fecha').inputmask('9999-99-99');
+    $('#ip').inputmask('999.999.999.999');
 
 function cambio_color(id){
     $('#fila_'+id).prop('style','color:#00A79D;')
@@ -29,7 +30,87 @@ angular.module('appApis', [])
     $scope.pagina=1;
     $scope.ordenar="";
     $scope.activo="";
+    $scope.rol=usuario[0].id_rol;
 
+$scope.activarModalServidor=function(val){
+    if(val==1){
+        $('#servidor').openModal();
+    }else{
+
+    }
+}
+$scope.activarModalbased=function(val){
+    if(val==1){
+        $('#servidormod1').val("");
+        $('#base').val("");
+        $('#alias_bd').val("");
+        $scope.filtro_Mod1();
+        $('#base_de_datos').openModal();
+    }else{
+        $.ajax({
+            url:"gestorapi/nuevo_bd",
+            dataType:"json",
+            type:"POST",
+            data:{
+                v_id_login:usuario[0].id_responsable,
+                v_servidor:$('#servidormod1').val(),
+                v_base_de_datos:$('#base').val() ,
+                v_alias:$('#alias_bd').val(),
+            },
+            success: function(data){
+                if (data.status) {
+                    $('#base_de_datos').closeModal();
+                    swal({
+                        title: 'Correcto',
+                        text: "Se guardo correctamente!!",
+                        type: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Aceptar",
+                        closeOnConfirm: true
+                    },
+                    function(){
+
+                    });
+                }else{
+                    swal("Alerta",data.data,"warning");
+                }
+            }
+        });
+    }
+}
+$scope.filtro_Mod1=function(id_base){
+    var val=$('#servidormod1').val();
+    if(val == '? undefined:undefined ?' || val == null){
+        val="";
+    }
+    $.ajax({
+        url:"gestorapi/filtros",
+        dataType:"json",
+        type:"GET",
+        data:{
+            'filtro':val,
+        },
+        success: function(data){
+            $('#basemod').empty();
+
+        if (data.status) {
+
+            if(val == ""){
+                $('#servidormod1').empty();
+                $('#servidormod1').append('<option value="0" disabled selected>Servidor</option>');
+                for(ip in data.data){
+                    $('#servidormod1').append('<option value="'+data.data[ip].servidor+'">'+data.data[ip].servidor+'</option>');
+                }
+            }
+            setTimeout(function(){$('select').material_select('update')},450);
+
+        }else{
+            console.log(data.status);
+        }
+    }
+    });
+}
 $scope.anterior=function(val){
     $scope.pagina+=parseInt(val);
     $scope.listar_apis();
@@ -217,11 +298,9 @@ $scope.prueba = function(val){
 
             if (data.status) {
                 $('#basemod').append('<option value="0" disabled selected>Base de datos</option>');
-                $('#basemod').append('<option value="">Todos</option>');
                 if(val == ""){
                     $('#servidormod').empty();
                     $('#servidormod').append('<option value="0" disabled selected>Servidor</option>');
-                    $('#servidormod').append('<option value="">Todos</option>');
                     for(ip in data.data){
                         $('#servidormod').append('<option value="'+data.data[ip].servidor+'">'+data.data[ip].servidor+'</option>');
                     }
@@ -298,6 +377,8 @@ $scope.prueba = function(val){
                 $('#BD').append('<option value="" disabled selected>Base de datos</option>');
                 $('#BD').append('<option value="">Todos</option>');
                 if(val == ""){
+                    $('#servidores').empty();
+                    $('#servidores').append('<option value="" disabled selected>Servidor</option>');
                     $('#servidores').append('<option value="">Todos</option>');
                     for(ip in data.data){
                         $('#servidores').append('<option value="'+data.data[ip].servidor+'">'+data.data[ip].servidor+'</option>');

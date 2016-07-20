@@ -262,7 +262,7 @@ $scope.prueba = function(val){
     $scope.eliminar=function(val){
         swal({
           title: 'Alerta',
-          text: "¿Seguro que quiere eliminar este registro?",
+          text: "¿Seguro que quiere desactivar este usuario?",
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",
@@ -281,7 +281,7 @@ $scope.prueba = function(val){
                 success: function(data){
                     if (data.status) {
                         $scope.listar_apis();
-                        swal('Correcto!!','se ha eliminado correctamente','success');
+                        swal('Correcto!!','se ha desactivado correctamente','success');
                     }else{
                         swal('Alerta',data.data,"warning");
                     }

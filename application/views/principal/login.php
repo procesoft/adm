@@ -51,12 +51,12 @@
    			</div>
    			<div class="row form-group" style="padding-top:30px">
    				<div class="col-md-offset-3 col-md-6">
-   					<input type="text" class="form-control input-lg" name="name" value="" id="user" onkeypress="enter(event)" placeholder="E-mail">
+   					<input type="text" class="form-control input-lg" name="name" value="" id="user" onkeypress="enter(event)" placeholder="E-mail" maxlength="35">
    				</div>
    			</div>
    			<div class="row form-group">
    				<div class="col-md-offset-3 col-md-6">
-   					<input type="password" class="form-control input-lg" name="name" value="" id="pass" onkeypress="enter(event)" placeholder="Contraseña">
+   					<input type="password" class="form-control input-lg" name="name" value="" id="pass" onkeypress="enter(event)" placeholder="Contraseña" maxlength="15">
    				</div>
    			</div>
    			<div class="row form-group" style="padding-top:30px">
