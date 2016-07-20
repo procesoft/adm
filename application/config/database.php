@@ -49,7 +49,7 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = '127.0.0.1';
-$db['default']['username'] = 'test1';
+$db['default']['username'] = 'test1'
 $db['default']['password'] = '1.9.9.1';
 $db['default']['database'] = 'Administracion_de_modulos';
 $db['default']['dbdriver'] = 'mysqli';

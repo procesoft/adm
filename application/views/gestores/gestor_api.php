@@ -24,6 +24,7 @@
                             <a href="/" class="brand-logo" style="color:#B1B1B1; margin-top:10px;"><img src="/assets/img/logo_admin.png" style="width:55px; height:50px;"/>&nbsp;ADMINISTRACIÓN DE MÓDULOS</a>
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                <li><a style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown2' ng-if="rol==3">Insertar <img style="width:10; height:10px;" src="/assets/img/arrows.png" /></a></li>
                                 <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
                                 <li><a ng-click="verresponsables()">Responsables</a></li>
                                 <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
@@ -46,7 +47,13 @@
                                 <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
                                   <li><a href="#!">Mis Pendientes</a></li>
                                   <li><a href="/mi_perfil">Mi perfil</a></li>
+                                  <li ng-if="rol==1"><a href="/reportes">Reportes</a></li>
                                   <li><a href="#!" ng-click="logout()">Salir</a></li>
+                                </ul>
+
+                                <ul id='dropdown2' class='dropdown-content'style="margin-top:45px;">
+                                  <li><a ng-click="activarModalServidor(1)">Servidor</a></li>
+                                  <li><a ng-click="activarModalbased(1)">Base de datos</a></li>
                                 </ul>
 
                                 <ul id='api' class='dropdown-content'style="margin-top:45px;" width="100px">
@@ -64,7 +71,7 @@
             <div class="row">
                 <div class="col s11 offset-s1">
                     <div style="float:left; margin-top:30px;">
-                        <i class="material-icons dp48">search</i>
+                        <i class="material-icons dp48"><img src="/assets/img/buscador-de-lupa.png" alt="" /></i>
                     </div>
                     <div class="input-field col s2" style="margin-top:10px;">
                         <input style="height:50px;" type="text" placeholder="Buscar.." ng-model="buscador" class="form-control"  ng-init="testAllowed($event);" id="txt_buscador">
@@ -150,8 +157,8 @@
                             </td>
                             <td class="text-center">{{listas.servidor}}</td>
                             <td class="text-center">{{listas.base_de_datos}}</td>
-                            <td class="text-center"><i class="material-icons dp48" ng-click="activarModalInsertar(listas.id_api)" style="cursor:pointer;">mode_edit</i>
-                            <i class="material-icons dp48" ng-click="eliminar(listas.id_api)" style="cursor:pointer;">delete</i>
+                            <td class="text-center"><i class="material-icons dp48" ng-click="activarModalInsertar(listas.id_api)" style="cursor:pointer;"><img src="/assets/img/editar.png" alt="" /></i>
+                            <i class="material-icons dp48" ng-click="eliminar(listas.id_api)" style="cursor:pointer;"><img src="/assets/img/interfaz.png" alt="" /></i>
                         </td>
                         </tr>
                     </tbody>
@@ -218,6 +225,68 @@
                 <div class="modal-footer">
                     <center>
                         <a href="#!" class="waves-effect btn waves-green btn-flat " ng-click="nuevo()">ACEPTAR</a>
+                    </center>
+                </div>
+            </div>
+
+            <div id="servidor" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <center>
+                    <span id="titulo" style="color:#00A99D;">
+                        <h4>Crear nuevo servidor</h4>
+                    </span>
+                    </center>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="nombre_servidor" placeholder="Nombre servidor" onkeypress="return soloLetras(event)" maxlength="40">
+                            <label for="nombre_api">Nombre servidor</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="ip" placeholder="ip del servidor" >
+                            <label for="ip">ip</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <a href="#!" class="waves-effect btn waves-green btn-flat ">ACEPTAR</a>
+                    </center>
+                </div>
+            </div>
+            <div id="base_de_datos" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <center>
+                    <span id="titulo" style="color:#00A99D;">
+                        <h4>Crear nuevo base de datos</h4>
+                    </span>
+                    </center>
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <select id="servidormod1">
+                                <option hidden="true"></option>
+                                <option value="0" disabled selected>Servidor</option>
+                            </select>
+                            <label for="servidormod1">Servidor*</label>
+                        </div>
+                        <div class="input-field col s5 offset-s1">
+                            <input type="text" id="base" placeholder="Nombre base de datos*" onkeypress="return soloLetras(event)" maxlength="40">
+                            <label for="base">Nombre base de datos*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="alias_bd" placeholder="Alias" maxlength="10" >
+                            <label for="alias_bd">Alias</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <a href="#!" class="waves-effect btn waves-green btn-flat " ng-click="activarModalbased(0)">ACEPTAR</a>
                     </center>
                 </div>
             </div>

@@ -64,7 +64,7 @@
         <div class="row">
             <div class="col s11 offset-s1" style="margin-top:30px;">
                 <div style="float:left; margin-top:30px;">
-                    <i class="material-icons dp48">search</i>
+                    <i class="material-icons dp48"><img src="/assets/img/buscador-de-lupa.png" alt="" /></i>
                 </div>
                 <div class="input-field col s3" style="margin-top:10px;">
                     <input style="height:50px; width:100%;" type="text" placeholder="Buscar.." class="col s12"  ng-init="testAllowed($event);" id="txt_buscador">
@@ -125,8 +125,8 @@
                             <td class="text-center">{{listas.modulos}}</td>
                             <td class="text-center">{{listas.rol}}</td>
                             <td class="text-center">{{listas.activo}}</td>
-                            <td class="text-center"><i class="material-icons dp48" ng-show="listas.activo=='Deshabilitado'" ng-click="activarModalInsertar(listas.id_responsable)" style="cursor:pointer;">done</i>
-                                <i class="material-icons dp48" ng-show="listas.activo=='Habilitado'" ng-click="eliminar(listas.id_responsable)" style="cursor:pointer;">delete</i></td>
+                            <td class="text-center"><i class="material-icons dp48" ng-show="listas.activo=='Deshabilitado'" ng-click="activarModalInsertar(listas.id_responsable)" style="cursor:pointer;"><img src="/assets/img/bloquear.png" alt="" /></i>
+                                <i class="material-icons dp48" ng-show="listas.activo=='Habilitado'" ng-click="eliminar(listas.id_responsable)" style="cursor:pointer;"><img src="/assets/img/bloquear-1.png" alt="" /></i></td>
                         </tr>
                     </tbody>
                 </table>

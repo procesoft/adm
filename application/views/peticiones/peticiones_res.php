@@ -105,7 +105,7 @@
                         <span style="color:#00A99D;"><h5><b>Historial</b></h5></span>
                     </div>
                     <div style="float:left; margin-top:30px;">
-                        <i class="material-icons dp48">search</i>
+                        <i class="material-icons dp48"><img src="/assets/img/buscador-de-lupa.png" alt="" /></i>
                     </div>
                     <div class="input-field col s2" style="margin-top:10px; margin-bottom:30px;">
                         <input style="height:50px;" type="text" placeholder="Buscar.." ng-model="buscador" ng-init="testAllowed($event);" id="txt_buscador">

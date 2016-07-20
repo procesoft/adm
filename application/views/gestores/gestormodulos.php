@@ -68,7 +68,7 @@
                 </div>
                 <div class="col s11 offset-s1" style="margin-top:70px;">
                     <div style="float:left; margin-top:30px;">
-                        <i class="material-icons dp48">search</i>
+                        <i class="material-icons dp48"><img src="/assets/img/buscador-de-lupa.png" alt="" /></i>
                     </div>
                     <div class="input-field col s2" style="margin-top:10px;">
                         <input style="height:50px; width:100%;" type="text" placeholder="Buscar.." class="col s2"  ng-init="testAllowed($event);" id="txt_buscador">
@@ -139,8 +139,8 @@
                             <td class="text-center">{{listas.fecha_creacion | date}}</td>
                             <td class="text-center">{{listas.fecha_modificacion | date}}</td>
                             <td class="text-center">{{listas.status}}</td>
-                            <td class="text-center"><i class="material-icons dp48" ng-click="activarModalInsertar(listas.id_modulo)" style="cursor:pointer;">mode_edit</i>
-                            <i class="material-icons dp48" ng-click="eliminar(listas.id_modulo)" style="cursor:pointer;">delete</i>
+                            <td class="text-center"><i class="material-icons dp48" ng-click="activarModalInsertar(listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/editar.png" alt="" /></i>
+                            <i class="material-icons dp48" ng-click="eliminar(listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/interfaz.png" alt="" /></i>
                         </td>
                         </tr>
                     </tbody>
