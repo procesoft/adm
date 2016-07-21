@@ -48,6 +48,7 @@
                                 <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
                                   <li><a href="#!">Mis Pendientes</a></li>
                                   <li><a href="/mi_perfil">Mi perfil</a></li>
+                                  <li ng-if="rol==1"><a href="/reporte_alcance">Reportes</a></li>
                                   <li><a href="#!" ng-click="logout()">Salir</a></li>
                                 </ul>
 
@@ -68,7 +69,7 @@
                         <input type="date" class="datepicker"  id="fin">
                     </div>
                     <div class="input-field col s2 offset-s6">
-                        <input type="text" id="tamano" placeholder="numero modulos">
+                        <input type="text" id="tamano" placeholder="numero modulos" ng-model="tamano" ng-keyup="listar_datos()">
                         <label for="tamano">Tamaño</label>
                     </div>
                 </div>
@@ -108,9 +109,9 @@
                         <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior(-1)">< </span>pagina {{pagina}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina == pag_total"  ng-click="siguiente(+1)"> ></span>
                     </center>
                 </div>
-                <div class="col s12" ng-show="pag_total != 1" style="margin-top:20px;">
+                <div class="col s12" ng-show="pag_total != ''" style="margin-top:20px;">
                     <center>
-                        <a ng-click="imprimir()"><label for="">Ver Pdf</label><br>
+                        <a ng-click="imprimir()" style="cursor:pointer;"><label for="">Ver Pdf</label><br>
                         <img src="/assets/img/pdf.png" alt="" width="50px" /></a>
                     </center>
                 </div>

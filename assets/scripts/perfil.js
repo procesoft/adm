@@ -26,6 +26,7 @@ angular.module('appResponsables', [])
     $scope.pagina=1;
     $scope.ordenar="";
     $scope.activo="";
+    $scope.rol=usuario[0].id_rol;
 
 
 $scope.listar_datos=function(){

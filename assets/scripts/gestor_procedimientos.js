@@ -35,6 +35,7 @@ angular.module('appprocedimientos', [])
     $scope.responsablesBD="";
     $scope.descripcion="";
     $scope.detalle_proc = [];
+    $scope.rol=usuario[0].id_rol;
 
     $scope.anterior=function(val){
         $scope.pagina+=parseInt(val);

@@ -21,13 +21,13 @@ class Report extends CI_Controller {
                 if (empty($v_activo)) {
                     $v_activo = '';
                 }
-				if (empty($v_ordenado)) {
-                    $v_ordenado = '';
+				if (empty($v_fecha_inicio)) {
+                    $v_fecha_inicio = '';
                 }
-                if (empty($v_fecha)) {
-                    $v_fecha = '';
+                if (empty($v_fecha_fin)) {
+                    $v_fecha_fin = '';
                 }
-                $query = $this->db->query('call sp_get_reporte_apis(?,?,?)',array($v_fecha_inicio,$v_fecha_fin,$v_modulos_minimos));
+                $query = $this->db->query('call sp_get_reporte_apis(?,?,?,?,?)',array($v_fecha_inicio,$v_fecha_fin,$v_modulos_minimos,$v_num_pagina,$v_cantidad));
                 if(!$query){
                     throw new Exception("Error BD");
                 }

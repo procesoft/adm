@@ -32,6 +32,63 @@ angular.module('appmodulos', [])
     $scope.responsables="";
     $scope.responsablesBD="";
     $scope.descripcion="";
+    $scope.rol=usuario[0].id_rol;
+    $scope.test6=false;
+
+    $scope.llenar_auxiliares=function(){
+        console.log($scope.test6);
+        $scope.filtros_aux1();
+        $scope.filtros_aux2();
+    }
+    $scope.filtros_aux1=function(){
+        $.ajax({
+            url:"/gestormodulos/filtros",
+            dataType:"json",
+            type:"GET",
+            data:{
+                'filtro':"DS",
+            },
+            success: function(data){
+                $('#auxiliar').empty();
+            if (data.status) {
+                $('#auxiliar').append('<option value="" disabled selected>Auxiliar Desarrollo</option>');
+                    for(ip in data.data){
+                        $('#auxiliar').append('<option value="'+data.data[ip].id_responsable+'">'+data.data[ip].nick+'</option>');
+                    }
+
+                $('select').material_select('update');
+
+            }else{
+                console.log(data.status);
+            }
+        }
+        });
+    }
+
+    $scope.filtros_aux2=function(){
+        $.ajax({
+            url:"/gestormodulos/filtros",
+            dataType:"json",
+            type:"GET",
+            data:{
+                'filtro':"DB",
+            },
+            success: function(data){
+                $('#auxiliar_bd').empty();
+            if (data.status) {
+                $('#auxiliar_bd').append('<option value="" disabled selected>Auxiliar BD</option>');
+                    for(ip in data.data){
+                        $('#auxiliar_bd').append('<option value="'+data.data[ip].id_responsable+'">'+data.data[ip].nick+'</option>');
+                    }
+
+                $('select').material_select('update');
+
+            }else{
+                console.log(data.status);
+            }
+        }
+        });
+    }
 
     $scope.anterior=function(val){
         $scope.pagina+=parseInt(val);
@@ -261,6 +318,7 @@ $scope.prueba = function(val){
     $scope.activarModalInsertar=function(val){
         $scope.filtro_Mod("DS");
         $scope.filtro_Mod("DB");
+        $scope.test6=false;
         $('#modal1').openModal();
         if(val != 0){
             $scope.modificar(val);
@@ -355,6 +413,9 @@ $scope.prueba = function(val){
             success: function(data){
                 if (data.status) {
                     $('#titulo').empty();
+                    $('#test6').trigger('click',function(){console.log("lo hace");});
+                    setTimeout(function(){$('#auxiliar').val(data.data[0].id_auxiliar_web)},600);
+                    setTimeout(function(){$('#auxiliar_bd').val(data.data[0].id_auxiliar_base)},600);
                     $('#nombre_modulo').val(data.data[0].nombre);
                     setTimeout(function(){$('#responsables_mod').val(data.data[0].id_responsable_web)},600);
                     setTimeout(function(){$('#responsablesBD_mod').val(data.data[0].id_responsable_base)},600);
@@ -401,6 +462,13 @@ $scope.prueba = function(val){
     $scope.nuevo=function(){
 
         if($scope.tipo == "nuevo"){
+            if($scope.test6==false){
+                var auxiliar=0;
+                var auxiliar_bd=0;
+            }else{
+                var auxiliar=$('#auxiliar').val();
+                var auxiliar_bd=$('#auxiliar_bd').val();
+            }
             if($('#nombre_modulo').val()=="" || $('#descripcion').val()=="" || $('#responsables_mod').val()=="" || $('#responsablesBD_mod').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
@@ -415,8 +483,8 @@ $scope.prueba = function(val){
                         v_descripcion:$('#descripcion').val(),
                         v_id_responsable_web:$('#responsables_mod').val(),
                         v_id_responsable_base:$('#responsablesBD_mod').val(),
-                        v_id_auxiliar_web:0,
-                        v_id_auxiliar_base:0,
+                        v_id_auxiliar_web:(auxiliar==""?0:auxiliar),
+                        v_id_auxiliar_base:(auxiliar_bd==""?0:auxiliar_bd),
                     },
                     success: function(data){
                         if (data.status) {
@@ -440,6 +508,13 @@ $scope.prueba = function(val){
                 });
             }
         }else if($scope.tipo == "editar"){
+            if($scope.test6==false){
+                var auxiliar=0;
+                var auxiliar_bd=0;
+            }else{
+                var auxiliar=$('#auxiliar').val();
+                var auxiliar_bd=$('#auxiliar_bd').val();
+            }
             if($('#nombre_modulo').val()=="" || $('#descripcion').val()=="" || $('#responsables_mod').val()=="" || $('#responsablesBD_mod').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
@@ -455,8 +530,8 @@ $scope.prueba = function(val){
                         v_descripcion:$('#descripcion').val(),
                         v_id_responsable_web:$('#responsables_mod').val(),
                         v_id_responsable_base:$('#responsablesBD_mod').val(),
-                        v_id_auxiliar_web:0,
-                        v_id_auxiliar_base:0,
+                        v_id_auxiliar_web:(auxiliar==""?0:auxiliar),
+                        v_id_auxiliar_base:(auxiliar_bd==""?0:auxiliar_bd),
                     },
                     success: function(data){
                         if (data.status) {

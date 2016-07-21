@@ -56,7 +56,7 @@ angular.module('historial', [])
         $scope.modal_info = {};
         $scope.paginas = 0;
         $scope.pag_act = 1;*/
-
+        $scope.rol=usuario[0].id_rol;
         $http({
             method: 'GET',
             url: '/gestorprocedimientos/detalle',
