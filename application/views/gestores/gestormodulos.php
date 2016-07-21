@@ -46,6 +46,7 @@
                                 <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
                                   <li><a href="#!">Mis Pendientes</a></li>
                                   <li><a href="/mi_perfil">Mi perfil</a></li>
+                                  <li ng-if="rol==1"><a href="/reporte_alcance">Reportes</a></li>
                                   <li><a href="#!" ng-click="logout()">Salir</a></li>
                                 </ul>
 
@@ -185,6 +186,27 @@
                                 <option value="" disabled selected>Responsables</option>
                             </select>
                             <label for="responsablesBD_mod">Responsable Base de datos*</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="checkbox" id="test6" ng-model="test6" checked="checked" ng-click="llenar_auxiliares()" />
+                            <label for="test6">agregar auxiliar</label>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="test6">
+                        <div class="input-field col s5">
+                            <select id="auxiliar">
+                                <option value="" disabled selected>Auxiliar desarrollo</option>
+                            </select>
+                            <label for="auxiliar">Auxiliar desarrollo</label>
+                        </div>
+
+                        <div class="input-field col s5 offset-s1">
+                            <select id="auxiliar_bd">
+                                <option value="" disabled selected>Auxiliar BD</option>
+                            </select>
+                            <label for="auxiliar_bd">Auxiliar Base de datos</label>
                         </div>
                     </div>
                     <div class="row">

@@ -30,6 +30,7 @@ angular.module('appdetalle_res', [])
     $scope.ordenar="";
     $scope.activo="";
     $scope.tareas_exist=0;
+    $scope.rol=usuario[0].id_rol;
 
 
 $scope.listar_detalle=function(){

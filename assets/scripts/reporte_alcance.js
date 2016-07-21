@@ -28,18 +28,70 @@ angular.module('appResponsables', [])
     $scope.listas = [];
     $scope.ocultar=false;
     $scope.pagina=1;
+    $scope.tamano="";
 
+$scope.fechas=function(ini){
+    if(ini != ""){
+        var fechaini_dia= ini.split(" ")[0].split(",");
+        var fechaini_mes= ini.split(" ")[1].split(",")[0];
+        var fechaini_ayo= ini.split(" ")[2].split(",");
 
-
+        switch(fechaini_mes){
+            case "Enero":
+                fechaini_mes='01';
+            break;
+            case "Febrero":
+                fechaini_mes='02';
+            break;
+            case "Marzo":
+                fechaini_mes='03';
+            break;
+            case "Abril":
+                fechaini_mes='04';
+            break;
+            case "Mayo":
+                fechaini_mes='05';
+            break;
+            case "Junio":
+                fechaini_mes='06';
+            break;
+            case "Julio":
+                fechaini_mes='07';
+            break;
+            case "Agosto":
+                fechaini_mes='08';
+            break;
+            case "Septiembre":
+                fechaini_mes='09';
+            break;
+            case "Octubre":
+                fechaini_mes='10';
+            break;
+            case "Noviembre":
+                fechaini_mes='11';
+            break;
+            case "Diciembre":
+                fechaini_mes='12';
+            break;
+        }
+        console.log(fechaini_mes);
+        return fechaini_ayo+'-'+fechaini_mes+'-'+fechaini_dia;
+    }
+}
 $scope.listar_datos=function(){
-
+    var inicio=$('#ini').val();
+    var fin=$('#fin').val();
+    var fecha_in=$scope.fechas(inicio);
+    var fecha_fin=$scope.fechas(fin);
     $http({
         method: 'GET',
         url: 'report/traer_datos',
         params: {
-            v_fecha_inicio:"",
-            v_fecha_fin:"",
-            v_modulos_minimos:"",
+            v_fecha_inicio:fecha_in,
+            v_fecha_fin:fecha_fin,
+            v_modulos_minimos:$('#tamano').val(),
+            v_num_pagina:$scope.pagina,
+            v_cantidad:10,
         }
     }).success(function (data, status, headers, config){
         if(data.status){
@@ -62,11 +114,22 @@ $scope.listar_datos=function(){
     });
 
 }
+$scope.anterior=function(val){
+    $scope.pagina+=parseInt(val);
+    $scope.listar_datos();
+}
 
+$scope.siguiente=function(val){
+    $scope.pagina+=parseInt(val);
+    $scope.listar_datos();
+}
 $scope.imprimir = function () {
-    var id ="";
-    //window.open('c_test/create_pdf_alcance?v_fecha_inicio=' + id, '', 'width=600,height=400,left=50,top=50,toolbar=yes');
-    window.open('c_test/create_pdf_alcance?v_fecha_inicio=' + id, 'v_fecha_fin='+ id,'v_modulos_minimos='+ id, '', 'width=600,height=400,left=50,top=50,toolbar=yes');
+    var ini=$('#ini').val();
+    var fin=$('#fin').val();
+    var min=$('#tamano').val();
+    var fecha_in=$scope.fechas(ini);
+    var fecha_fin=$scope.fechas(fin);
+    window.open('/c_test/create_pdf_alcance?v_fecha_inicio=' + fecha_in +'&v_fecha_fin='+fecha_fin+'&v_modulos_minimos='+ min, '', 'width=600,height=400,left=50,top=50,toolbar=yes');
 }
 
     $scope.listar_datos();
