@@ -53,7 +53,7 @@ class C_test extends CI_Controller {
 
         if ($bandera_continuar_tras == true) {
              
-           /* // create new PDF document
+           // create new PDF document
             $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
             // set document information
@@ -143,11 +143,10 @@ class C_test extends CI_Controller {
                         .'<th style="text-align: center;width:15%;"></th>'
                         .'<th style="text-align: center;width:10%;"></th>'
                         .'</tr>';
-            */
+            
 
             foreach ($info as $datos) {
-                echo $datos['nombre'];
-                   /* $raw_html .='<tr>'
+                 $raw_html .='<tr>'
                         .'<td style="text-align: center;width:25%;">' . $datos['nombre'] .'</td>'
                         .'<td style="text-align: center;width:25%;">' . $datos['fecha'] .'</td>'
                         .'<td style="text-align: center;width:10%;">' . $datos['modulos'] .'</td>'
@@ -163,9 +162,9 @@ class C_test extends CI_Controller {
                         .'<td style="text-align: center;width:15%;"></td>'
                         .'<td style="text-align: center;width:10%;"></td>'
                         .'</tr>'
-                        .'</table>';*/
+                        .'</table>';
             }
-           /* $html = <<<EOD
+            $html = <<<EOD
     $raw_html
 EOD;
 
@@ -181,7 +180,7 @@ EOD;
 
             //============================================================+
             // END OF FILE
-            //============================================================+*/
+            //============================================================+
         }
     }
 
