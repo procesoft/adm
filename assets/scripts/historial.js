@@ -49,6 +49,7 @@ angular.module('historial', [])
         $scope.historial = [];
         $scope.peticiones = [];
         $scope.fechas = [];
+        $scope.rol=usuario[0].id_rol;
         /*$scope.datos = [];
         $scope.actividad = {};
         $scope.act = 0;
@@ -56,7 +57,7 @@ angular.module('historial', [])
         $scope.modal_info = {};
         $scope.paginas = 0;
         $scope.pag_act = 1;*/
-        $scope.rol=usuario[0].id_rol;
+
         $http({
             method: 'GET',
             url: '/gestorprocedimientos/detalle',
@@ -83,104 +84,12 @@ angular.module('historial', [])
             if(data.status){
                 $scope.peticiones = data.data;
                 for(var x = 0; x < $scope.peticiones.length; x++){
+                    $scope.peticiones[x].hora_creacion = $scope.peticiones[x].fecha_creacion.split(' ')[1];
+                    $scope.peticiones[x].fecha_creacion = $scope.peticiones[x].fecha_creacion.split(' ')[0];
                     $scope.fechas.push({fecha:$scope.peticiones[x].fecha_creacion.split(' ')[0]});
                 }
-                console.log($scope.fechas);
             }
         }).error(function (data, status, headers, config){
 
         });
-
-        /*$http({
-            method: 'GET',
-            url: '/calendario/calendario_get',
-            params: {
-                pagina: $scope.pag_act,
-                cantidad: 100,
-                campo: '',
-                orden: '',
-            }
-        }).success(function (data, status, headers, config){
-            if(data.status){
-                $scope.datos = data.data;
-                var s = 0;
-                angular.forEach($scope.datos, function(obj){
-                    obj['mes'] = $filter('date')($scope.datos[s].fecha,"LLLL").trim().toUpperCase();
-                    //$scope.meses.push({nombre:$scope.datos[s].fecha.split('de ')[1].trim().toUpperCase()});
-                    s+=1;
-                });
-                eventDates = $scope.datos;
-
-                $scope.datostr();
-                $scope.paginas = data.data[0].paginas_total;
-            }
-        }).error(function (data, status, headers, config){
-
-        });
-
-        $scope.info = function(idx){
-            $('#map').empty();
-            $scope.modal_info = $scope.datos[idx];
-            $('#map').append('<iframe width="100%" height="400px" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+$scope.datos[idx].lat_long.split(",")[0]+','+$scope.datos[idx].lat_long.split(",")[1]+'&key=AIzaSyDGTudSloc1qFPppXGDmSpMVNAnBqj51ow" allowfullscreen></iframe>');
-        }
-        $scope.datostr = function(){
-            var IDs = [];
-            $("#calendario").find("div").each(function(){ IDs.push(this.id); });
-
-            var fin = false;
-
-            for(var x=0; x < $scope.datos.length;x++){
-                if(fin == true){
-                    break;
-                }else{
-                    for(var y=0; y < IDs.length;y++){
-                        if ($scope.datos[x].fecha == IDs[y]) {
-                            $('#'+IDs[y]).addClass("bold");
-                        }else{
-                            if($filter('date')($scope.datos[x],"MM") > $filter('date')(IDs[y].fecha,"MM")){
-                                fin = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        var eventDates = [];
-        $('#calendario').datepicker({
-            onRenderCell: function (date, cellType) {
-                var currentDate = date.getDate();
-                var fecha = $filter('date')(date,"yyyy-MM-dd");
-                if(cellType == 'day'){
-                    return {
-                        html: '<div id="'+fecha+'">'+currentDate+'</div>'
-                    }
-                }
-            },
-            onChangeView: function(view) {
-                if(view == 'days'){
-                    $scope.datostr();
-                }
-            },
-            onSelect: function onSelect(fd, date) {
-                var fecha = $filter('date')(date,"yyyy-MM-dd");
-                var title = '', content = ''
-                // If date with event is selected, show it
-                for(var x=0; x < $scope.datos.length;x++){
-                    if (fecha == $scope.datos[x].fecha) {
-                        $scope.info(x);
-                        $('#myModal').modal('toggle');
-                        $scope.$apply();
-                    }else{
-
-                    }
-                }
-                $scope.datostr();
-
-            },
-            onChangeMonth: function(month, year) {
-                $scope.datostr();
-            }
-        });*/
     });

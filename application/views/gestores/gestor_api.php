@@ -22,12 +22,12 @@
                     <div class="container" style="width:80%;">
                         <div class="row">
                             <a href="/" class="brand-logo" style="color:#B1B1B1; margin-top:10px;"><img src="/assets/img/logo_admin.png" style="width:55px; height:50px;"/>&nbsp;ADMINISTRACIÓN DE MÓDULOS</a>
-                            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                            <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                                <li><a style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown2' ng-if="rol==3">Insertar <img style="width:10; height:10px;" src="/assets/img/arrows.png" /></a></li>
+                                <li><a style="padding-inline-start:100px;" class="dropdown-button" href="" data-activates='dropdown2' ng-if="rol==3">Insertar <img style="width:10; height:10px;" src="/assets/img/arrows.png" /></a></li>
                                 <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
                                 <li><a ng-click="verresponsables()">Responsables</a></li>
-                                <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
+                                <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
                                 <li><a href="/api" style="border-bottom:solid #00A79D;">Api's</a></li>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="row">
                             <div class="col s4" style="font-size:30px; height:0px;">
-                                <a id="activo" style="color:#6F6F6F;" class="dropdown-button" href="#" data-activates='api'><span style="color:#B1B1B1;">API'S&nbsp;</span><span style="color:#00A79D;"><span id="total_apis"></span>&nbsp;<img style="width:10; height:10px;" src="/assets/img/arrows.png" /></span></a>
+                                <a id="activo" style="color:#6F6F6F;" class="dropdown-button" href="" data-activates='api'><span style="color:#B1B1B1;">API'S&nbsp;</span><span style="color:#00A79D;"><span id="total_apis"></span>&nbsp;<img style="width:10; height:10px;" src="/assets/img/arrows.png" /></span></a>
                             </div>
                         </div>
                     </div>
@@ -45,10 +45,10 @@
             </nav>
                                 <!-- Dropdown Structure -->
                                 <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
-                                  <li><a href="#!">Mis Pendientes</a></li>
+                                  <li><a href="">Mis Pendientes</a></li>
                                   <li><a href="/mi_perfil">Mi perfil</a></li>
                                   <li ng-if="rol==1"><a href="/reporte_alcance">Reportes</a></li>
-                                  <li><a href="#!" ng-click="logout()">Salir</a></li>
+                                  <li><a href="" ng-click="logout()">Salir</a></li>
                                 </ul>
 
                                 <ul id='dropdown2' class='dropdown-content'style="margin-top:45px;">
@@ -57,8 +57,8 @@
                                 </ul>
 
                                 <ul id='api' class='dropdown-content'style="margin-top:45px;" width="100px">
-                                  <li><a href="#!">Todos</a></li>
-                                  <li><a href="#!">En los que trabajo</a></li>
+                                  <li><a href="">Todos</a></li>
+                                  <li><a href="">En los que trabajo</a></li>
                                 </ul>
 
 
@@ -224,7 +224,7 @@
                 </div>
                 <div class="modal-footer">
                     <center>
-                        <a href="#!" class="waves-effect btn waves-green btn-flat " ng-click="nuevo()">ACEPTAR</a>
+                        <a href="" class="waves-effect btn waves-green btn-flat " ng-click="nuevo()">ACEPTAR</a>
                     </center>
                 </div>
             </div>
@@ -252,7 +252,7 @@
                 </div>
                 <div class="modal-footer">
                     <center>
-                        <a href="#!" class="waves-effect btn waves-green btn-flat ">ACEPTAR</a>
+                        <a href="" class="waves-effect btn waves-green btn-flat ">ACEPTAR</a>
                     </center>
                 </div>
             </div>
@@ -286,7 +286,7 @@
                 </div>
                 <div class="modal-footer">
                     <center>
-                        <a href="#!" class="waves-effect btn waves-green btn-flat " ng-click="activarModalbased(0)">ACEPTAR</a>
+                        <a href="" class="waves-effect btn waves-green btn-flat " ng-click="activarModalbased(0)">ACEPTAR</a>
                     </center>
                 </div>
             </div>

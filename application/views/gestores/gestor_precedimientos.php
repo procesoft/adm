@@ -294,19 +294,42 @@
                             <div class="row">
                                 <p><strong>Historial de modificiaciones</strong></p>
                                 <div class="col s12">
-                                    <div class="col s1">
-                                        <input type="checkbox" id="test5" class="filled-in"/>
-                                        <label for="test5"></label>
-                                    </div>
-                                    <div class="col s11">
-                                        <div>
-                                            <span>18 marzo 2016 - 10:00 am</span>
+                                    <div class="row" ng-repeat="peticiones in peticiones">
+                                        <div ng-if="peticiones.tipo == 'C'">
+                                            <div class="col s1">
+                                                <div ng-if="resp == true">
+                                                    <input type="checkbox" id="test5" class="filled-in"/>
+                                                    <label for="test5"></label>
+                                                </div>
+                                                &nbsp;
+                                            </div>
+                                            <div class="col s11">
+                                                <div>
+                                                    <span class="grey-text lighten-3">{{peticiones.fecha_creacion | date: "dd' 'MMMM' 'yyyy"}} - {{peticiones.hora_creacion}}</span>
+                                                </div>
+                                                <div>
+                                                    <strong>{{peticiones.nick}}</strong>
+                                                </div>
+                                                <div>
+                                                    {{peticiones.comentario}}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <strong>Carlos</strong>
-                                        </div>
-                                        <div>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum elit ante, sit amet commodo velit viverra vitae.
+                                        <div ng-if="peticiones.tipo == 'T'" class="col s11 offset-s1">
+                                            <div class="col s11 offset-s1">
+                                                <div class="col" style="margin-right: 10px">
+                                                    <img src="/assets/img/avatar.png" alt="" width="25px"/>
+                                                </div>
+                                                <div>
+                                                    <strong>{{peticiones.nick}}</strong>
+                                                </div>
+                                                <div>
+                                                    {{peticiones.comentario}}
+                                                </div>
+                                            </div>
+                                            <div class="col s12" style="padding-top: 15px">
+                                                <hr style="border-color:white">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

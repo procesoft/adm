@@ -24,7 +24,7 @@
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
                                 <li><a href="/api">Api's</a></li>
                                 <li><a ng-click="verresponsables()" style="border-bottom:solid #00A79D;">Responsables</a></li>
-                                <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="#" data-activates='dropdown1'>Hola!! </a></li>
+                                <li><a id="sesion" style="padding-inline-start:100px;" class="dropdown-button" href="" data-activates='dropdown1'>Hola!! </a></li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
                                 <li><a href="/api">Api's</a></li>
@@ -42,15 +42,15 @@
             </nav>
             <!-- Dropdown Structure -->
             <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
-              <li><a href="#!">Mis Pendientes</a></li>
-              <li><a href="/mi_perfil">Mi perfil</a></li>
-              <li ng-if="rol==1"><a href="/reporte_alcance">Reportes</a></li>
-              <li><a href="#!" ng-click="logout()">Salir</a></li>
+                <li><a href="">Mis Pendientes</a></li>
+                <li><a href="/mi_perfil">Mi perfil</a></li>
+                <li ng-if="rol==1"><a href="/reporte_alcance">Reportes</a></li>
+                <li><a href="" ng-click="logout()">Salir</a></li>
             </ul>
             <div class="row">
                 <div class="col s10 offset-s1">
                     <div class="row">
-                        <div class="col s12" style="margin-top:80px;">
+                        <div class="col s12" style="margin-top:95px;">
                             <a href="/procedimientos/{{historial.id_tabla}}"><h5 style="color:#B1B1B1;">< Regresar</h5></a>
                         </div>
                         <div class="col s12">
@@ -152,10 +152,10 @@
                         <div style="color: white; background-color: #232A36; width: 200px" class="chip center">{{fechas.fecha | date: "dd' 'MMMM' 'yyyy"}}</div>
                     </div>
                     <div class="row" ng-repeat="peticiones in peticiones">
-                        <div ng-if="peticiones.tipo == 'C'">
+                        <div ng-if="peticiones.tipo == 'C' && peticiones.fecha_creacion == fechas.fecha">
                             <div class="col s11 offset-s1">
                                 <div>
-                                    <span>{{peticiones.fecha_creacion}}</span>
+                                    <span class="grey-text lighten-3">{{peticiones.fecha_creacion | date: "dd' 'MMMM' 'yyyy"}} - {{peticiones.hora_creacion}}</span>
                                 </div>
                                 <div>
                                     <strong>{{peticiones.nick}}</strong>
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div ng-if="peticiones.tipo == 'T'" class="col s11 offset-s1">
+                        <div ng-if="peticiones.tipo == 'T' && peticiones.fecha_creacion == fechas.fecha" class="col s11 offset-s1">
                             <div class="col s11 offset-s1">
                                 <div class="col" style="margin-right: 10px">
                                     <img src="/assets/img/avatar.png" alt="" width="25px"/>
