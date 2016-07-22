@@ -28,7 +28,7 @@ angular.module('appResponsables', [])
     $scope.listas = [];
     $scope.ocultar=false;
     $scope.pagina=1;
-    $scope.tamano="";
+    $scope.tamano=($('#tamano').val()==""?0:$('#tamano').val()),;
 
 $scope.fechas=function(ini){
     if(ini != ""){
