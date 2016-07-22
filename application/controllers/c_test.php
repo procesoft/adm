@@ -33,7 +33,7 @@ class C_test extends CI_Controller {
                 $v_modulos_minimos = '';
             }
             $query = $this->db->query('call sp_get_reporte_apis(?,?,?,?,?)',array($v_fecha_inicio,$v_fecha_fin,$v_modulos_minimos,1,0));
-            echo $query;
+           
             
             if (!$query) {
                 throw new Exception('Error en query');
@@ -52,6 +52,7 @@ class C_test extends CI_Controller {
         }
 
         if ($bandera_continuar_tras == true) {
+             echo $info;
             // create new PDF document
             $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
