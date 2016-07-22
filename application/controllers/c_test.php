@@ -171,7 +171,7 @@ EOD;
 
             $pdf->SetFont('times', '', 8.5);
             $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-            ob_end_clean();
+            
             // TERMINA FORMATO DE DESISTIMIENTO DE ASIGNACIÓN EN ESTRATEGIA DE ORDENAMIENTO ANTERIOR
             // ---------------------------------------------------------
             // Close and output PDF document
