@@ -28,7 +28,7 @@ angular.module('appResponsables', [])
     $scope.listas = [];
     $scope.ocultar=false;
     $scope.pagina=1;
-    $scope.tamano=($('#tamano').val()==""?0:$('#tamano').val()),;
+    $scope.tamano="";
 
 $scope.fechas=function(ini){
     if(ini != ""){
@@ -89,7 +89,7 @@ $scope.listar_datos=function(){
         params: {
             v_fecha_inicio:fecha_in,
             v_fecha_fin:fecha_fin,
-            v_modulos_minimos:$('#tamano').val(),
+            v_modulos_minimos:($('#tamano').val()==""?0:$('#tamano').val()),
             v_num_pagina:$scope.pagina,
             v_cantidad:10,
         }
