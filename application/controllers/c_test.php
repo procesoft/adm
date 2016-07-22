@@ -33,8 +33,8 @@ class C_test extends CI_Controller {
                 $v_modulos_minimos = '';
             }
             $query = $this->db->query('call sp_get_reporte_apis(?,?,?,?,?)',array($v_fecha_inicio,$v_fecha_fin,$v_modulos_minimos,1,0));
-            print_r $query;
-            die;
+            echo $query;
+            
             if (!$query) {
                 throw new Exception('Error en query');
                 return false;
