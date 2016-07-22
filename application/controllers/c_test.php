@@ -33,8 +33,8 @@ class C_test extends CI_Controller {
                 $v_modulos_minimos = '';
             }
             $query = $this->db->query('call sp_get_reporte_apis(?,?,?,?,?)',array($v_fecha_inicio,$v_fecha_fin,$v_modulos_minimos,1,0));
-           
-            
+
+
             if (!$query) {
                 throw new Exception('Error en query');
                 return false;
@@ -52,7 +52,7 @@ class C_test extends CI_Controller {
         }
 
         if ($bandera_continuar_tras == true) {
-             
+
            // create new PDF document
             $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -142,10 +142,10 @@ class C_test extends CI_Controller {
                         .'<th style="text-align: center;width:10%;"></th>'
                         .'<th style="text-align: center;width:15%;"></th>'
                         .'<th style="text-align: center;width:10%;"></th>'
-                        .'</tr>';
-                        
+                        .'</tr></table>';
+
             foreach ($info as $datos) {
-                    $raw_html .='<tr>'
+                    $raw_html .='<table><tr>'
                         .'<td style="text-align: center;width:25%;">' . $datos['nombre'] .'</td>'
                         .'<td style="text-align: center;width:25%;">' . $datos['fecha'] .'</td>'
                         .'<td style="text-align: center;width:10%;">' . $datos['modulos'] .'</td>'
@@ -171,7 +171,7 @@ EOD;
 
             $pdf->SetFont('times', '', 8.5);
             $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-            
+
             // TERMINA FORMATO DE DESISTIMIENTO DE ASIGNACIÓN EN ESTRATEGIA DE ORDENAMIENTO ANTERIOR
             // ---------------------------------------------------------
             // Close and output PDF document
