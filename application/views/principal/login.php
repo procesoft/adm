@@ -63,7 +63,7 @@
    				<center><button style="background-color:#26A69A; border-color:#26A69A" class="btn btn-primary" type="button" name="button" onclick="login()">INGRESAR</button></center>
    			</div>
    			<div class="row form-group">
-   				<center><h4><a href="#" style="color:#E6E6E6">Olvidé mi contraseña</a></h4></center>
+   				<center><h4><a href="" style="color:#E6E6E6">Olvidé mi contraseña</a></h4></center>
    			</div>
    		</div>
       <!-- /.modal -->
