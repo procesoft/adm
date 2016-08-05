@@ -50,6 +50,7 @@ $route['mi_perfil'] = "perfil";
 $route['detalle_responsable/(:num)'] = "peticiones_res";
 $route['historial/(:num)'] = "historial";
 $route['reporte_alcance'] = "report";
+$route['reporte_usuario'] = "reporte_usu";
 $route['404_override'] = '';
 
 

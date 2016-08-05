@@ -11,6 +11,240 @@ class Gestormodulos extends CI_Controller {
             header('Location:/login');
         }
     }
+    function revision(){
+        try{
+            extract($_POST);
+            $query = $this->db->query('SELECT FN_PUT_STATUS(?,?,?) as resultado',array($v_id_login,$v_id_modulo,'R'));
+            if(!$query){
+                throw new Exception("Error BD");
+            }
+            if($query->result()[0]->resultado==0){
+                echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }else{
+				try{
+					$error = $this->db->query('SELECT * from adm_cat_errores where codigo=?',array($query->result()[0]->resultado));
+					if(!$error){
+		                throw new Exception("Error BD");
+		            }
+					echo json_encode(array('status' => False, 'data' => $error->result()[0]->mensaje));
+				}catch(Exception $e){
+					echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
+				}
+            }
+        }catch(Exception $e){
+            echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
+        }
+    }
+    function terminado(){
+        try{
+            extract($_POST);
+            $query = $this->db->query('SELECT FN_PUT_STATUS(?,?,?) as resultado',array($v_id_login,$v_id_modulo,'T'));
+            if(!$query){
+                throw new Exception("Error BD");
+            }
+            if($query->result()[0]->resultado==0){
+                echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }else{
+				try{
+					$error = $this->db->query('SELECT * from adm_cat_errores where codigo=?',array($query->result()[0]->resultado));
+					if(!$error){
+		                throw new Exception("Error BD");
+		            }
+					echo json_encode(array('status' => False, 'data' => $error->result()[0]->mensaje));
+				}catch(Exception $e){
+					echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
+				}
+            }
+        }catch(Exception $e){
+            echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
+        }
+    }
+    function progreso(){
+        try{
+            extract($_POST);
+            $query = $this->db->query('SELECT FN_PUT_STATUS(?,?,?) as resultado',array($v_id_login,$v_id_modulo,'P'));
+            if(!$query){
+                throw new Exception("Error BD");
+            }
+            if($query->result()[0]->resultado==0){
+                echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }else{
+				try{
+					$error = $this->db->query('SELECT * from adm_cat_errores where codigo=?',array($query->result()[0]->resultado));
+					if(!$error){
+		                throw new Exception("Error BD");
+		            }
+					echo json_encode(array('status' => False, 'data' => $error->result()[0]->mensaje));
+				}catch(Exception $e){
+					echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
+				}
+            }
+        }catch(Exception $e){
+            echo json_encode(array('status' => FALSE, 'data' => "Error BD"));
+        }
+    }
+    function usuario_qa(){
+        try{
+            $query = $this->db->query('SELECT * FROM adm_cat_responsables WHERE id_rol=6');
+            if(!$query){
+                throw new Exception("Error BD");
+            }
+            if($query->num_rows()>0){
+                echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }else{
+                echo json_encode(array('status' => false, 'data' => 'no data'));
+            }
+        }catch(Exception $e){
+
+        }
+    }
+    function usuario_responsables(){
+        try{
+            $query = $this->db->query('SELECT * FROM adm_cat_responsables WHERE id_rol=1 or id_rol=3 or id_rol=2');
+            if(!$query){
+                throw new Exception("Error BD");
+            }
+            if($query->num_rows()>0){
+                echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }else{
+                echo json_encode(array('status' => false, 'data' => 'no data'));
+            }
+        }catch(Exception $e){
+
+        }
+    }
+    function usuario_web(){
+        try{
+            $query = $this->db->query('SELECT * FROM adm_cat_responsables WHERE id_rol=2');
+            if(!$query){
+                throw new Exception("Error BD");
+            }
+            if($query->num_rows()>0){
+                echo json_encode(array('status' => TRUE, 'data' => $query->result_array()));
+            }else{
+                echo json_encode(array('status' => false, 'data' => 'no data'));
+            }
+        }catch(Exception $e){
+
+        }
+    }
+    function correo_revision(){
+        $modulo=$_POST['modulo'];
+        $correo=$_POST['correo'];
+
+        require_once("assets/PHPMailer/class.phpmailer.php");
+        require_once("assets/PHPMailer/class.smtp.php");
+        require_once("assets/PHPMailer/PHPMailerAutoload.php");
+
+        $this->email = new PHPMailer();
+        $this->email->IsSMTP();
+        $this->email->SMTPDebug = 2;
+        $this->email->SMTPAuth = true;
+        $this->email->SMTPSecure = "ssl";
+        $this->email->Host = "smtp.gmail.com";
+        $this->email->Port = 465;
+        $this->email->Username = 'contacto.procesoft@gmail.com';
+        $this->email->From = "contacto.procesoft@gmail.com";
+        $this->email->Password = "utjproyecto";
+
+        $this->email->From = "contacto.procesoft@gmail.com";
+        $this->email->FromName = "Procesoft";
+        $this->email->Subject = "ADM::Cambio de estatus";
+        $this->email->MsgHTML("Hola QA!!<br> En estos momentos cambiaron a estatus de revisión el siguiente modulo:<br><br>".$modulo);
+
+        $this->email->AddAddress($correo, "destinatario");
+
+        $this->email->IsHTML(true);
+        if(!$this->email->Send()) {
+            print_r('mal');
+            echo "<b>Error:" . $this->email->ErrorInfo."</b><br/>";
+        }
+        else {
+            print_r('bien');
+            return "Mensaje enviado correctamente";
+        }
+
+
+
+    }
+    function correo_progreso(){
+        $modulo=$_POST['modulo'];
+        $correo=$_POST['correo'];
+
+        require_once("assets/PHPMailer/class.phpmailer.php");
+        require_once("assets/PHPMailer/class.smtp.php");
+        require_once("assets/PHPMailer/PHPMailerAutoload.php");
+
+        $this->email = new PHPMailer();
+        $this->email->IsSMTP();
+        $this->email->SMTPDebug = 2;
+        $this->email->SMTPAuth = true;
+        $this->email->SMTPSecure = "ssl";
+        $this->email->Host = "smtp.gmail.com";
+        $this->email->Port = 465;
+        $this->email->Username = 'contacto.procesoft@gmail.com';
+        $this->email->From = "contacto.procesoft@gmail.com";
+        $this->email->Password = "utjproyecto";
+
+        $this->email->From = "contacto.procesoft@gmail.com";
+        $this->email->FromName = "Procesoft";
+        $this->email->Subject = "ADM::Cambio de estatus";
+        $this->email->MsgHTML("Hola!!<br> En estos momentos QA revisó el siguiente modulo:<br>".$modulo."<br>Y lo regreso a estatus de progreso");
+
+        $this->email->AddAddress($correo, "destinatario");
+
+        $this->email->IsHTML(true);
+        if(!$this->email->Send()) {
+            print_r('mal');
+            echo "<b>Error:" . $this->email->ErrorInfo."</b><br/>";
+        }
+        else {
+            print_r('bien');
+            return "Mensaje enviado correctamente";
+        }
+
+
+
+    }
+    function correo_terminado(){
+        $modulo=$_POST['modulo'];
+        $correo=$_POST['correo'];
+
+        require_once("assets/PHPMailer/class.phpmailer.php");
+        require_once("assets/PHPMailer/class.smtp.php");
+        require_once("assets/PHPMailer/PHPMailerAutoload.php");
+
+        $this->email = new PHPMailer();
+        $this->email->IsSMTP();
+        $this->email->SMTPDebug = 2;
+        $this->email->SMTPAuth = true;
+        $this->email->SMTPSecure = "ssl";
+        $this->email->Host = "smtp.gmail.com";
+        $this->email->Port = 465;
+        $this->email->Username = 'contacto.procesoft@gmail.com';
+        $this->email->From = "contacto.procesoft@gmail.com";
+        $this->email->Password = "utjproyecto";
+
+        $this->email->From = "contacto.procesoft@gmail.com";
+        $this->email->FromName = "Procesoft";
+        $this->email->Subject = "ADM::Cambio de estatus";
+        $this->email->MsgHTML("Hola!!<br> En estos momentos el siguiente modulo:<br>".$modulo."<br> Se dio por terminado.");
+
+        $this->email->AddAddress($correo, "destinatario");
+
+        $this->email->IsHTML(true);
+        if(!$this->email->Send()) {
+            print_r('mal');
+            echo "<b>Error:" . $this->email->ErrorInfo."</b><br/>";
+        }
+        else {
+            print_r('bien');
+            return "Mensaje enviado correctamente";
+        }
+
+
+
+    }
     function detalles_modulos(){
         try{
             extract($_GET);
