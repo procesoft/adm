@@ -557,6 +557,190 @@ $scope.prueba = function(val){
         }
     }
 
+    $scope.terminado=function(nom,id){
+        $.ajax({
+            url:"/gestormodulos/terminado",
+            dataType:"json",
+            type:"POST",
+            data:{
+                v_id_login:usuario[0].id_responsable,
+                v_id_modulo:id,
+            },
+            success: function(data){
+                if (data.status) {
+                    $.ajax({
+                        url:"/gestormodulos/usuario_responsables",
+                        dataType:"json",
+                        type:"GET",
+                        success: function(data){
+                            if (data.status) {
+                                for(var x=0;x<data.data.length;x++){
+                                    console.log(data.data[x].usuario);
+                                    $scope.correo_terminado(data.data[x].usuario,nom);
+                                }
+                                swal({
+                                    title: 'Correcto',
+                                    text: "Se dió por terminado el modulo!!",
+                                    type: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Aceptar",
+                                    closeOnConfirm: true
+                                },
+                                function(){
+                                    $scope.listar_apis();
+                                });
+                            }else{
+                                swal("Alerta",data.data,"warning");
+                            }
+                        }
+                    });
+                }else{
+                    swal("Alerta",data.data,"warning");
+                }
+            }
+        });
+    }
+    $scope.revision=function(nom,id){
+        $.ajax({
+            url:"/gestormodulos/revision",
+            dataType:"json",
+            type:"POST",
+            data:{
+                v_id_login:usuario[0].id_responsable,
+                v_id_modulo:id,
+            },
+            success: function(data){
+                if (data.status) {
+                    $.ajax({
+                        url:"/gestormodulos/usuario_qa",
+                        dataType:"json",
+                        type:"GET",
+                        success: function(data){
+                            if (data.status) {
+                                for(var x=0;x<data.data.length;x++){
+                                    console.log(data.data[x].usuario);
+                                    $scope.correo_revision(data.data[x].usuario,nom);
+                                }
+                                swal({
+                                    title: 'Correcto',
+                                    text: "Se mando a revisión el modulo!!",
+                                    type: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Aceptar",
+                                    closeOnConfirm: true
+                                },
+                                function(){
+                                    $scope.listar_apis();
+                                });
+                            }else{
+                                swal("Alerta",data.data,"warning");
+                            }
+                        }
+                    });
+                }else{
+                    swal("Alerta",data.data,"warning");
+                }
+            }
+        });
+    }
+    $scope.correo_revision=function(usu,nom){
+        $.ajax({
+            url:"/gestormodulos/correo_revision",
+            dataType:"json",
+            type:"POST",
+            data:{
+                modulo:nom,
+                correo:usu,
+            },
+            success: function(data){
+                if (data.status) {
+                }else{
+                    console.log(data.status);
+                }
+            }
+        });
+    }
+    $scope.correo_progreso=function(usu,nom){
+        $.ajax({
+            url:"/gestormodulos/correo_progreso",
+            dataType:"json",
+            type:"POST",
+            data:{
+                modulo:nom,
+                correo:usu,
+            },
+            success: function(data){
+                if (data.status) {
+                }else{
+                    console.log(data.status);
+                }
+            }
+        });
+    }
+    $scope.correo_terminado=function(usu,nom){
+        $.ajax({
+            url:"/gestormodulos/correo_terminado",
+            dataType:"json",
+            type:"POST",
+            data:{
+                modulo:nom,
+                correo:usu,
+            },
+            success: function(data){
+                if (data.status) {
+                }else{
+                    console.log(data.status);
+                }
+            }
+        });
+    }
+    $scope.progreso=function(nom,id){
+        $.ajax({
+            url:"/gestormodulos/progreso",
+            dataType:"json",
+            type:"POST",
+            data:{
+                v_id_login:usuario[0].id_responsable,
+                v_id_modulo:id,
+            },
+            success: function(data){
+                if (data.status) {
+                    $.ajax({
+                        url:"/gestormodulos/usuario_web",
+                        dataType:"json",
+                        type:"GET",
+                        success: function(data){
+                            if (data.status) {
+                                for(var x=0;x<data.data.length;x++){
+                                    console.log(data.data[x].usuario);
+                                    $scope.correo_progreso(data.data[x].usuario,nom);
+                                }
+                                swal({
+                                    title: 'Correcto',
+                                    text: "Se regreso a progreso el modulo!!",
+                                    type: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Aceptar",
+                                    closeOnConfirm: true
+                                },
+                                function(){
+                                    $scope.listar_apis();
+                                });
+                            }else{
+                                swal("Alerta",data.data,"warning");
+                            }
+                        }
+                    });
+                }else{
+                    swal("Alerta",data.data,"warning");
+                }
+            }
+        });
+    }
+
     $scope.filtros();
     $scope.filtros2();
     $scope.listar_apis();
