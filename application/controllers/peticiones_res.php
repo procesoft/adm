@@ -62,7 +62,7 @@ class Peticiones_res extends CI_Controller {
 			extract($_GET);
 
 
-			$query = $this->db->query('CALL sp_get_historial_responsables(?,?,?,?,?,?)',array($v_id_login,$v_id_responsables,$v_id_accion,$v_accion,$v_num_paginas,$v_cantidad));
+			$query = $this->db->query('CALL sp_get_historial_responsables(?,?,?,?,?,?,?)',array($v_id_login,$v_id_responsables,$v_id_accion,$v_accion,"",$v_num_paginas,$v_cantidad));
 			if(!$query){
 				throw new Exception("Error BD");
 			}

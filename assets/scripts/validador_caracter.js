@@ -1,8 +1,8 @@
 function soloLetras(e){
        key = e.keyCode || e.which;
        tecla = String.fromCharCode(key).toLowerCase();
-       letras = " abcdefghijklmnñopqrstuvwxyzó";
-       especiales = "8-37-39-46";
+       letras = " abcdefghijklmnñopqrstuvwxyzó_";
+       especiales = "8-37-39-46-32";
 
        tecla_especial = false
        for(var i in especiales){

@@ -45,7 +45,7 @@
 
                                 <!-- Dropdown Structure -->
                                 <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
-                                  <li><a href="">Mis Pendientes</a></li>
+                                  <li><a href="/mi_historial">Mis Pendientes</a></li>
                                   <li><a href="/mi_perfil">Mi perfil</a></li>
                                   <li><a href="/reporte_alcance">Reportes</a></li>
                                   <li><a href="" ng-click="logout()">Salir</a></li>

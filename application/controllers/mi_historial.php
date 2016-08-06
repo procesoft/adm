@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Historial extends CI_Controller {
+class Mi_historial extends CI_Controller {
 
     public function index(){
         session_start();
         if(isset($_SESSION['email'])){
-            $this->load->view('historial/historial');
+            $this->load->view('historial/mi_historial');
         }else{
             header('Location:/login');
         }
@@ -23,7 +23,7 @@ class Historial extends CI_Controller {
 
 			$resultado = $query->result();
 
-			if($query->num_rows() > 0){
+			if($resultado > 0){
 				echo json_encode(array('status'=>true,'data'=>$resultado));
 			}else{
 				echo json_encode(array('status'=>false,'data'=>'No hay datos'));
@@ -35,7 +35,7 @@ class Historial extends CI_Controller {
 
     function post_peticion(){
         try {
-            $log_proc = $this->input->get('log_proc');
+            $log_proc = $this->input->get('$log_proc');
             $login = $this->input->get("login");
             $api = $this->input->get('api');
             $modulo = $this->input->get('modulo');
@@ -45,31 +45,6 @@ class Historial extends CI_Controller {
             $tipo = $this->input->get('tipo');
 
             $query = $this->db->query('SELECT fn_post_log_procedimientos(?,?,?,?,?,?,?,?) as resultado', array($log_proc,$login,$api,$modulo,$tabla,$proc,$comentario,$tipo));
-
-            $resultado = $query->row()->resultado;
-
-			if($query){
-				if($resultado >= 0){
-					echo json_encode(array('status'=>true,'data'=>$resultado));
-				}else{
-					$query = $this->db->query('CALL sp_get_error (?)', array($resultado));
-					$error = $query->result();
-					echo json_encode(array('status'=>false,'data'=>$error));
-				}
-			}else{
-				throw new Exception('Error BD');
-			}
-		} catch (Exception $e) {
-			echo json_encode(array('status'=>false,'data'=>'Error en base de datos'));
-		}
-    }
-
-    function fin_tarea(){
-        try {
-            $login = $this->input->get("login");
-            $log_proc = $this->input->get('log_proc');
-
-            $query = $this->db->query('SELECT fn_post_terminar_tarea(?,?) as resultado', array($login,$log_proc));
 
             $resultado = $query->row()->resultado;
 

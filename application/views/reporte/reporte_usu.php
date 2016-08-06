@@ -37,8 +37,8 @@
 
                         <div class="row">
                             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                                <li><a href="/reporte_alcance" style="color:#B1B1B1; cursor:pointer; border-bottom:solid #00A79D;">Reporte alcance</a></li>
-                                <li><a href="/reporte_usuario" style="color:#B1B1B1; cursor:pointer;">Reporte usuario</a></li>
+                                <li><a href="/reporte_alcance" style="color:#B1B1B1; cursor:pointer; ">Reporte alcance</a></li>
+                                <li><a href="/reporte_usuario" style="color:#B1B1B1; cursor:pointer; border-bottom:solid #00A79D;">Reporte usuario</a></li>
                             </ul>
                         </div>
                     </div>
@@ -60,44 +60,61 @@
         <div class="row" style="margin-top:150px;">
             <div class="container">
                 <div class="col s11 offset-s1">
-                <label for=""> Rango de fecha</label>
                 <div class="row">
-                    <div class="input-field col s2">
-                        <input type="date"  class="datepicker" id="ini">
+
+                    <div id="activo1" class="input-field col s3 offset-s9">
+                        <select id="estatus" ng-model="estatus" ng-change="listar_datos()">
+                            <option value="" disabled selected>Activo</option>
+                            <option value="D">Definición</option>
+                            <option value="P">Progreso</option>
+                            <option value="R">Revisión</option>
+                            <option value="T">Terminado</option>
+                        </select>
                     </div>
-                    <div class="input-field col s2">
-                        <input type="date" class="datepicker"  id="fin">
-                    </div>
-                    <div class="input-field col s1">
-                        <button type="button" class="waves-effect waves-light btn" name="button" ng-click="listar_datos()">Buscar</button>
-                    </div>
-                    <div class="input-field col s2 offset-s4">
-                        <input type="text" id="tamano" placeholder="numero modulos" ng-model="tamano" ng-keyup="listar_datos()">
-                        <label for="tamano">Tamaño</label>
+                    <div id="activo2" class="input-field col s3 offset-s9">
+                        <select id="estatus2" ng-model="estatus2" ng-change="detalles(0)">
+                            <option value="" disabled selected>Activo</option>
+                            <option value="D">Definición</option>
+                            <option value="P">Progreso</option>
+                            <option value="R">Revisión</option>
+                            <option value="T">Terminado</option>
+                        </select>
                     </div>
                 </div>
                 </div>
                 <div class="row" style="margin-bottom:100px;">
                     <div class="col s11 offset-s1">
                         <table class="bordered highlight" style="margin-top:30px;" ng-show="!ocultar">
-                            <tr>
-                                <th class="text-center col-md-1">ID</th>
-                                <th class="text-center col-md-3">Nombre del api</th>
-                                <th class="text-center col-md-3">Entrega</th>
-                                <th class="text-center col-md-2">Módulos</th>
-                                <th class="text-center col-md-2">Tablas</th>
-                                <th class="text-center col-md-1">Procedimientos</th>
-                                <th class="text-center col-md-1">Dias</th>
+                            <tr ng-if="!cambio_tbl">
+                                <th style="text-align: center;">ID</th>
+                                <th style="text-align: center;">Nombre Usuario</th>
+                                <th style="text-align: center;" >Rol</th>
+                                <th style="text-align: center;" >Apis</th>
+                                <th style="text-align: center;">Módulos</th>
+                                <th style="text-align: center;">Responsable</th>
+                                <th style="text-align: center;">Auxiliar</th>
+                            </tr>
+                            <tr ng-if="cambio_tbl">
+                                <th style="text-align: center;">Nombre Api</th>
+                                <th style="text-align: center;">Situación</th>
+                                <th style="text-align: center;" >Nombre Módulo</th>
+                                <th style="text-align: center;" >Estatus</th>
                             </tr>
                         <tbody>
-                            <tr ng-repeat="listas in listas">
-                                <td class="text-center">{{listas.id_api}}</td>
-                                <td class="text-center">{{listas.nombre}}</td>
-                                <td class="text-center">{{listas.fecha | date}}</td>
-                                <td class="text-center">{{listas.modulos}}</td>
-                                <td class="text-center">{{listas.tablas}}</td>
-                                <td class="text-center">{{listas.procedimientos}}</td>
-                                <td class="text-center">{{listas.dias}}</td>
+                            <tr ng-repeat="listas in listas" ng-if="!cambio_tbl">
+                                <td style="text-align: center; cursor:pointer;" ng-click="detalles(listas.id_responsable)">{{listas.id_responsable}}</td>
+                                <td style="text-align: center; cursor:pointer;" ng-click="detalles(listas.id_responsable)">{{listas.nick}}</td>
+                                <td style="text-align: center; cursor:pointer;" ng-click="detalles(listas.id_responsable)">{{listas.id_rol}}</td>
+                                <td style="text-align: center; cursor:pointer;" ng-click="detalles(listas.id_responsable)">{{listas.apis}}</td>
+                                <td style="text-align: center; cursor:pointer;" ng-click="detalles(listas.id_responsable)">{{listas.modulos}}</td>
+                                <td style="text-align: center; cursor:pointer;" ng-click="detalles(listas.id_responsable)">{{listas.responsables}}</td>
+                                <td style="text-align: center; cursor:pointer;" ng-click="detalles(listas.id_responsable)">{{listas.auxiliares}}</td>
+                            </tr>
+                            <tr ng-repeat="listas in listas" ng-if="cambio_tbl">
+                                <td style="text-align: center;">{{listas.Api}}</td>
+                                <td style="text-align: center;">{{listas.responsable}}</td>
+                                <td style="text-align: center;">{{listas.Modulo}}</td>
+                                <td style="text-align: center;">{{listas.status}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -107,14 +124,25 @@
                         </center>
                     </div>
                 </div>
-                <div class="col s12" ng-show="pag_total != 1" style="margin-top:20px;">
+                <div class="col s12" ng-if="!cambio_tbl" ng-show="pag_total != 1" style="margin-top:20px;">
                     <center>
                         <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior(-1)">< </span>pagina {{pagina}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina == pag_total"  ng-click="siguiente(+1)"> ></span>
                     </center>
                 </div>
-                <div class="col s12" ng-show="pag_total != ''" style="margin-top:20px;">
+                <div class="col s12" ng-if="cambio_tbl" ng-show="pag_total != 1" style="margin-top:20px;">
+                    <center>
+                        <span style="cursor:pointer;" ng-hide="pagina == 1" ng-click="anterior2(-1)">< </span>pagina {{pagina2}} de {{pag_total}}<span style="cursor:pointer;" ng-hide="pagina2 == pag_total"  ng-click="siguiente2(+1)"> ></span>
+                    </center>
+                </div>
+                <div class="col s12" ng-show="pag_total != ''" style="margin-top:20px;" ng-if="!cambio_tbl">
                     <center>
                         <a ng-click="imprimir()" style="cursor:pointer;"><label for="">Ver Pdf</label><br>
+                        <img src="/assets/img/pdf.png" alt="" width="50px" /></a>
+                    </center>
+                </div>
+                <div class="col s12" ng-show="pag_total != ''" style="margin-top:20px;" ng-if="cambio_tbl">
+                    <center>
+                        <a ng-click="imprimir2()" style="cursor:pointer;"><label for="">Ver Pdf</label><br>
                         <img src="/assets/img/pdf.png" alt="" width="50px" /></a>
                     </center>
                 </div>
@@ -132,7 +160,7 @@
           <script type="text/javascript" src="/assets/plugins/materialize/js/materialize.js"></script>
           <script src="/assets/plugins/typeahead.bundle.js" charset="utf-8"></script>
           <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
-          <script src="/assets/scripts/reporte_alcance.js" charset="utf-8"></script>
+          <script src="/assets/scripts/reporte_usu.js" charset="utf-8"></script>
           <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
     </body>
   </html>

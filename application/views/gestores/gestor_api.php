@@ -45,7 +45,7 @@
             </nav>
                                 <!-- Dropdown Structure -->
                                 <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
-                                  <li><a href="">Mis Pendientes</a></li>
+                                  <li><a href="/mi_historial">Mis Pendientes</a></li>
                                   <li><a href="/mi_perfil">Mi perfil</a></li>
                                   <li><a href="/reporte_alcance">Reportes</a></li>
                                   <li><a href="" ng-click="logout()">Salir</a></li>
@@ -238,12 +238,6 @@
                     </center>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" id="nombre_servidor" placeholder="Nombre servidor" onkeypress="return soloLetras(event)" maxlength="40">
-                            <label for="nombre_api">Nombre servidor</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
                             <input type="text" id="ip" placeholder="ip del servidor" >
                             <label for="ip">ip</label>
                         </div>
@@ -252,7 +246,7 @@
                 </div>
                 <div class="modal-footer">
                     <center>
-                        <a href="" class="waves-effect btn waves-green btn-flat ">ACEPTAR</a>
+                        <a href="" class="waves-effect btn waves-green btn-flat " ng-click="activarModalServidor(0)">ACEPTAR</a>
                     </center>
                 </div>
             </div>

@@ -52,6 +52,8 @@ $route['historial/(:num)'] = "historial";
 $route['reporte_alcance'] = "report";
 $route['reporte_usuario'] = "reporte_usu";
 $route['404_override'] = '';
+$route['mi_historial'] = "mi_historial";
+$route['asignado_a'] = "asignado_a";
 
 
 

@@ -15,10 +15,9 @@ function cambio_color1(id){
 
 
 
-angular.module('appdetalle_res', [])
+angular.module('mihistorial', [])
 .controller('controlador', function($scope,$http) {
     $scope.url=window.location.href.split('/');
-    $scope.id = $scope.url[4].split('#')[0];
     $scope.listas = [];
     $scope.listas2 = [];
     $scope.ocultar=false;
@@ -38,7 +37,7 @@ $scope.listar_detalle=function(){
         method: 'GET',
         url: '/peticiones_res/detalle',
         params: {
-            v_id_responsables:$scope.id ,
+            v_id_responsables:usuario[0].id_responsable ,
         }
     }).success(function (data, status, headers, config){
         if(data.status){
@@ -49,7 +48,7 @@ $scope.listar_detalle=function(){
                 data.data[0].activo='Deshabilitado';
             }
             $('#status').append(data.data[0].activo);
-            $('#modulos').append(data.data[0].modulos);
+            $('#modulos').append(data.data[0].nombre);
             $('#rol').append(data.data[0].rol);
             $('#mail').append(data.data[0].usuario);
         }else{
@@ -66,7 +65,7 @@ $scope.listar_tareas=function(){
         method: 'GET',
         url: '/peticiones_res/tareas',
         params: {
-            v_id_responsables:$scope.id,
+            v_id_responsables:usuario[0].id_responsable,
         }
     }).success(function (data, status, headers, config){
         if(data.status){
@@ -92,10 +91,10 @@ $scope.testAllowed = function () {
         },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: '/peticiones_res/historial?v_id_login=%RES&v_id_responsables=0&v_accion=%QUERY&v_id_accion=0&v_num_paginas=1&v_cantidad=10',
+            url: '/peticiones_res/historial?v_id_login=%RES&v_id_responsables=0&v_accion=%QUERY&v_id_accion=0&v_fecha=&v_num_paginas=1&v_cantidad=10',
             replace: function (url, query) {
                 var nombre = encodeURIComponent($("#txt_buscador").val());
-                var res=encodeURIComponent($scope.id);
+                var res=encodeURIComponent(usuario[0].id_responsable);
                 var uri = url.replace('%QUERY', nombre).replace('%RES', res);
                 return uri;
             },
@@ -143,10 +142,11 @@ $scope.historial=function(){
         method: 'GET',
         url: '/peticiones_res/historial',
         params: {
-            v_id_login:$scope.id,
+            v_id_login:usuario[0].id_responsable,
             v_id_responsables:0,
             v_id_accion:0,
             v_accion:$("#txt_buscador").val(),
+            v_fecha:'',
             v_num_paginas:$scope.pagina,
             v_cantidad:10,
         }
@@ -162,14 +162,47 @@ $scope.historial=function(){
                     nick_responsable:data.data[i].nick_responsable,
                 });
             }
-
+            $scope.ocultar = false;
         }else{
-
+            $scope.ocultar = true;
         }
     }).error(function (data, status, headers, config){
 
     });
 
+}
+
+$scope.fin_tarea = function(v){
+    if($('#cb_'+v).prop('checked') == true){
+        swal({
+            title: '¿Finalizar tarea?',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, Estoy de acuerdo',
+            cancelButtonText: 'Cancelar'
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                $http({
+                    method: 'POST',
+                    url: '/historial/fin_tarea',
+                    params: {
+                        login: usuario[0].id_responsable,
+                        log_proc: v
+                    }
+                }).success(function (data, status, headers, config){
+                    if(data.status){
+                        swal('Listo','','success');
+                        $scope.listar_tareas();
+                    }
+                }).error(function (data, status, headers, config){
+
+                });
+            }else{
+                $('#cb_'+v).prop('checked', false);
+            }
+        })
+    }
 }
 
     $scope.logout=function(){
