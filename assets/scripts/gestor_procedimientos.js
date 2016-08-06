@@ -46,6 +46,19 @@ angular.module('appprocedimientos', [])
       return output;
    };
 })
+.directive('myEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.myEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    }
+})
 .controller('controlador', function($scope,$http) {
     $scope.url=window.location.href.split('/');
     $scope.id = $scope.url[4].split('#')[0];
@@ -68,7 +81,12 @@ angular.module('appprocedimientos', [])
     $scope.peticiones = [];
     $scope.fechas = [];
     $scope.resp = false;
+    $scope.asig = false;
     $scope.rol=usuario[0].id_rol;
+    $scope.pag_pet = 1;
+    $scope.respuesta = [];
+    $scope.nod_p = true;
+    $scope.peticion_proc = "";
 
     $scope.anterior=function(val){
         $scope.pagina+=parseInt(val);
@@ -314,10 +332,20 @@ angular.module('appprocedimientos', [])
             success: function(data){
                 if (data.status) {
                     $scope.detalle_proc = data.data[0];
+                    if(usuario[0].id_responsable == $scope.detalle_proc.id_responsable_base || usuario[0].id_responsable == $scope.detalle_proc.id_auxiliar_base){
+                        $scope.resp = true;
+                    }else{
+                        $scope.resp = false;
+                    }
+                    if(usuario[0].id_responsable == $scope.detalle_proc.id_responsable_base || usuario[0].id_responsable == $scope.detalle_proc.id_auxiliar_base || usuario[0].id_responsable == $scope.detalle_proc.id_responsable_web || usuario[0].id_responsable == $scope.detalle_proc.id_auxiliar_web){
+                        $scope.asig = true;
+                    }else{
+                        $scope.asig = false;
+                    }
                     $scope.detalle_proc.fecha_creacion = $scope.detalle_proc.fecha_creacion.split(' ')[0];
                     $scope.detalle_proc.fecha_modificacion = $scope.detalle_proc.fecha_modificacion.split(' ')[0];
                     $scope.$apply();
-                    $scope.peticiones(val);
+                    $scope.llamarpeticiones(val);
                 }else{
                     swal("Alerta",data.data,"warning");
                 }
@@ -325,28 +353,27 @@ angular.module('appprocedimientos', [])
         });
     }
 
-    $scope.peticiones = function(val){
+    $scope.llamarpeticiones = function(val){
         $http({
             method: 'GET',
             url: '/historial/peticiones',
             params: {
                 id: val,
                 pagina: 1,
-                cantidad: 10,
+                cantidad: 5,
             }
         }).success(function (data, status, headers, config){
             if(data.status){
                 $scope.peticiones = data.data;
-                if(usuario[0].id_responsable == $scope.detalle_proc.id_responsable_base || usuario[0].id_responsable == $scope.detalle_proc.id_auxiliar_base){
-                    $scope.resp = true;
-                }else{
-                    $scope.resp = false;
-                }
+                $scope.nod_p = false;
                 for(var x = 0; x < $scope.peticiones.length; x++){
                     $scope.peticiones[x].hora_creacion = $scope.peticiones[x].fecha_creacion.split(' ')[1];
                     $scope.peticiones[x].fecha_creacion = $scope.peticiones[x].fecha_creacion.split(' ')[0];
                     $scope.fechas.push({fecha:$scope.peticiones[x].fecha_creacion.split(' ')[0]});
                 }
+                $scope.pag_total = $scope.peticiones[0].paginas_total;
+            }else{
+                $scope.nod_p = true;
             }
         }).error(function (data, status, headers, config){
 
@@ -573,6 +600,52 @@ angular.module('appprocedimientos', [])
                 }
             });
         }
+    }
+    $scope.comentar = function(v){
+        $http({
+            method: 'POST',
+            url: '/historial/post_peticion',
+            params: {
+                log_proc: 0,
+                login: usuario[0].id_responsable,
+                api: $scope.detalle_proc.id_api,
+                modulo: $scope.detalle_proc.id_modulo,
+                tabla: $scope.detalle_proc.id_tabla,
+                proc: $scope.detalle_proc.id_procedimiento,
+                comentario: $scope.peticion_proc,
+                tipo: 'C'
+            }
+        }).success(function (data, status, headers, config){
+            if(data.status){
+                swal('Listo','','success');
+                $scope.llamarpeticiones();
+            }
+        }).error(function (data, status, headers, config){
+
+        });
+    }
+    $scope.responder = function(v){
+        $http({
+            method: 'POST',
+            url: '/historial/post_peticion',
+            params: {
+                log_proc: v,
+                login: usuario[0].id_responsable,
+                api: $scope.detalle_proc.id_api,
+                modulo: $scope.detalle_proc.id_modulo,
+                tabla: $scope.detalle_proc.id_tabla,
+                proc: $scope.detalle_proc.id_procedimiento,
+                comentario: $scope.respuesta[v],
+                tipo: 'T'
+            }
+        }).success(function (data, status, headers, config){
+            if(data.status){
+                swal('Listo','','success');
+                $scope.llamarpeticiones();
+            }
+        }).error(function (data, status, headers, config){
+
+        });
     }
     $scope.filtros();
     $scope.listar_apis();

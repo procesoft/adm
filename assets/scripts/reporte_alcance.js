@@ -20,6 +20,8 @@ $(".datepicker").pickadate({
     today: 'Hoy',
     clear: 'Limpiar',
     close: 'Cerrar',
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 25 // Creates a dropdown of 15 years to control year
 });
 
 $('#tamano').inputmask('99');
@@ -126,10 +128,25 @@ $scope.siguiente=function(val){
 $scope.imprimir = function () {
     var ini=$('#ini').val();
     var fin=$('#fin').val();
-    var min=0;
+    var min=$('#tamano').val();
     var fecha_in=$scope.fechas(ini);
     var fecha_fin=$scope.fechas(fin);
     window.open('/c_test/create_pdf_alcance?v_fecha_inicio=' + fecha_in +'&v_fecha_fin='+fecha_fin+'&v_modulos_minimos='+ min, '', 'width=600,height=400,left=50,top=50,toolbar=yes');
+}
+$scope.logout=function(){
+    $.ajax({
+        url:"login_controller/logout",
+        dataType:"json",
+        type:"GET",
+        success: function(data){
+            if (data.status) {
+                localStorage.removeItem('log');
+                window.location="/login";
+            }else{
+                console.log(data.status);
+            }
+        }
+    });
 }
 
     $scope.listar_datos();

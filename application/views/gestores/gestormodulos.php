@@ -44,7 +44,7 @@
             </nav>
                                 <!-- Dropdown Structure -->
                                 <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
-                                  <li><a href="">Mis Pendientes</a></li>
+                                  <li><a href="/mi_historial">Mis Pendientes</a></li>
                                   <li><a href="/mi_perfil">Mi perfil</a></li>
                                   <li><a href="/reporte_alcance">Reportes</a></li>
                                   <li><a href="" ng-click="logout()">Salir</a></li>
@@ -143,7 +143,7 @@
                             <td class="text-center">{{listas.status}}</td>
                             <td class="text-center"><i class="material-icons dp48" ng-if="rol!=6" ng-click="activarModalInsertar(listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/editar.png" alt="" /></i>
                             <i class="material-icons dp48" ng-if="rol!=6" ng-click="eliminar(listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/interfaz.png" alt="" /></i>
-                            <i class="material-icons dp48" ng-if="rol!=6 && listas.status != 'Revision'" ng-click="revision(listas.nombre,listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/success.png" alt="" /></i>
+                            <i class="material-icons dp48" ng-if="rol==2 && listas.status != 'Revision' && listas.status != 'Definicion'" ng-click="revision(listas.nombre,listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/success.png" alt="" /></i>
                             <i class="material-icons dp48" ng-if="rol==6 && listas.status == 'Revision'" ng-click="terminado(listas.nombre,listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/success.png" alt="" /></i>
                             <i class="material-icons dp48" ng-if="rol==6 && listas.status == 'Revision'" ng-click="progreso(listas.nombre,listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/error.png" alt="" /></i>
                         </td>

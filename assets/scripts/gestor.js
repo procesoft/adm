@@ -7,7 +7,6 @@
     $('#tabla').empty();
     $('#date').inputmask('9999-99-99');
     $('#fecha').inputmask('9999-99-99');
-    $('#ip').inputmask('999.999.999.999');
 
 function cambio_color(id){
     $('#fila_'+id).prop('style','color:#00A79D;')
@@ -35,8 +34,38 @@ angular.module('appApis', [])
 $scope.activarModalServidor=function(val){
     if(val==1){
         $('#servidor').openModal();
+        $('#ip').val("");
     }else{
+        $.ajax({
+            url:"gestorapi/nuevo_bd",
+            dataType:"json",
+            type:"POST",
+            data:{
+                v_id_login:usuario[0].id_responsable,
+                v_servidor:$('#ip').val(),
+                v_base_de_datos:"",
+                v_alias:"",
+            },
+            success: function(data){
+                if (data.status) {
+                    $('#servidor').closeModal();
+                    swal({
+                        title: 'Correcto',
+                        text: "Se guardo correctamente!!",
+                        type: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Aceptar",
+                        closeOnConfirm: true
+                    },
+                    function(){
 
+                    });
+                }else{
+                    swal("Alerta",data.data,"warning");
+                }
+            }
+        });
     }
 }
 $scope.activarModalbased=function(val){
@@ -70,7 +99,6 @@ $scope.activarModalbased=function(val){
                         closeOnConfirm: true
                     },
                     function(){
-
                     });
                 }else{
                     swal("Alerta",data.data,"warning");

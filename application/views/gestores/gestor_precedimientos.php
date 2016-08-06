@@ -10,8 +10,8 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="icon" type="image/png" href="/assets/img/logo_admin.png" />
-        <link href="/assets/js/sweetalert.css" rel="stylesheet" type="text/css"/>
-        <script src="/assets/js/sweetalert.min.js" type="text/javascript"></script>
+        <link href="/assets/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
+        <script src="/assets/js/sweetalert2.min.js" type="text/javascript"></script>
     </head>
     <body ng-app="appprocedimientos">
         <div class="col s12"  ng-controller="controlador">
@@ -42,7 +42,7 @@
             </nav>
             <!-- Dropdown Structure -->
             <ul id='dropdown1' class='dropdown-content'style="margin-top:45px;">
-              <li><a href="">Mis Pendientes</a></li>
+              <li><a href="/mi_historial">Mis Pendientes</a></li>
               <li><a href="/mi_perfil">Mi perfil</a></li>
               <li><a href="/reporte_alcance">Reportes</a></li>
               <li><a href="" ng-click="logout()">Salir</a></li>
@@ -287,55 +287,62 @@
                     </div>
                     <div class="row" style="background-color:#F2F2F2; margin-bottom: 0px">
                         <div class="col s10 offset-s1" style="margin-top:20px;">
-                            <div class="row">
+                            <div class="row" ng-if="resp != true && asig == true" ng-cloak>
                                 <strong>Peticiones al responsable</strong>
-                                <textarea id="peticion" class="materialize-textarea" placeholder="Descripcion"></textarea>
+                                <textarea id="peticion" class="materialize-textarea" placeholder="Descripcion" style="border: 1px solid lightgray;box-shadow: none; border-radius: 10px; padding-left: 10px; background-color: white" ng-model="$parent.peticion_proc" my-enter="comentar()"></textarea>
                             </div>
-                            <div class="row">
+                            <div class="row" ng-if="nod_p != true">
                                 <p><strong>Historial de modificiaciones</strong></p>
                                 <div class="col s12">
-                                    <div class="row" ng-repeat="peticiones in peticiones">
-                                        <div ng-if="peticiones.tipo == 'C'">
+                                    <div ng-repeat="peticion in peticiones">
+                                        <div ng-if="peticion.tipo == 'C'">
                                             <div class="col s1">
-                                                <div ng-if="resp == true">
-                                                    <input type="checkbox" id="test5" class="filled-in"/>
-                                                    <label for="test5"></label>
+                                                <div ng-if="resp == true && asig == true && peticion.activo != 'N'">
+                                                    <input type="checkbox" id="cb_{{peticion.id_log_procedimiento}}" class="filled-in" ng-change="fin_tarea()"/>
+                                                    <label for="cb_{{peticion.id_log_procedimiento}}"></label>
                                                 </div>
                                                 &nbsp;
                                             </div>
-                                            <div class="col s11">
-                                                <div>
-                                                    <span class="grey-text lighten-3">{{peticiones.fecha_creacion | date: "dd' 'MMMM' 'yyyy"}} - {{peticiones.hora_creacion}}</span>
+                                            <div class="col s11" style="padding-bottom: 10px">
+                                                <div class="col s12" ng-if="!$first">
+                                                    <hr style="border-color:white">
                                                 </div>
                                                 <div>
-                                                    <strong>{{peticiones.nick}}</strong>
+                                                    <span class="grey-text lighten-3">{{peticion.fecha_creacion | date: "dd' 'MMMM' 'yyyy"}} - {{peticion.hora_creacion}}</span>
                                                 </div>
                                                 <div>
-                                                    {{peticiones.comentario}}
+                                                    <strong>{{peticion.nick}}</strong>
+                                                </div>
+                                                <div>
+                                                    {{peticion.comentario}}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div ng-if="peticiones.tipo == 'T'" class="col s11 offset-s1">
+                                        <div ng-if="peticion.tipo == 'T' && peticion.id_log_respuesta == peticiones[$index-1].id_log_procedimiento" class="col s11 offset-s1" style="padding-bottom: 10px">
                                             <div class="col s11 offset-s1">
                                                 <div class="col" style="margin-right: 10px">
                                                     <img src="/assets/img/avatar.png" alt="" width="25px"/>
                                                 </div>
                                                 <div>
-                                                    <strong>{{peticiones.nick}}</strong>
+                                                    <strong>{{peticion.nick}}</strong>
                                                 </div>
                                                 <div>
-                                                    {{peticiones.comentario}}
+                                                    {{peticion.comentario}}
                                                 </div>
                                             </div>
-                                            <div class="col s12" style="padding-top: 15px">
-                                                <hr style="border-color:white">
+                                        </div>
+                                        <div ng-if="(peticion.tipo == 'C' && peticiones[$index+1].tipo == 'C' && resp == true && asig == true) || (peticion.tipo == 'C' && pag_pet == pag_total && $last && resp == true && asig == true)" class="col s11 offset-s1">
+                                            <div class="col s11 offset-s1" style="margin-top: -10px">
+                                                <div class="input-field col s12" ng-cloak>
+                                                    <input id="resp{{peticion.id_log_procedimiento}}" type="text" class="validate" style="border: 1px solid lightgray;box-shadow: none; border-radius: 10px; padding-left: 10px; background-color: white" placeholder="Responder" my-enter="responder(peticion.id_log_procedimiento)" ng-model="respuesta[peticion.id_log_procedimiento]">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <center><button class="waves-effect waves-light btn">ACEPTAR</button></center>
+                                <center><button class="modal-action modal-close waves-effect waves-light btn">ACEPTAR</button></center>
                             </div>
                         </div>
                     </div>
