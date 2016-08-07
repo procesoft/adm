@@ -33,6 +33,7 @@ angular.module('asignado_a', [])
 
 
 $scope.listar_detalle=function(){
+    bloquear();
     $http({
         method: 'GET',
         url: '/asignado_a/asig',
@@ -46,8 +47,10 @@ $scope.listar_detalle=function(){
             $scope.listas = data.data;
             $scope.ocultar = false;
             $scope.pag_total = $scope.listas[0].paginas_total;
+            desbloquear();
         }else{
             $scope.ocultar = true;
+            desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -73,6 +76,7 @@ $scope.logout=function(){
 $scope.mas = function(){
     if($scope.pagina <= $scope.pag_total){
         $scope.pagina += 1;
+        bloquear();
         $http({
             method: 'GET',
             url: '/asignado_a/asig',
@@ -87,8 +91,10 @@ $scope.mas = function(){
                     $scope.listas.push(data.data[x]);
                 }
                 $scope.ocultar = false;
+                desbloquear();
             }else{
                 $scope.ocultar = true;
+                desbloquear();
             }
         }).error(function (data, status, headers, config){
 

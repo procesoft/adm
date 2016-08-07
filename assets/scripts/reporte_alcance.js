@@ -85,6 +85,7 @@ $scope.listar_datos=function(){
     var fin=$('#fin').val();
     var fecha_in=$scope.fechas(inicio);
     var fecha_fin=$scope.fechas(fin);
+    bloquear();
     $http({
         method: 'GET',
         url: 'report/traer_datos',
@@ -104,12 +105,14 @@ $scope.listar_datos=function(){
             $scope.ocultar=false;
 
             $scope.nod = false;
+            desbloquear();
         }else{
                 $scope.ocultar=true;
                 $scope.listas = [];
                 $scope.nod = true;
                 $scope.nod = true;
                 $scope.pag_total = 1;
+                desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -117,11 +120,13 @@ $scope.listar_datos=function(){
 
 }
 $scope.anterior=function(val){
+    bloquear();
     $scope.pagina+=parseInt(val);
     $scope.listar_datos();
 }
 
 $scope.siguiente=function(val){
+    bloquear();
     $scope.pagina+=parseInt(val);
     $scope.listar_datos();
 }

@@ -34,6 +34,7 @@ angular.module('appdetalle_res', [])
 
 
 $scope.listar_detalle=function(){
+    bloquear();
     $http({
         method: 'GET',
         url: '/peticiones_res/detalle',
@@ -52,8 +53,9 @@ $scope.listar_detalle=function(){
             $('#modulos').append(data.data[0].modulos);
             $('#rol').append(data.data[0].rol);
             $('#mail').append(data.data[0].usuario);
+            desbloquear();
         }else{
-
+            desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -62,6 +64,7 @@ $scope.listar_detalle=function(){
 }
 
 $scope.listar_tareas=function(){
+    bloquear();
     $http({
         method: 'GET',
         url: '/peticiones_res/tareas',
@@ -72,12 +75,14 @@ $scope.listar_tareas=function(){
         if(data.status){
             if(data.data==""){
                 $scope.tareas_exist=1;
+                desbloquear();
             }else{
                 $scope.listas=data.data;
                 $scope.tareas_exist=0;
+                desbloquear();
             }
         }else{
-
+            desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -189,9 +194,11 @@ $scope.historial=function(){
     }
 
 $scope.pagina_sig=function(val){
+    bloquear();
     var pagina=$scope.pagina+parseInt(val);
     $scope.pagina=pagina;
     $scope.historial();
+    desbloquear();
 }
     $scope.listar_detalle();
     $scope.listar_tareas();

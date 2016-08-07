@@ -10,8 +10,8 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="icon" type="image/png" href="/assets/img/logo_admin.png" />
-        <link href="/assets/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
-        <script src="/assets/js/sweetalert2.min.js" type="text/javascript"></script>
+        <link href="/assets/js/sweetalert.css" rel="stylesheet" type="text/css"/>
+        <script src="/assets/js/sweetalert.min.js" type="text/javascript"></script>
     </head>
     <body ng-app="appprocedimientos">
         <div class="col s12"  ng-controller="controlador">
@@ -358,5 +358,25 @@
         <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
         <script src="/assets/scripts/gestor_procedimientos.js" charset="utf-8"></script>
         <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
+        <script src="/assets/jquery.blockUI.js" charset="utf-8"></script>
+        <script>
+            bloquear = function () {
+                $.blockUI({
+                    css: {
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        opacity: .5,
+                        color: '#fff'
+                    }
+                });
+            }
+
+            desbloquear = function () {
+                $.unblockUI();
+            }
+        </script>
     </body>
 </html>

@@ -37,6 +37,7 @@ angular.module('appResponsables', [])
     $('#activo1').hide();
 
 $scope.listar_datos=function(){
+    bloquear();
     $('#activo2').hide();
     $('#activo1').show();
     $http({
@@ -74,12 +75,14 @@ $scope.listar_datos=function(){
             $scope.ocultar=false;
 
             $scope.nod = false;
+            desbloquear();
         }else{
                 $scope.ocultar=true;
                 $scope.listas = [];
                 $scope.nod = true;
                 $scope.nod = true;
                 $scope.pag_total = 1;
+                desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -88,6 +91,7 @@ $scope.listar_datos=function(){
 }
 
 $scope.detalles=function(x){
+    bloquear();
     $('#activo2').show();
     $('#activo1').hide();
     if(x != 0){
@@ -127,12 +131,14 @@ $scope.detalles=function(x){
             $scope.ocultar=false;
 
             $scope.nod = false;
+            desbloquear();
         }else{
                 $scope.ocultar=true;
                 $scope.listas = [];
                 $scope.nod = true;
                 $scope.nod = true;
                 $scope.pag_total = 1;
+                desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -140,21 +146,25 @@ $scope.detalles=function(x){
 
 }
 $scope.anterior=function(val){
+    bloquear();
     $scope.pagina+=parseInt(val);
     $scope.listar_datos();
 }
 
 $scope.siguiente=function(val){
+    bloquear();
     $scope.pagina+=parseInt(val);
     $scope.listar_datos();
 }
 
 $scope.anterior2=function(val){
+    bloquear();
     $scope.pagina2+=parseInt(val);
     $scope.detalles(0);
 }
 
 $scope.siguiente2=function(val){
+    bloquear();
     $scope.pagina2+=parseInt(val);
     $scope.detalles(0);
 }

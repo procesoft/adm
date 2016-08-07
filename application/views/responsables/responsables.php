@@ -214,5 +214,25 @@
           <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
           <script src="/assets/scripts/responsables.js" charset="utf-8"></script>
           <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
+          <script src="/assets/jquery.blockUI.js" charset="utf-8"></script>
+          <script>
+              bloquear = function () {
+                  $.blockUI({
+                      css: {
+                          border: 'none',
+                          padding: '15px',
+                          backgroundColor: '#000',
+                          '-webkit-border-radius': '10px',
+                          '-moz-border-radius': '10px',
+                          opacity: .5,
+                          color: '#fff'
+                      }
+                  });
+              }
+
+              desbloquear = function () {
+                  $.unblockUI();
+              }
+          </script>
     </body>
   </html>
