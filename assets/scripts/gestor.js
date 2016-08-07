@@ -140,11 +140,13 @@ $scope.filtro_Mod1=function(id_base){
     });
 }
 $scope.anterior=function(val){
+    bloquear();
     $scope.pagina+=parseInt(val);
     $scope.listar_apis();
 }
 
 $scope.siguiente=function(val){
+    bloquear();
     $scope.pagina+=parseInt(val);
     $scope.listar_apis();
 }
@@ -158,6 +160,7 @@ $scope.verresponsables=function(){
 }
 
 $scope.listar_apis=function(){
+    bloquear();
     var base=$('#BD').val();
     if(base==null){
         base=0;
@@ -206,12 +209,14 @@ $scope.listar_apis=function(){
             $scope.ocultar=false;
 
             $scope.nod = false;
+            desbloquear();
         }else{
                 $scope.ocultar=true;
                 $scope.listas = [];
                 $scope.nod = true;
                 $scope.nod = true;
                 $scope.pag_total = 1;
+                desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -225,6 +230,7 @@ $scope.prueba = function(val){
 }
 
     $scope.testAllowed = function () {
+        bloquear();
         var stocks = new Bloodhound({
             datumTokenizer: function () {
                 return Bloodhound.tokenizers.whitespace($('#txt_buscador').val());
@@ -293,11 +299,13 @@ $scope.prueba = function(val){
                             setTimeout(function(){$('input.form-control.ng-pristine.ng-untouched.ng-valid.tt-hint').val('')},100);
                         }
                         $scope.nod = false;
+                        desbloquear();
                     }
                     if(data==""){
                         $scope.ocultar=true;
                         $scope.listas = [];
                         $scope.nod = true;
+                        desbloquear();
                     }
                     $scope.pag = 1;
                     $scope.$apply();
@@ -465,6 +473,7 @@ $scope.prueba = function(val){
           closeOnConfirm: true
         },
         function(){
+            bloquear();
             $.ajax({
                 url:"gestorapi/eliminar",
                 dataType:"json",
@@ -475,9 +484,11 @@ $scope.prueba = function(val){
                 },
                 success: function(data){
                     if (data.status) {
+                        desbloquear();
                         $scope.listar_apis();
                         swal('Correcto!!','se ha eliminado correctamente','success');
                     }else{
+                        desbloquear();
                         swal("Alerta",data.data,"warning");
                     }
                 }
@@ -489,6 +500,7 @@ $scope.prueba = function(val){
             if($('#nombre_api').val()=="" || $('#prefijo').val()=="" || $('#basemod').val()=="" || $('#descripcion').val()=="" || $('#fecha').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
+                bloquear();
                 $.ajax({
                     url:"gestorapi/nuevo",
                     dataType:"json",
@@ -503,6 +515,7 @@ $scope.prueba = function(val){
                     },
                     success: function(data){
                         if (data.status) {
+                            desbloquear();
                             $('#modal1').closeModal();
                             swal({
                                 title: 'Correcto',
@@ -517,6 +530,7 @@ $scope.prueba = function(val){
                                 $scope.listar_apis();
                             });
                         }else{
+                            desbloquear();
                             swal("Alerta",data.data,"warning");
                         }
                     }
@@ -526,6 +540,7 @@ $scope.prueba = function(val){
             if($('#nombre_api').val()=="" || $('#prefijo').val()=="" || $('#basemod').val()=="" || $('#descripcion').val()=="" || $('#fecha').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
+                bloquear();
                 $.ajax({
                     url:"gestorapi/modificar",
                     dataType:"json",
@@ -541,6 +556,7 @@ $scope.prueba = function(val){
                     },
                     success: function(data){
                         if (data.status) {
+                            desbloquear();
                             $('#modal1').closeModal();
                             swal({
                                 title: 'Correcto',
@@ -555,6 +571,7 @@ $scope.prueba = function(val){
                                 $scope.listar_apis();
                             });
                         }else{
+                            desbloquear();
                             swal("Alerta",data.data,"warning");
                         }
                     }

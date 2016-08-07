@@ -143,9 +143,9 @@
                             <td class="text-center">{{listas.status}}</td>
                             <td class="text-center"><i class="material-icons dp48" ng-if="rol!=6" ng-click="activarModalInsertar(listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/editar.png" alt="" /></i>
                             <i class="material-icons dp48" ng-if="rol!=6" ng-click="eliminar(listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/interfaz.png" alt="" /></i>
-                            <i class="material-icons dp48" ng-if="rol==2 && listas.status != 'Revision' && listas.status != 'Definicion'" ng-click="revision(listas.nombre,listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/success.png" alt="" /></i>
+                            <i class="material-icons dp48" ng-if="rol==2 && listas.status != 'Revision' && listas.status != 'Definicion' && listas.status != 'Terminado'" ng-click="revision(0,listas.nombre,listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/success.png" alt="" /></i>
                             <i class="material-icons dp48" ng-if="rol==6 && listas.status == 'Revision'" ng-click="terminado(listas.nombre,listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/success.png" alt="" /></i>
-                            <i class="material-icons dp48" ng-if="rol==6 && listas.status == 'Revision'" ng-click="progreso(listas.nombre,listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/error.png" alt="" /></i>
+                            <i class="material-icons dp48" ng-if="rol==6 && listas.status == 'Revision'" ng-click="progreso(0,listas.nombre,listas.id_modulo)" style="cursor:pointer;"><img src="/assets/img/error.png" alt="" /></i>
                         </td>
                         </tr>
                     </tbody>
@@ -226,20 +226,52 @@
                     </center>
                 </div>
             </div>
+            <div id="Enviar_qa" class="modal modal-fixed-footer" style="height:300px;">
+                <div class="modal-content">
+                    <center>
+                    <span style="color:#00A99D;">
+                        <h4>Enviar a QA</h4>
+                    </span>
+                    </center>
+                    <select id="responsablesqa" data-size="1">
+                        <option value="" disabled selected>QA</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <a href="" class="waves-effect btn waves-green btn-flat " ng-click="revision(1,'','')">ACEPTAR</a>
+                    </center>
+                </div>
+            </div>
+            <div id="Enviar_progreso" class="modal modal-fixed-footer" style="height:400px;">
+                <div class="modal-content">
+                    <center>
+                    <span style="color:#00A99D;">
+                        <h4>Regresar a progreso</h4>
+                    </span>
+                    </center>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="responsablesprogreso" data-size="1">
+                                <option value="" disabled selected>desarrolladores</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="observaciones" class="materialize-textarea" placeholder="Descripción" maxlength="250"></textarea>
+                            <label for="observaciones">Observaciones*</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <a href="" class="waves-effect btn waves-green btn-flat " ng-click="progreso(1,'','')">ACEPTAR</a>
+                    </center>
+                </div>
+            </div>
 
         </div>
-        <!--div class="row">
-            <footer style="background-color:#232A36; width: 100%; height: 100px; background: #232A36; position: absolute; bottom: 0;">
-                    <div class="col s12" style="margin-top:25px; margin-bottom:25px; color:#fff;">
-                        <center>
-                            ADMINISTRACION DE MÓDULOS | DAS 2016
-                        </center>
-                    </div>
-            </footer>
-        </div-->
-
-
-
 
       <!--Import jQuery before materialize.js-->
           <script src="/assets/plugins/jquery-2.2.4.js" charset="utf-8"></script>
@@ -250,5 +282,25 @@
           <script src="/assets/plugins/jquery.inputmask.bundle.js" charset="utf-8"></script>
           <script src="/assets/scripts/gestor_modulos.js" charset="utf-8"></script>
           <script src="/assets/scripts/validador_caracter.js" charset="utf-8"></script>
+          <script src="/assets/jquery.blockUI.js" charset="utf-8"></script>
+          <script>
+              bloquear = function () {
+                  $.blockUI({
+                      css: {
+                          border: 'none',
+                          padding: '15px',
+                          backgroundColor: '#000',
+                          '-webkit-border-radius': '10px',
+                          '-moz-border-radius': '10px',
+                          opacity: .5,
+                          color: '#fff'
+                      }
+                  });
+              }
+
+              desbloquear = function () {
+                  $.unblockUI();
+              }
+          </script>
     </body>
   </html>

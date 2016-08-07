@@ -36,11 +36,13 @@ angular.module('apptablas', [])
     $scope.rol=usuario[0].id_rol;
 
     $scope.anterior=function(val){
+        bloquear();
         $scope.pagina+=parseInt(val);
         $scope.listar_apis();
     }
 
     $scope.siguiente=function(val){
+        bloquear();
         $scope.pagina+=parseInt(val);
         $scope.listar_apis();
     }
@@ -115,6 +117,7 @@ $scope.detallemodulo=function(){
     });
 }
 $scope.listar_apis=function(){
+    bloquear();
     $http({
         method: 'GET',
         url: '/gestortabla/traer_datos',
@@ -168,12 +171,14 @@ $scope.listar_apis=function(){
             $scope.ocultar=false;
 
             $scope.nod = false;
+            desbloquear();
         }else{
                 $scope.ocultar=true;
                 $scope.listas = [];
                 $scope.nod = true;
                 $scope.nod = true;
                 $scope.pag_total = 1;
+                desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -429,6 +434,7 @@ $scope.prueba = function(val){
           closeOnConfirm: true
         },
         function(){
+            bloquear();
             $.ajax({
                 url:"/gestortabla/eliminar",
                 dataType:"json",
@@ -440,8 +446,10 @@ $scope.prueba = function(val){
                 success: function(data){
                     if (data.status) {
                         $scope.listar_apis();
+                        desbloquear();
                         swal('Correcto!!','se ha eliminado correctamente','success');
                     }else{
+                        desbloquear();
                         swal("Alerta",data.data,"warning");
                     }
                 }
@@ -453,6 +461,7 @@ $scope.prueba = function(val){
             if($('#nombre_tabla').val()=="" || $('#descripcion').val()=="" || $('#tipo').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
+                bloquear();
                 $.ajax({
                     url:"/gestortabla/nuevo",
                     dataType:"json",
@@ -468,6 +477,7 @@ $scope.prueba = function(val){
                     success: function(data){
                         if (data.status) {
                             $('#modal1').closeModal();
+                            desbloquear();
                             swal({
                                 title: 'Correcto',
                                 text: "Se guardo correctamente!!",
@@ -481,6 +491,7 @@ $scope.prueba = function(val){
                                 $scope.listar_apis();
                             });
                         }else{
+                            desbloquear();
                             swal("Alerta",data.data,"warning");
                         }
                     }
@@ -491,6 +502,7 @@ $scope.prueba = function(val){
             if($('#nombre_tabla').val()=="" || $('#descripcion').val()=="" || $('#tipo').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
+                bloquear();
                 $.ajax({
                     url:"/gestortabla/modificar",
                     dataType:"json",
@@ -505,6 +517,7 @@ $scope.prueba = function(val){
                     success: function(data){
                         if (data.status) {
                             $('#modal1').closeModal();
+                            desbloquear();
                             swal({
                                 title: 'Correcto',
                                 text: "Se modificó correctamente!!",
@@ -518,6 +531,7 @@ $scope.prueba = function(val){
                                 $scope.listar_apis();
                             });
                         }else{
+                            desbloquear();
                             swal("Alerta",data.data,"warning");
                         }
                     }

@@ -34,6 +34,7 @@ angular.module('appmodulos', [])
     $scope.descripcion="";
     $scope.rol=usuario[0].id_rol;
     $scope.test6=false;
+    $scope.nom_api="";
 
     $scope.llenar_auxiliares=function(){
         console.log($scope.test6);
@@ -91,11 +92,13 @@ angular.module('appmodulos', [])
     }
 
     $scope.anterior=function(val){
+        bloquear();
         $scope.pagina+=parseInt(val);
         $scope.listar_apis();
     }
 
     $scope.siguiente=function(val){
+        bloquear();
         $scope.pagina+=parseInt(val);
         $scope.listar_apis();
     }
@@ -119,7 +122,7 @@ $scope.detallemodulo=function(){
             $('#total_apis').empty();
             $('#nombre_encabezado').empty();
             $('#descripcion_encabezado').empty();
-
+            $scope.nom_api=data.data[0].nombre;
             $('#nombre_encabezado').append(data.data[0].nombre);
             $('#descripcion_encabezado').append(data.data[0].descripcion);
             $('#total_apis').append(data.data[0].modulos);
@@ -129,6 +132,7 @@ $scope.detallemodulo=function(){
     });
 }
 $scope.listar_apis=function(){
+    bloquear();
     $http({
         method: 'GET',
         url: '/gestormodulos/traer_datos',
@@ -178,12 +182,14 @@ $scope.listar_apis=function(){
             $scope.ocultar=false;
 
             $scope.nod = false;
+            desbloquear();
         }else{
                 $scope.ocultar=true;
                 $scope.listas = [];
                 $scope.nod = true;
                 $scope.nod = true;
                 $scope.pag_total = 1;
+                desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -197,6 +203,7 @@ $scope.prueba = function(val){
 }
 
     $scope.testAllowed = function () {
+        bloquear();
         var stocks = new Bloodhound({
             datumTokenizer: function () {
                 return Bloodhound.tokenizers.whitespace($('#txt_buscador').val());
@@ -263,6 +270,7 @@ $scope.prueba = function(val){
                             });
                         }
                         $scope.nod = false;
+                        desbloquear();
                     }
                     if($('#txt_buscador').val()==""){
                         setTimeout(function(){$('input.col.s2.tt-hint').val('')},100);
@@ -271,6 +279,7 @@ $scope.prueba = function(val){
                         $scope.ocultar=true;
                         $scope.listas = [];
                         $scope.nod = true;
+                        desbloquear();
                     }
                     $scope.pag = 1;
                     $scope.$apply();
@@ -440,6 +449,7 @@ $scope.prueba = function(val){
           closeOnConfirm: true
         },
         function(){
+            bloquear();
             $.ajax({
                 url:"/gestormodulos/eliminar",
                 dataType:"json",
@@ -450,9 +460,11 @@ $scope.prueba = function(val){
                 },
                 success: function(data){
                     if (data.status) {
+                        desbloquear();
                         $scope.listar_apis();
                         swal('Correcto!!','se ha eliminado correctamente','success');
                     }else{
+                        desbloquear();
                         swal("Alerta",data.data,"warning");
                     }
                 }
@@ -472,6 +484,7 @@ $scope.prueba = function(val){
             if($('#nombre_modulo').val()=="" || $('#descripcion').val()=="" || $('#responsables_mod').val()=="" || $('#responsablesBD_mod').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
+                bloquear();
                 $.ajax({
                     url:"/gestormodulos/nuevo",
                     dataType:"json",
@@ -488,6 +501,7 @@ $scope.prueba = function(val){
                     },
                     success: function(data){
                         if (data.status) {
+                            desbloquear();
                             $('#modal1').closeModal();
                             swal({
                                 title: 'Correcto',
@@ -502,6 +516,7 @@ $scope.prueba = function(val){
                                 $scope.listar_apis();
                             });
                         }else{
+                            desbloquear();
                             swal("Alerta",data.data,"warning");
                         }
                     }
@@ -518,6 +533,7 @@ $scope.prueba = function(val){
             if($('#nombre_modulo').val()=="" || $('#descripcion').val()=="" || $('#responsables_mod').val()=="" || $('#responsablesBD_mod').val()==""){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
+                bloquear();
                 $.ajax({
                     url:"/gestormodulos/modificar",
                     dataType:"json",
@@ -535,6 +551,7 @@ $scope.prueba = function(val){
                     },
                     success: function(data){
                         if (data.status) {
+                            desbloquear();
                             $('#modal1').closeModal();
                             swal({
                                 title: 'Correcto',
@@ -549,6 +566,7 @@ $scope.prueba = function(val){
                                 $scope.listar_apis();
                             });
                         }else{
+                            desbloquear();
                             swal("Alerta",data.data,"warning");
                         }
                     }
@@ -576,7 +594,7 @@ $scope.prueba = function(val){
                             if (data.status) {
                                 for(var x=0;x<data.data.length;x++){
                                     console.log(data.data[x].usuario);
-                                    $scope.correo_terminado(data.data[x].usuario,nom);
+                                    $scope.correo_terminado(data.data[x].usuario,nom,$scope.nom_api);
                                 }
                                 swal({
                                     title: 'Correcto',
@@ -601,51 +619,97 @@ $scope.prueba = function(val){
             }
         });
     }
-    $scope.revision=function(nom,id){
+    $scope.res_qa=function(){
         $.ajax({
-            url:"/gestormodulos/revision",
+            url:"/gestormodulos/usuario_qa",
             dataType:"json",
-            type:"POST",
-            data:{
-                v_id_login:usuario[0].id_responsable,
-                v_id_modulo:id,
-            },
+            type:"GET",
             success: function(data){
-                if (data.status) {
-                    $.ajax({
-                        url:"/gestormodulos/usuario_qa",
-                        dataType:"json",
-                        type:"GET",
-                        success: function(data){
-                            if (data.status) {
-                                for(var x=0;x<data.data.length;x++){
-                                    console.log(data.data[x].usuario);
-                                    $scope.correo_revision(data.data[x].usuario,nom);
-                                }
-                                swal({
-                                    title: 'Correcto',
-                                    text: "Se mando a revisión el modulo!!",
-                                    type: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonColor: "#DD6B55",
-                                    confirmButtonText: "Aceptar",
-                                    closeOnConfirm: true
-                                },
-                                function(){
-                                    $scope.listar_apis();
-                                });
-                            }else{
-                                swal("Alerta",data.data,"warning");
-                            }
-                        }
-                    });
-                }else{
-                    swal("Alerta",data.data,"warning");
-                }
+                $('#responsablesqa').empty();
+            if (data.status) {
+                $('#responsablesqa').append('<option value="" disabled selected>Asignar QA</option>');
+                    for(ip in data.data){
+                        $('#responsablesqa').append('<option value="'+data.data[ip].usuario+'">'+data.data[ip].nick+'</option>');
+                    }
+
+                $('select').material_select('update');
+
+            }else{
+                console.log(data.status);
             }
+        }
         });
     }
-    $scope.correo_revision=function(usu,nom){
+    $scope.res_pro=function(){
+        $.ajax({
+            url:"/gestormodulos/usuario_web",
+            dataType:"json",
+            type:"GET",
+            success: function(data){
+                $('#responsablesprogreso').empty();
+            if (data.status) {
+                $('#responsablesprogreso').append('<option value="" disabled selected>Asignar desarrollador</option>');
+                    for(ip in data.data){
+                        $('#responsablesprogreso').append('<option value="'+data.data[ip].usuario+'">'+data.data[ip].nick+'</option>');
+                    }
+
+                $('select').material_select('update');
+
+            }else{
+                console.log(data.status);
+            }
+        }
+        });
+    }
+
+    $scope.revision=function(opc,nom,id){
+        console.log(opc,nom,id);
+        if(opc==0){
+            $('#Enviar_qa').openModal();
+            $scope.res_qa();
+            $scope.nom_modulo=nom;
+            $scope.id_d_modulo=id;
+        }else{
+            if($('#responsablesqa').val()){
+                $.ajax({
+                    url:"/gestormodulos/revision",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        v_id_login:usuario[0].id_responsable,
+                        v_id_modulo:$scope.id_d_modulo,
+                    },
+                    success: function(data){
+                        if (data.status) {
+                            console.log($scope.nom_api);
+                            $scope.correo_revision($('#responsablesqa').val(),$scope.nom_modulo,$scope.nom_api);
+
+                            swal({
+                                title: 'Correcto',
+                                text: "Se mando a revisión el modulo!!",
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Aceptar",
+                                closeOnConfirm: true
+                            },
+                            function(){
+                                $('#Enviar_qa').closeModal();
+                                $scope.listar_apis();
+                            });
+                        }else{
+                            swal("Alerta",data.data,"warning");
+                        }
+                    }
+                });
+
+            }else{
+                swal("Atención","Colocar a quien se le va a asignar la revisión","warning")
+            }
+
+        }
+    }
+    $scope.correo_revision=function(usu,nom,api){
         $.ajax({
             url:"/gestormodulos/correo_revision",
             dataType:"json",
@@ -653,6 +717,7 @@ $scope.prueba = function(val){
             data:{
                 modulo:nom,
                 correo:usu,
+                api:api,
             },
             success: function(data){
                 if (data.status) {
@@ -662,7 +727,7 @@ $scope.prueba = function(val){
             }
         });
     }
-    $scope.correo_progreso=function(usu,nom){
+    $scope.correo_progreso=function(usu,nom,api,obs){
         $.ajax({
             url:"/gestormodulos/correo_progreso",
             dataType:"json",
@@ -670,6 +735,8 @@ $scope.prueba = function(val){
             data:{
                 modulo:nom,
                 correo:usu,
+                api:api,
+                observaciones:obs,
             },
             success: function(data){
                 if (data.status) {
@@ -679,7 +746,7 @@ $scope.prueba = function(val){
             }
         });
     }
-    $scope.correo_terminado=function(usu,nom){
+    $scope.correo_terminado=function(usu,nom,api){
         $.ajax({
             url:"/gestormodulos/correo_terminado",
             dataType:"json",
@@ -687,6 +754,7 @@ $scope.prueba = function(val){
             data:{
                 modulo:nom,
                 correo:usu,
+                api:api,
             },
             success: function(data){
                 if (data.status) {
@@ -696,49 +764,50 @@ $scope.prueba = function(val){
             }
         });
     }
-    $scope.progreso=function(nom,id){
-        $.ajax({
-            url:"/gestormodulos/progreso",
-            dataType:"json",
-            type:"POST",
-            data:{
-                v_id_login:usuario[0].id_responsable,
-                v_id_modulo:id,
-            },
-            success: function(data){
-                if (data.status) {
-                    $.ajax({
-                        url:"/gestormodulos/usuario_web",
-                        dataType:"json",
-                        type:"GET",
-                        success: function(data){
-                            if (data.status) {
-                                for(var x=0;x<data.data.length;x++){
-                                    console.log(data.data[x].usuario);
-                                    $scope.correo_progreso(data.data[x].usuario,nom);
-                                }
-                                swal({
-                                    title: 'Correcto',
-                                    text: "Se regreso a progreso el modulo!!",
-                                    type: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonColor: "#DD6B55",
-                                    confirmButtonText: "Aceptar",
-                                    closeOnConfirm: true
-                                },
-                                function(){
-                                    $scope.listar_apis();
-                                });
-                            }else{
-                                swal("Alerta",data.data,"warning");
-                            }
+    $scope.progreso=function(opc,nom,id){
+        console.log(opc,nom,id);
+        if(opc==0){
+            $('#Enviar_progreso').openModal();
+            $scope.res_pro();
+            $scope.nom_modulo=nom;
+            $scope.id_d_modulo=id;
+        }else{
+            if($('#responsablesprogreso').val() && $('#observaciones').val()!=""){
+                $.ajax({
+                    url:"/gestormodulos/progreso",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        v_id_login:usuario[0].id_responsable,
+                        v_id_modulo:$scope.id_d_modulo,
+                    },
+                    success: function(data){
+                        if (data.status) {
+                            console.log($scope.nom_api);
+                            $scope.correo_progreso($('#responsablesprogreso').val(),$scope.nom_modulo,$scope.nom_api,$('#observaciones').val());
+                            swal({
+                                title: 'Correcto',
+                                text: "Se regreso a progreso el modulo!!",
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Aceptar",
+                                closeOnConfirm: true
+                            },
+                            function(){
+                                $('#Enviar_progreso').closeModal();
+                                $scope.listar_apis();
+                            });
+                        }else{
+                            swal("Alerta",data.data,"warning");
                         }
-                    });
-                }else{
-                    swal("Alerta",data.data,"warning");
-                }
+                    }
+                });
+            }else{
+                swal("Atención","Llena todos los campos","warning")
             }
-        });
+
+        }
     }
 
     $scope.filtros();

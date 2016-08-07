@@ -29,11 +29,13 @@ angular.module('appResponsables', [])
     $scope.rol=usuario[0].id_rol;
 
 $scope.anterior=function(val){
+    bloquear();
     $scope.pagina+=parseInt(val);
     $scope.listar_apis();
 }
 
 $scope.siguiente=function(val){
+    bloquear();
     $scope.pagina+=parseInt(val);
     $scope.listar_apis();
 }
@@ -47,6 +49,7 @@ $scope.verresponsables=function(){
 }
 
 $scope.listar_apis=function(){
+    bloquear();
     var base=$('#BD').val();
     if(base==null){
         base=0;
@@ -82,12 +85,14 @@ $scope.listar_apis=function(){
             $scope.ocultar=false;
 
             $scope.nod = false;
+            desbloquear();
         }else{
                 $scope.ocultar=true;
                 $scope.listas = [];
                 $scope.nod = true;
                 $scope.nod = true;
                 $scope.pag_total = 1;
+                desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -271,6 +276,7 @@ $scope.prueba = function(val){
           closeOnConfirm: true
         },
         function(){
+            bloquear();
             $.ajax({
                 url:"responsables/eliminar",
                 dataType:"json",
@@ -282,8 +288,10 @@ $scope.prueba = function(val){
                 success: function(data){
                     if (data.status) {
                         $scope.listar_apis();
+                        desbloquear();
                         swal('Correcto!!','se ha desactivado correctamente','success');
                     }else{
+                        desbloquear();
                         swal('Alerta',data.data,"warning");
                     }
                 }
@@ -296,6 +304,7 @@ $scope.prueba = function(val){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
                 var pass=Math.floor((Math.random() * 1000000) + 1);
+                bloquear();
                 $.ajax({
                     url:"responsables/nuevo",
                     dataType:"json",
@@ -313,6 +322,7 @@ $scope.prueba = function(val){
                     success: function(data){
                         if (data.status) {
                             $('#modal1').closeModal();
+                            desbloquear();
                             swal({
                                 title: 'Correcto',
                                 text: "Se guardo correctamente!!",
@@ -325,8 +335,10 @@ $scope.prueba = function(val){
                             function(){
                                 $scope.correo(pass);
                                 $scope.listar_apis();
+                                desbloquear();
                             });
                         }else{
+                            desbloquear();
                             swal('Alerta',data.data,"warning");
                         }
                     }
@@ -338,6 +350,7 @@ $scope.prueba = function(val){
                 swal('Alerta',"Completar todos los campos","warning");
             }else{
                 var pass=Math.floor((Math.random() * 1000000) + 1);
+                bloquear();
                 $.ajax({
                     url:"responsables/nuevo",
                     dataType:"json",
@@ -354,6 +367,7 @@ $scope.prueba = function(val){
                     },
                     success: function(data){
                         if (data.status) {
+                            desbloquear();
                             $('#modal1').closeModal();
                             swal({
                                 title: 'Correcto',
@@ -365,10 +379,12 @@ $scope.prueba = function(val){
                                 closeOnConfirm: true
                             },
                             function(){
+                                desbloquear();
                                 $scope.correo(pass);
                                 $scope.listar_apis();
                             });
                         }else{
+                            desbloquear();
                             swal('Alerta',data.data,"warning");
                         }
                     }

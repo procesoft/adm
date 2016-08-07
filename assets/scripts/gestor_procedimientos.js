@@ -89,11 +89,13 @@ angular.module('appprocedimientos', [])
     $scope.peticion_proc = "";
 
     $scope.anterior=function(val){
+        bloquear();
         $scope.pagina+=parseInt(val);
         $scope.listar_apis();
     }
 
     $scope.siguiente=function(val){
+        bloquear();
         $scope.pagina+=parseInt(val);
         $scope.listar_apis();
     }
@@ -135,6 +137,7 @@ angular.module('appprocedimientos', [])
         });
     }
     $scope.listar_apis=function(){
+        bloquear();
         $http({
             method: 'GET',
             url: '/gestorprocedimientos/traer_datos',
@@ -189,12 +192,14 @@ angular.module('appprocedimientos', [])
                 $scope.ocultar=false;
 
                 $scope.nod = false;
+                desbloquear()
             }else{
                     $scope.ocultar=true;
                     $scope.listas = [];
                     $scope.nod = true;
                 $scope.nod = true;
                 $scope.pag_total = 1;
+                desbloquear()
             }
         }).error(function (data, status, headers, config){
 
@@ -503,6 +508,8 @@ angular.module('appprocedimientos', [])
           closeOnConfirm: true
         },
         function(){
+            console.log("entra");
+            bloquear();
             $.ajax({
                 url:"/gestorprocedimientos/eliminar",
                 dataType:"json",
@@ -514,8 +521,10 @@ angular.module('appprocedimientos', [])
                 success: function(data){
                     if (data.status) {
                         $scope.listar_apis();
+                        desbloquear();
                         swal('Correcto!!','se ha eliminado correctamente','success');
                     }else{
+                        desbloquear();
                         swal("Alerta",data.data,"warning");
                     }
                 }
@@ -525,6 +534,7 @@ angular.module('appprocedimientos', [])
     $scope.nuevo=function(){
 
         if($scope.tipo == "nuevo"){
+            bloquear();
             $.ajax({
                 url:"/gestorprocedimientos/nuevo",
                 dataType:"json",
@@ -544,6 +554,7 @@ angular.module('appprocedimientos', [])
                 success: function(data){
                     if (data.status) {
                         $('#modal1').closeModal();
+                        desbloquear();
                         swal({
                             title: 'Correcto',
                             text: "Se guardo correctamente!!",
@@ -557,11 +568,13 @@ angular.module('appprocedimientos', [])
                             $scope.listar_apis();
                         });
                     }else{
+                        desbloquear();
                         swal("Alerta",data.data,"warning");
                     }
                 }
             });
         }else if($scope.tipo == "editar"){
+            bloquear();
             $.ajax({
                 url:"/gestorprocedimientos/modificar",
                 dataType:"json",
@@ -581,6 +594,7 @@ angular.module('appprocedimientos', [])
                 },
                 success: function(data){
                     if (data.status) {
+                        desbloquear();
                         $('#modal1').closeModal();
                         swal({
                             title: 'Correcto',
@@ -595,6 +609,7 @@ angular.module('appprocedimientos', [])
                             $scope.listar_apis();
                         });
                     }else{
+                        desbloquear();
                         swal("Alerta",data.data,"warning");
                     }
                 }

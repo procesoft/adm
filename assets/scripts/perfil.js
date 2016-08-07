@@ -30,7 +30,7 @@ angular.module('appResponsables', [])
 
 
 $scope.listar_datos=function(){
-
+    bloquear();
     $http({
         method: 'GET',
         url: 'perfil/detalle',
@@ -46,8 +46,9 @@ $scope.listar_datos=function(){
             $('#correo').val(data.data[0].usuario);
             $('#Area').val(data.data[0].id_rol);
             $('select').material_select('update');
+            desbloquear();
         }else{
-
+            desbloquear();
         }
     }).error(function (data, status, headers, config){
 
@@ -112,6 +113,7 @@ $scope.verresponsables=function(){
     }
 
     $scope.editar=function(val){
+        bloquear();
             $.ajax({
                 url:"perfil/modificar",
                 dataType:"json",
@@ -128,6 +130,7 @@ $scope.verresponsables=function(){
                 },
                 success: function(data){
                     if (data.status) {
+                        desbloquear();
                         swal({
                             title: 'Correcto',
                             text: "Se guardo correctamente!!",
@@ -146,6 +149,7 @@ $scope.verresponsables=function(){
                             }
                         });
                     }else{
+                        desbloquear();
                         swal('Alerta',data.data,"warning");
                     }
                 }

@@ -176,6 +176,7 @@ angular.module('historial', [])
         $scope.mas = function(){
             if($scope.pag <= $scope.pag_total){
                 $scope.pag += 1;
+                bloquear();
                 $http({
                     method: 'GET',
                     url: '/historial/peticiones',
@@ -196,8 +197,10 @@ angular.module('historial', [])
                             $scope.peticiones.push($scope.temp);
                         }
                         $scope.nod = false;
+                        desbloquear();
                     }else{
                         $scope.nod = true;
+                        desbloquear();
                     }
                 }).error(function (data, status, headers, config){
 

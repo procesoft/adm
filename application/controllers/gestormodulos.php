@@ -115,7 +115,7 @@ class Gestormodulos extends CI_Controller {
     }
     function usuario_web(){
         try{
-            $query = $this->db->query('SELECT * FROM adm_cat_responsables WHERE id_rol=2');
+            $query = $this->db->query('SELECT * FROM adm_cat_responsables WHERE id_rol=2 or id_rol=4');
             if(!$query){
                 throw new Exception("Error BD");
             }
@@ -131,6 +131,7 @@ class Gestormodulos extends CI_Controller {
     function correo_revision(){
         $modulo=$_POST['modulo'];
         $correo=$_POST['correo'];
+        $api=$_POST['api'];
 
         require_once("assets/PHPMailer/class.phpmailer.php");
         require_once("assets/PHPMailer/class.smtp.php");
@@ -150,7 +151,7 @@ class Gestormodulos extends CI_Controller {
         $this->email->From = "contacto.procesoft@gmail.com";
         $this->email->FromName = "Procesoft";
         $this->email->Subject = "ADM::Cambio de estatus";
-        $this->email->MsgHTML("Hola QA!!<br> En estos momentos cambiaron a estatus de revisión el siguiente modulo:<br><br>".$modulo);
+        $this->email->MsgHTML("Hola QA!!<br> En estos momentos cambiaron a estatus de revisión el siguiente modulo:<br><br>".$modulo." de la Api ".$api."<br> Puedes entrar a ADM para continuar el flujo de trabajo en http://52.38.216.170/api");
 
         $this->email->AddAddress($correo, "destinatario");
 
@@ -170,6 +171,8 @@ class Gestormodulos extends CI_Controller {
     function correo_progreso(){
         $modulo=$_POST['modulo'];
         $correo=$_POST['correo'];
+        $api=$_POST['api'];
+        $observaciones=$_POST['observaciones'];
 
         require_once("assets/PHPMailer/class.phpmailer.php");
         require_once("assets/PHPMailer/class.smtp.php");
@@ -189,7 +192,7 @@ class Gestormodulos extends CI_Controller {
         $this->email->From = "contacto.procesoft@gmail.com";
         $this->email->FromName = "Procesoft";
         $this->email->Subject = "ADM::Cambio de estatus";
-        $this->email->MsgHTML("Hola!!<br> En estos momentos QA revisó el siguiente modulo:<br>".$modulo."<br>Y lo regreso a estatus de progreso");
+        $this->email->MsgHTML("Hola!!<br> En estos momentos QA revisó el siguiente modulo:<br>".$modulo." de la Api ".$api."<br><br>Y lo regreso a estatus de progreso, lo siguiente son las observaciones de QA: <br>-".$observaciones."<br><br>Puedes entrar a ADM para continuar el flujo de trabajo en http://52.38.216.170/api");
 
         $this->email->AddAddress($correo, "destinatario");
 
@@ -209,6 +212,7 @@ class Gestormodulos extends CI_Controller {
     function correo_terminado(){
         $modulo=$_POST['modulo'];
         $correo=$_POST['correo'];
+        $api=$_POST['api'];
 
         require_once("assets/PHPMailer/class.phpmailer.php");
         require_once("assets/PHPMailer/class.smtp.php");
@@ -228,7 +232,7 @@ class Gestormodulos extends CI_Controller {
         $this->email->From = "contacto.procesoft@gmail.com";
         $this->email->FromName = "Procesoft";
         $this->email->Subject = "ADM::Cambio de estatus";
-        $this->email->MsgHTML("Hola!!<br> En estos momentos el siguiente modulo:<br>".$modulo."<br> Se dio por terminado.");
+        $this->email->MsgHTML("Hola!!<br> En estos momentos el siguiente modulo:<br>".$modulo." de la Api ".$api."<br> Se dió por terminado.");
 
         $this->email->AddAddress($correo, "destinatario");
 
