@@ -613,10 +613,8 @@ angular.module('appprocedimientos', [])
                     if(data.status){
                         swal('Listo','','success');
                         $scope.llamarpeticiones();
-                        desbloquear();
                     }
                 }).error(function (data, status, headers, config){
-                    desbloquear();
                     swal("Alerta",data.data,"warning");
                 });
             });
@@ -719,10 +717,8 @@ angular.module('appprocedimientos', [])
                 if(data.status){
                     swal('Listo','','success');
                     $scope.llamarpeticiones();
-                    desbloquear();
                 }
             }).error(function (data, status, headers, config){
-                desbloquear();
                 swal("Alerta",data.data,"warning");
             });
         });
