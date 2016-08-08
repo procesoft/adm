@@ -601,7 +601,6 @@ angular.module('appprocedimientos', [])
               cancelButtonText: 'Cancelar',
               closeOnConfirm: true
             },function(){
-                bloquear();
                 $http({
                     method: 'POST',
                     url: '/historial/fin_tarea',
@@ -705,7 +704,6 @@ angular.module('appprocedimientos', [])
           cancelButtonText: 'Cancelar',
           closeOnConfirm: true
         },function(){
-            bloquear();
             $http({
                 method: 'POST',
                 url: '/historial/eliminar_peticion',
