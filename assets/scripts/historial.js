@@ -263,10 +263,8 @@ angular.module('historial', [])
                         if(data.status){
                             swal('Listo','','success');
                             $scope.llamarpeticiones();
-                            desbloquear();
                         }
                     }).error(function (data, status, headers, config){
-                        desbloquear();
                         swal("Alerta",data.data,"warning");
                     });
                 }else{
