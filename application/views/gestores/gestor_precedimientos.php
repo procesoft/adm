@@ -298,8 +298,11 @@
                                         <div ng-if="peticion.tipo == 'C'">
                                             <div class="col s1">
                                                 <div ng-if="resp == true && asig == true && peticion.activo != 'N'">
-                                                    <input type="checkbox" id="cb_{{peticion.id_log_procedimiento}}" class="filled-in" ng-change="fin_tarea()"/>
+                                                    <input type="checkbox" id="cb_{{peticion.id_log_procedimiento}}" class="filled-in" ng-model="check[peticion.id_log_procedimiento]" ng-change="fin_tarea(peticion.id_log_procedimiento)"/>
                                                     <label for="cb_{{peticion.id_log_procedimiento}}"></label>
+                                                </div>
+                                                <div ng-if="resp != true && asig == true && peticion.activo != 'N' && peticiones[$index+1].tipo != 'T'" class="center-align">
+                                                    <i style="cursor:pointer;" ng-click="eliminar_peticion(peticion.id_log_procedimiento)" class="material-icons dp48"><img alt="" src="/assets/img/interfaz.png"></i>
                                                 </div>
                                                 &nbsp;
                                             </div>
@@ -331,7 +334,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div ng-if="(peticion.tipo == 'C' && peticiones[$index+1].tipo == 'C' && resp == true && asig == true) || (peticion.tipo == 'C' && pag_pet == pag_total && $last && resp == true && asig == true)" class="col s11 offset-s1">
+                                        <div ng-if="(peticion.tipo == 'C' && peticiones[$index+1].tipo == 'C' && resp == true && asig == true && peticion.activo != 'N') || (peticion.tipo == 'C' && pag_pet == pag_total && $last && resp == true && asig == true && peticion.activo != 'N')" class="col s11 offset-s1">
                                             <div class="col s11 offset-s1" style="margin-top: -10px">
                                                 <div class="input-field col s12" ng-cloak>
                                                     <input id="resp{{peticion.id_log_procedimiento}}" type="text" class="validate" style="border: 1px solid lightgray;box-shadow: none; border-radius: 10px; padding-left: 10px; background-color: white" placeholder="Responder" my-enter="responder(peticion.id_log_procedimiento)" ng-model="respuesta[peticion.id_log_procedimiento]">

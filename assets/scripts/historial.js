@@ -89,7 +89,7 @@ angular.module('historial', [])
             }).success(function (data, status, headers, config){
                 if(data.status){
                     swal('Listo','','success');
-                    $scope.llamarpeticiones();
+                    $scope.llamarpeticiones($scope.historial.id_procedimiento);
                 }
             }).error(function (data, status, headers, config){
 
@@ -112,7 +112,7 @@ angular.module('historial', [])
             }).success(function (data, status, headers, config){
                 if(data.status){
                     swal('Listo','','success');
-                    $scope.llamarpeticiones();
+                    $scope.llamarpeticiones($scope.historial.id_procedimiento);
                 }
             }).error(function (data, status, headers, config){
 
@@ -239,6 +239,40 @@ angular.module('historial', [])
                     }
                 })
             }
+        }
+
+        $scope.eliminar_peticion = function(v){
+            swal({
+                title: '¿Eliminar peticion?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, Estoy de acuerdo',
+                cancelButtonText: 'Cancelar'
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    bloquear();
+                    $http({
+                        method: 'POST',
+                        url: '/historial/eliminar_peticion',
+                        params: {
+                            login: usuario[0].id_responsable,
+                            log_proc: v
+                        }
+                    }).success(function (data, status, headers, config){
+                        if(data.status){
+                            swal('Listo','','success');
+                            $scope.llamarpeticiones();
+                            desbloquear();
+                        }
+                    }).error(function (data, status, headers, config){
+                        desbloquear();
+                        swal("Alerta",data.data,"warning");
+                    });
+                }else{
+                    $('#cb_'+v).prop('checked', false);
+                }
+            })
         }
 
         $scope.logout=function(){
