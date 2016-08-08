@@ -162,6 +162,9 @@
                                     <input type="checkbox" id="cb_{{peticion.id_log_procedimiento}}" class="filled-in" ng-model="check[peticion.id_log_procedimiento]" ng-change="fin_tarea(peticion.id_log_procedimiento)"/>
                                     <label for="cb_{{peticion.id_log_procedimiento}}"></label>
                                 </div>
+                                <div ng-if="resp != true && asig == true && peticion.activo != 'N' && peticiones[$index+1].tipo != 'T'" class="center-align">
+                                    <i style="cursor:pointer;" ng-click="eliminar_peticion(peticion.id_log_procedimiento)" class="material-icons dp48"><img alt="" src="/assets/img/interfaz.png"></i>
+                                </div>
                                 &nbsp;
                             </div>
                             <div class="col s11" style="padding-bottom: 10px">

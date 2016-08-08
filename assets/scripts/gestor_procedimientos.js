@@ -358,33 +358,6 @@ angular.module('appprocedimientos', [])
         });
     }
 
-    $scope.llamarpeticiones = function(val){
-        $http({
-            method: 'GET',
-            url: '/historial/peticiones',
-            params: {
-                id: val,
-                pagina: 1,
-                cantidad: 5,
-            }
-        }).success(function (data, status, headers, config){
-            if(data.status){
-                $scope.peticiones = data.data;
-                $scope.nod_p = false;
-                for(var x = 0; x < $scope.peticiones.length; x++){
-                    $scope.peticiones[x].hora_creacion = $scope.peticiones[x].fecha_creacion.split(' ')[1];
-                    $scope.peticiones[x].fecha_creacion = $scope.peticiones[x].fecha_creacion.split(' ')[0];
-                    $scope.fechas.push({fecha:$scope.peticiones[x].fecha_creacion.split(' ')[0]});
-                }
-                $scope.pag_total = $scope.peticiones[0].paginas_total;
-            }else{
-                $scope.nod_p = true;
-            }
-        }).error(function (data, status, headers, config){
-
-        });
-    }
-
     $scope.activarModalInsertar=function(val){
         $('#modal1').openModal();
         if(val != 0){
@@ -506,8 +479,7 @@ angular.module('appprocedimientos', [])
           confirmButtonColor: "#DD6B55",
           confirmButtonText: "Aceptar",
           closeOnConfirm: true
-        },
-        function(){
+        },function(){
             console.log("entra");
             bloquear();
             $.ajax({
@@ -616,6 +588,68 @@ angular.module('appprocedimientos', [])
             });
         }
     }
+
+    $scope.fin_tarea = function(v){
+        if($('#cb_'+v).prop('checked') == true){
+            swal({
+              title: '¿Finalizar peticion?',
+              text: "",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: 'Si, Estoy de acuerdo',
+              cancelButtonText: 'Cancelar',
+              closeOnConfirm: true
+            },function(){
+                bloquear();
+                $http({
+                    method: 'POST',
+                    url: '/historial/fin_tarea',
+                    params: {
+                        login: usuario[0].id_responsable,
+                        log_proc: v
+                    }
+                }).success(function (data, status, headers, config){
+                    if(data.status){
+                        swal('Listo','','success');
+                        $scope.llamarpeticiones();
+                        desbloquear();
+                    }
+                }).error(function (data, status, headers, config){
+                    desbloquear();
+                    swal("Alerta",data.data,"warning");
+                });
+            });
+        }
+    }
+
+    $scope.llamarpeticiones = function(val){
+        $http({
+            method: 'GET',
+            url: '/historial/peticiones',
+            params: {
+                id: val,
+                pagina: 1,
+                cantidad: 5,
+            }
+        }).success(function (data, status, headers, config){
+            if(data.status){
+                $scope.peticiones = data.data;
+                $scope.nod_p = false;
+                for(var x = 0; x < $scope.peticiones.length; x++){
+                    $scope.peticiones[x].hora_creacion = $scope.peticiones[x].fecha_creacion.split(' ')[1];
+                    $scope.peticiones[x].fecha_creacion = $scope.peticiones[x].fecha_creacion.split(' ')[0];
+                    $scope.fechas.push({fecha:$scope.peticiones[x].fecha_creacion.split(' ')[0]});
+                }
+                $scope.pag_total = $scope.peticiones[0].paginas_total;
+            }else{
+                $scope.nod_p = true;
+            }
+        }).error(function (data, status, headers, config){
+
+        });
+    }
+
     $scope.comentar = function(v){
         $http({
             method: 'POST',
@@ -633,7 +667,7 @@ angular.module('appprocedimientos', [])
         }).success(function (data, status, headers, config){
             if(data.status){
                 swal('Listo','','success');
-                $scope.llamarpeticiones();
+                $scope.llamarpeticiones($scope.detalle_proc.id_procedimiento);
             }
         }).error(function (data, status, headers, config){
 
@@ -656,10 +690,41 @@ angular.module('appprocedimientos', [])
         }).success(function (data, status, headers, config){
             if(data.status){
                 swal('Listo','','success');
-                $scope.llamarpeticiones();
+                $scope.llamarpeticiones($scope.detalle_proc.id_procedimiento);
             }
         }).error(function (data, status, headers, config){
 
+        });
+    }
+    $scope.eliminar_peticion = function(v){
+        swal({
+          title: '¿Eliminar peticion?',
+          text: "",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: 'Si, Estoy de acuerdo',
+          cancelButtonText: 'Cancelar',
+          closeOnConfirm: true
+        },function(){
+            bloquear();
+            $http({
+                method: 'POST',
+                url: '/historial/eliminar_peticion',
+                params: {
+                    login: usuario[0].id_responsable,
+                    log_proc: v
+                }
+            }).success(function (data, status, headers, config){
+                if(data.status){
+                    swal('Listo','','success');
+                    $scope.llamarpeticiones();
+                    desbloquear();
+                }
+            }).error(function (data, status, headers, config){
+                desbloquear();
+                swal("Alerta",data.data,"warning");
+            });
         });
     }
     $scope.filtros();

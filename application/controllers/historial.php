@@ -88,6 +88,31 @@ class Historial extends CI_Controller {
 			echo json_encode(array('status'=>false,'data'=>'Error en base de datos'));
 		}
     }
+
+    function eliminar_peticion(){
+        try {
+            $login = $this->input->get("login");
+            $log_proc = $this->input->get('log_proc');
+
+            $query = $this->db->query('SELECT fn_del_peticion(?,?) as resultado', array($login,$log_proc));
+
+            $resultado = $query->row()->resultado;
+
+			if($query){
+				if($resultado >= 0){
+					echo json_encode(array('status'=>true,'data'=>$resultado));
+				}else{
+					$query = $this->db->query('CALL sp_get_error (?)', array($resultado));
+					$error = $query->result();
+					echo json_encode(array('status'=>false,'data'=>$error));
+				}
+			}else{
+				throw new Exception('Error BD');
+			}
+		} catch (Exception $e) {
+			echo json_encode(array('status'=>false,'data'=>'Error en base de datos'));
+		}
+    }
 }
 
 /* End of file welcome.php */
