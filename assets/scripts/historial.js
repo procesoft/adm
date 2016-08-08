@@ -251,7 +251,6 @@ angular.module('historial', [])
                 cancelButtonText: 'Cancelar'
             }).then(function(isConfirm) {
                 if (isConfirm) {
-                    bloquear();
                     $http({
                         method: 'POST',
                         url: '/historial/eliminar_peticion',
